@@ -14,6 +14,7 @@
 
     using Application.Common.Interfaces;
     using Domain.Common;
+    using Domain.Entities;
     using Identity;
     
 
@@ -32,6 +33,10 @@
             _dateTime = dateTime;
             _currentUserService = currentUserService;
         }
+
+        public DbSet<City> Cities { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Village> Villages { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
