@@ -1,7 +1,7 @@
-using System;
-
-namespace WebApi
+﻿namespace Application.WeatherForecasts.Queries
 {
+    using System;
+
     public class WeatherForecast
     {
         public DateTime Date { get; set; }
