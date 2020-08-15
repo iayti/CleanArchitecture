@@ -31,8 +31,6 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllers();
-
             services.AddApplication();
             services.AddInfrastructure(Configuration);
 
@@ -46,8 +44,6 @@ namespace WebApi
             services.AddControllersWithViews(options =>
                 options.Filters.Add(new ApiExceptionFilter()));
 
-            //services.AddRazorPages();
-
             // Customise default API behaviour
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -56,7 +52,7 @@ namespace WebApi
 
             services.AddOpenApiDocument(configure =>
             {
-                configure.Title = "Matech.CleanArchitecture API";
+                configure.Title = "CleanArchitecture API";
                 configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
                     Type = OpenApiSecuritySchemeType.ApiKey,
@@ -68,7 +64,6 @@ namespace WebApi
                 configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
             });
 
-            //services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,12 +74,12 @@ namespace WebApi
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
-            //else
-            //{
-            //    app.UseExceptionHandler("/Error");
-            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
             app.UseHealthChecks("/health");
 
@@ -92,13 +87,9 @@ namespace WebApi
 
             app.UseStaticFiles();
 
-            app.UseSwaggerUi3(settings =>
-            {
-                settings.Path = "/api";
-                settings.DocumentPath = "/api/specification.json";
-            });
-            //app.UseSwagger();
-            //app.UseSwaggerUi3();
+            app.UseOpenApi();
+
+            app.UseSwaggerUi3();
 
             app.UseRouting();
 
@@ -108,11 +99,6 @@ namespace WebApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-                //endpoints.MapRazorPages();
-
                 endpoints.MapControllers();
             });
 

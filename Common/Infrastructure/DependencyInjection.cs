@@ -1,11 +1,12 @@
 ﻿namespace Infrastructure
 {
-    using Application.Common.Interfaces;
-    using Identity;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+
+    using Application.Common.Interfaces;
+    using Identity;
     using Persistence;
     using Services;
 
