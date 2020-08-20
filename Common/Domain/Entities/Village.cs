@@ -1,6 +1,5 @@
 ﻿namespace Domain.Entities
 {
-    using System.Collections.Generic;
     using Common;
 
     public class Village : BaseEntity

@@ -4,6 +4,6 @@
 
     public class GetAllCitiesResponse
     {
-        public IList<CityDTO> Lists { get; set; }
+        public IList<CityDto> Lists { get; set; }
     }
 }

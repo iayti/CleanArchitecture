@@ -1,29 +1,31 @@
 ﻿namespace Application.Cities.Queries.GetCities
 {
     using System.Collections.Generic;
-    using AutoMapper;
+    
+    using Mapster;
 
-    using Common.Mappings;
     using Domain.Entities;
 
-    public class CityDTO :IMapFrom<City>
+    public class CityDto : IRegister 
     {
-        public CityDTO()
+        public CityDto()
         {
-            //Districts = new List<DistrictDTO>();
+            Districts = new List<DistrictDto>();
         }
 
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        //public IList<DistrictDTO> Districts { get; set; }
+        public string CreateDate { get; set; }
 
-        public void Mapping(Profile profile)
+        public IList<DistrictDto> Districts { get; set; }
+
+        public void Register(TypeAdapterConfig config)
         {
-            profile.CreateMap<City, CityDTO>()
-                .ForMember(x=>x.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(x => x.Name, opt => opt.MapFrom(s => s.Name));
+            config.NewConfig<City, CityDto>()
+            .Map(dest => dest.CreateDate,
+                src => $"{src.CreateDate.ToShortDateString()}");
         }
     }
 }

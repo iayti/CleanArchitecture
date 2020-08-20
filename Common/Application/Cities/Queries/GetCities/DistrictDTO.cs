@@ -1,30 +1,29 @@
 ﻿namespace Application.Cities.Queries.GetCities
 {
     using System.Collections.Generic;
-    using AutoMapper;
-
-    using Common.Mappings;
     using Domain.Entities;
+    using Mapster;
 
-    public class DistrictDTO : IMapFrom<District>
+    public class DistrictDto : IRegister
     {
-        public DistrictDTO()
+        public DistrictDto()
         {
-            Villages = new List<VillageDTO>();
+            Villages = new List<VillageDto>();
         }
         public int Id { get; set; }
 
         public int CityId { get; set; }
-        public City City { get; set; }
 
         public string Name { get; set; }
 
-        public IList<VillageDTO> Villages { get; set; }
+        public IList<VillageDto> Villages { get; set; }
 
-
-        public void Mapping(Profile profile)
+        public void Register(TypeAdapterConfig config)
         {
-            profile.CreateMap<District, DistrictDTO>();
+            config.NewConfig<District, DistrictDto>()
+                .Map(dest => dest.Name, src => "Sig. " + src.Name, srcCond => srcCond.Name == "Karacabey")
+                .Map(dest => dest.Name, src => "Sr. " + src.Name, srcCond => srcCond.Name == "Osmangazi")
+                .Map(dest => dest.Name, src => src.Name);
         }
     }
 }
