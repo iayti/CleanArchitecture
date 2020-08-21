@@ -1,5 +1,6 @@
 ﻿namespace Application.Cities.Queries.GetCities
 {
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -9,14 +10,15 @@
     using MediatR;
 
     using Common.Interfaces;
+    using Common.Models;
     using MapsterMapper;
 
-    public class GetAllCitiesQuery : IRequest<GetAllCitiesResponse>
+    public class GetAllCitiesQuery : IRequest<ServiceResult<List<CityDto>>>
     {
 
     }
 
-    public class GetCitiesQueryHandler : IRequestHandler<GetAllCitiesQuery, GetAllCitiesResponse>
+    public class GetCitiesQueryHandler : IRequestHandler<GetAllCitiesQuery, ServiceResult<List<CityDto>>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -27,16 +29,16 @@
             _mapper = mapper;
         }
 
-        public async Task<GetAllCitiesResponse> Handle(GetAllCitiesQuery request, CancellationToken cancellationToken)
+        public async Task<ServiceResult<List<CityDto>>> Handle(GetAllCitiesQuery request, CancellationToken cancellationToken)
         {
-            return new GetAllCitiesResponse
-            {
-                Lists = await _context.Cities
-                    .Include(x => x.Districts)
-                    .ThenInclude(c => c.Villages)
-                    .ProjectToType<CityDto>(_mapper.Config)
-                    .ToListAsync(cancellationToken)
-            };
+            List<CityDto> list = await _context.Cities
+                .Include(x => x.Districts)
+                .ThenInclude(c => c.Villages)
+                .ProjectToType<CityDto>(_mapper.Config)
+                .ToListAsync(cancellationToken);
+
+            return ServiceResult.Success(list);
+
         }
     }
 }

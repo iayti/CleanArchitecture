@@ -1,19 +1,21 @@
 ﻿namespace WebApi.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
-    
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Application.Cities.Queries.GetCities;
+    using Application.Common.Models;
 
     //[Authorize]
     public class CitiesController : BaseApiController
     {
         [HttpGet]
-        public async Task<ActionResult<GetAllCitiesResponse>> GetAllCities()
+        public async Task<ActionResult<ServiceResult<List<CityDto>>>> GetAllCities()
         {
-            return await Mediator.Send(new GetAllCitiesQuery());
+            return Ok(await Mediator.Send(new GetAllCitiesQuery()));
         }
 
         //[HttpGet("{id}")]

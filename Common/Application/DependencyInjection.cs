@@ -7,12 +7,11 @@
 
     using FluentValidation;
     using MediatR;
-
-    using Common.Behaviours;
     using Mapster;
     using MapsterMapper;
 
-
+    using Common.Behaviours;
+   
     public static class DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
@@ -30,7 +29,9 @@
         }
 
         /// <summary>
-        /// Mapster global configuration settings
+        /// Mapster(Mapper) global configuration settings
+        /// To learn more about Mapster,
+        /// see https://github.com/MapsterMapper/Mapster
         /// </summary>
         /// <returns></returns>
         private static TypeAdapterConfig GetConfiguredMappingConfig()

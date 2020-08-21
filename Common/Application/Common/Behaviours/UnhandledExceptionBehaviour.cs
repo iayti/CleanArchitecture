@@ -27,10 +27,11 @@
             {
                 var requestName = typeof(TRequest).Name;
 
-                _logger.LogError(ex, "Matech.CleanArchitecture Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
+                _logger.LogError(ex, "CleanArchitecture Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
 
                 throw;
             }
         }
+
     }
 }
