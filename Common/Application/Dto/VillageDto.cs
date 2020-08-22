@@ -1,4 +1,4 @@
-﻿namespace Application.Cities.Queries.GetCities
+﻿namespace Application.Dto
 {
     public class VillageDto
     {

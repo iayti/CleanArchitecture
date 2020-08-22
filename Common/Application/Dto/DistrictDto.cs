@@ -1,4 +1,4 @@
-﻿namespace Application.Cities.Queries.GetCities
+﻿namespace Application.Dto
 {
     using System.Collections.Generic;
     using Domain.Entities;

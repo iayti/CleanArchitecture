@@ -1,6 +1,7 @@
 ﻿namespace Application.Common.Models
 {
     using System;
+    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// All errors contained in ServiceResult objects must return an error of this type
@@ -18,6 +19,8 @@
             this.Message = message;
             this.Code = code;
         }
+
+        public ServiceError() { }
 
         /// <summary>
         /// Human readable error message
@@ -60,6 +63,8 @@
         public static ServiceError UserFailedToCreate => new ServiceError("Failed to create User.", 995);
 
         public static ServiceError NotFount => new ServiceError("The specified resource was not found.", 990);
+
+        public static ServiceError Validation => new ServiceError("One or more validation errors occurred.", 900);
 
         public static ServiceError SearchAtLeastOneCharacter => new ServiceError("Search parameter must have at least one character!", 898);
 
@@ -124,5 +129,26 @@
         }
 
         #endregion
+    }
+
+    [Serializable]
+    public class ServiceError<T> : ServiceError
+    {
+        public T Data { get; set; }
+
+        //public ServiceError(T data)
+        //{
+        //    this.Data = data;
+        //}
+
+        public ServiceError(T data, string message, int code) : base(message, code)
+        {
+            this.Data = data;
+        }
+
+        public static ServiceError CustomValidation(T data)
+        {
+            return new ServiceError<T>(data, "One or more validation errors occurred.", 900);
+        }
     }
 }

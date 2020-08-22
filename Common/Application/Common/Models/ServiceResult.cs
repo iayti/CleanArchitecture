@@ -13,6 +13,11 @@
             this.Data = data;
         }
 
+        public ServiceResult(T data, ServiceError error) : base(error)
+        {
+            this.Data = data;
+        }
+
         public ServiceResult(ServiceError error) : base(error)
         {
 
@@ -47,6 +52,16 @@
         public static ServiceResult<T> Failed<T>(ServiceError error)
         {
             return new ServiceResult<T>(error);
+        }
+
+        public static ServiceResult<T> Failed<T>(ServiceError<T> error)
+        {
+            return new ServiceResult<T>(error);
+        }
+
+        public static ServiceResult<T> Failed<T>(T data, ServiceError error)
+        {
+            return new ServiceResult<T>(data, error);
         }
 
         public static ServiceResult Success()

@@ -2,12 +2,14 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Authorization;
+    
     using Microsoft.AspNetCore.Mvc;
 
     using Application.Cities.Queries.GetCities;
+    using Application.Cities.Queries.GetCityById;
     using Application.Common.Models;
+    using Application.Dto;
+    using Application.Cities.Commands.Create;
 
     //[Authorize]
     public class CitiesController : BaseApiController
@@ -18,19 +20,17 @@
             return Ok(await Mediator.Send(new GetAllCitiesQuery()));
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<FileResult> Get(int id)
-        //{
-        //    var vm = await Mediator.Send(new ExportTodosQuery { ListId = id });
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResult<CityDto>>> GetCityById(int id)
+        {
+            return Ok(await Mediator.Send(new GetCityByIdQuery { CityId = id }));
+        }
 
-        //    return File(vm.Content, vm.ContentType, vm.FileName);
-        //}
-
-        //[HttpPost]
-        //public async Task<ActionResult<int>> Create(CreateTodoListCommand command)
-        //{
-        //    return await Mediator.Send(command);
-        //}
+        [HttpPost]
+        public async Task<ActionResult<int>> Create(CreateCityCommand command)
+        {
+            return await Mediator.Send(command);
+        }
 
         //[HttpPut("{id}")]
         //public async Task<ActionResult> Update(int id, UpdateTodoListCommand command)

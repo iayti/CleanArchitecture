@@ -41,7 +41,7 @@ namespace WebApi
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
 
-            services.AddControllersWithViews(options =>
+            services.AddControllers(options =>
                 options.Filters.Add(new ApiExceptionFilter()));
 
             // Customise default API behaviour

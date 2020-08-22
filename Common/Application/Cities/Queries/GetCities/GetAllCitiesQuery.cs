@@ -1,17 +1,19 @@
 ﻿namespace Application.Cities.Queries.GetCities
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
     using Mapster;
+    using MapsterMapper;
     using MediatR;
 
     using Common.Interfaces;
     using Common.Models;
-    using MapsterMapper;
+    using Dto;
 
     public class GetAllCitiesQuery : IRequest<ServiceResult<List<CityDto>>>
     {
@@ -37,7 +39,7 @@
                 .ProjectToType<CityDto>(_mapper.Config)
                 .ToListAsync(cancellationToken);
 
-            return ServiceResult.Success(list);
+            return list.Count > 0 ? ServiceResult.Success(list) : ServiceResult.Failed<List<CityDto>>(ServiceError.NotFount);
 
         }
     }
