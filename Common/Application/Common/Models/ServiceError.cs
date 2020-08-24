@@ -1,7 +1,6 @@
 ﻿namespace Application.Common.Models
 {
     using System;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// All errors contained in ServiceResult objects must return an error of this type
@@ -131,24 +130,4 @@
         #endregion
     }
 
-    [Serializable]
-    public class ServiceError<T> : ServiceError
-    {
-        public T Data { get; set; }
-
-        //public ServiceError(T data)
-        //{
-        //    this.Data = data;
-        //}
-
-        public ServiceError(T data, string message, int code) : base(message, code)
-        {
-            this.Data = data;
-        }
-
-        public static ServiceError CustomValidation(T data)
-        {
-            return new ServiceError<T>(data, "One or more validation errors occurred.", 900);
-        }
-    }
 }

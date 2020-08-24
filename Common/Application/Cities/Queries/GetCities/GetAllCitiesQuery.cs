@@ -1,7 +1,6 @@
 ﻿namespace Application.Cities.Queries.GetCities
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -9,18 +8,17 @@
 
     using Mapster;
     using MapsterMapper;
-    using MediatR;
 
     using Common.Interfaces;
     using Common.Models;
     using Dto;
 
-    public class GetAllCitiesQuery : IRequest<ServiceResult<List<CityDto>>>
+    public class GetAllCitiesQuery : IRequestWrapper<List<CityDto>>
     {
 
     }
 
-    public class GetCitiesQueryHandler : IRequestHandler<GetAllCitiesQuery, ServiceResult<List<CityDto>>>
+    public class GetCitiesQueryHandler : IRequestHandlerWrapper<GetAllCitiesQuery, List<CityDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;

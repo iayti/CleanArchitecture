@@ -6,20 +6,19 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using MediatR;
     using Mapster;
     using MapsterMapper;
 
     using Dto;
     using Common.Interfaces;
     using Common.Models;
-    
-    public class GetCityByIdQuery : IRequest<ServiceResult<CityDto>>
+
+    public class GetCityByIdQuery : IRequestWrapper<CityDto>
     {
         public int CityId { get; set; }
     }
 
-    public class GetCityByIdQueryHandler : IRequestHandler<GetCityByIdQuery, ServiceResult<CityDto>>
+    public class GetCityByIdQueryHandler : IRequestHandlerWrapper<GetCityByIdQuery, CityDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;

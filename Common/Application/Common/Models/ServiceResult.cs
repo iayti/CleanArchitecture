@@ -28,7 +28,7 @@
     {
         public bool Succeeded => this.Error == null;
 
-        public ServiceError Error { get; }
+        public ServiceError Error { get; set; }
 
         public ServiceResult(ServiceError error)
         {
@@ -50,11 +50,6 @@
         }
 
         public static ServiceResult<T> Failed<T>(ServiceError error)
-        {
-            return new ServiceResult<T>(error);
-        }
-
-        public static ServiceResult<T> Failed<T>(ServiceError<T> error)
         {
             return new ServiceResult<T>(error);
         }

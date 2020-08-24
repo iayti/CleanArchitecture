@@ -72,13 +72,7 @@
             //    Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
             //};
 
-            //var details = ServiceResult.Failed(exception.Errors, ServiceError.Validation);
-
-            //IDictionary<string, string[]> errors = exception.Errors;
-
-            //ServiceError<IDictionary<string, string[]>> test = new ServiceError<IDictionary<string, string[]>>(errors, "One or more validation errors occurred.", 900);
-
-            var details = ServiceResult<IDictionary<string, string[]>>.Failed(ServiceError<IDictionary<string, string[]>>.CustomValidation(exception.Errors));
+            var details = ServiceResult.Failed(exception.Errors, ServiceError.Validation);
 
             context.Result = new BadRequestObjectResult(details);
 

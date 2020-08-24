@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    
+
     using Microsoft.AspNetCore.Mvc;
 
     using Application.Cities.Queries.GetCities;
@@ -27,7 +27,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create(CreateCityCommand command)
+        public async Task<ActionResult<ServiceResult<CityDto>>> Create(CreateCityCommand command)
         {
             return await Mediator.Send(command);
         }

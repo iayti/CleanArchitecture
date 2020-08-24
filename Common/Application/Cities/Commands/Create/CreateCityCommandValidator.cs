@@ -7,12 +7,7 @@
         public CreateCityCommandValidator()
         {
             RuleFor(v => v.Name)
-                .MaximumLength(5)
-                .EmailAddress()
-                .NotEmpty();
-
-            RuleFor(v => v.Email)
-                .EmailAddress()
+                .MaximumLength(100)
                 .NotEmpty();
         }
     }
