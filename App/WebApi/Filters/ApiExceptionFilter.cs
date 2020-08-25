@@ -46,13 +46,6 @@
 
         private void HandleUnknownException(ExceptionContext context)
         {
-            //var details = new ProblemDetails
-            //{
-            //    Status = StatusCodes.Status500InternalServerError,
-            //    Title = "An error occurred while processing your request.",
-            //    Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1"
-            //};
-
             var details = ServiceResult.Failed(ServiceError.DefaultError);
 
             context.Result = new ObjectResult(details)
@@ -67,11 +60,6 @@
         {
             var exception = context.Exception as ValidationException;
 
-            //var details = new ValidationProblemDetails(exception.Errors)
-            //{
-            //    Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
-            //};
-
             var details = ServiceResult.Failed(exception.Errors, ServiceError.Validation);
 
             context.Result = new BadRequestObjectResult(details);
@@ -82,13 +70,6 @@
         private void HandleNotFoundException(ExceptionContext context)
         {
             var exception = context.Exception as NotFoundException;
-
-            //var details = new ProblemDetails()
-            //{
-            //    Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-            //    Title = "The specified resource was not found.",
-            //    Detail = exception.Message
-            //};
 
             var details = ServiceResult.Failed(ServiceError.CustomMessage(exception != null ? exception.Message : ServiceError.NotFount.ToString()));
 

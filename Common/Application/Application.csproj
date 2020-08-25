@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cities\Commands\Delete\" />
     <Folder Include="Cities\Commands\Update\" />
   </ItemGroup>
 

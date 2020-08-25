@@ -10,6 +10,7 @@
     using Application.Common.Models;
     using Application.Dto;
     using Application.Cities.Commands.Create;
+    using Application.Cities.Commands.Delete;
 
     //[Authorize]
     public class CitiesController : BaseApiController
@@ -29,21 +30,14 @@
         [HttpPost]
         public async Task<ActionResult<ServiceResult<CityDto>>> Create(CreateCityCommand command)
         {
-            return await Mediator.Send(command);
+            return Ok(await Mediator.Send(command));
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult> Update(int id, UpdateTodoListCommand command)
-        //{
-        //    if (id != command.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    await Mediator.Send(command);
-
-        //    return NoContent();
-        //}
+        [HttpPut]
+        public async Task<ActionResult<ServiceResult<CityDto>>> Update(UpdateCityCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
 
         //[HttpDelete("{id}")]
         //public async Task<ActionResult> Delete(int id)

@@ -28,6 +28,11 @@
 
         public async Task<ServiceResult<CityDto>> Handle(CreateCityCommand request, CancellationToken cancellationToken)
         {
+            if (request == null)
+            {
+                return ServiceResult.Failed<CityDto>(ServiceError.ValidationFormat);
+            }
+
             var entity = new City
             {
                 Name = request.Name
