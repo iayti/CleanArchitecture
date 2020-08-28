@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Cities\Commands\Update\" />
-  </ItemGroup>
-
 </Project>

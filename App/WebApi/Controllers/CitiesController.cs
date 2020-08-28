@@ -11,6 +11,7 @@
     using Application.Dto;
     using Application.Cities.Commands.Create;
     using Application.Cities.Commands.Delete;
+    using Application.Cities.Commands.Update;
 
     //[Authorize]
     public class CitiesController : BaseApiController
@@ -39,12 +40,10 @@
             return Ok(await Mediator.Send(command));
         }
 
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult> Delete(int id)
-        //{
-        //    await Mediator.Send(new DeleteTodoListCommand { Id = id });
-
-        //    return NoContent();
-        //}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResult<CityDto>>> Delete(int id)
+        {
+            return Ok(await Mediator.Send(new DeleteCityCommand { Id = id }));
+        }
     }
 }

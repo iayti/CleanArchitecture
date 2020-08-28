@@ -1,4 +1,4 @@
-﻿namespace Application.Cities.Commands.Delete
+﻿namespace Application.Cities.Commands.Update
 {
     using FluentValidation;
 

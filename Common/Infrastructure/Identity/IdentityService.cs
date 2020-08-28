@@ -9,7 +9,7 @@
     using Application.Common.Interfaces;
     using Application.Common.Models;
 
-    public class IdentityService :IIdentityService
+    public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> _userManager;
 

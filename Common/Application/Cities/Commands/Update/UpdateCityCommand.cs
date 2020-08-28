@@ -1,17 +1,14 @@
-﻿namespace Application.Cities.Commands.Delete
+﻿namespace Application.Cities.Commands.Update
 {
     using System.Threading;
     using System.Threading.Tasks;
 
     using MapsterMapper;
 
-    using Common.Exceptions;
     using Common.Interfaces;
     using Common.Models;
-    using Domain.Entities;
     using Dto;
     
-
     public class UpdateCityCommand :IRequestWrapper<CityDto>
     {
         public int Id { get; set; }
@@ -32,16 +29,11 @@
 
         public async Task<ServiceResult<CityDto>> Handle(UpdateCityCommand request, CancellationToken cancellationToken)
         {
-            if (request == null)
-            {
-                return ServiceResult.Failed<CityDto>(ServiceError.ValidationFormat);
-            }
-
             var entity = await _context.Cities.FindAsync(request.Id);
 
             if (entity == null)
             {
-                throw new NotFoundException(nameof(City), request.Id);
+                return ServiceResult.Failed<CityDto>(ServiceError.NotFount);
             }
 
             entity.Name = request.Name;
