@@ -28,10 +28,12 @@ namespace WebApi
 
         public IConfiguration Configuration { get; }
 
+        //public IWebHostEnvironment Environment { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
-            services.AddInfrastructure(Configuration);
+            services.AddInfrastructure(Configuration);//, Environment);
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 

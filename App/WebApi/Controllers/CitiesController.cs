@@ -1,5 +1,6 @@
 ﻿namespace WebApi.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -12,6 +13,8 @@
     using Application.Cities.Commands.Create;
     using Application.Cities.Commands.Delete;
     using Application.Cities.Commands.Update;
+    using Domain.Common;
+    using Domain.ValueObjects;
 
     //[Authorize]
     public class CitiesController : BaseApiController
@@ -37,6 +40,27 @@
         [HttpPut]
         public async Task<ActionResult<ServiceResult<CityDto>>> Update(UpdateCityCommand command)
         {
+            string test = "TestAdAccount\\Name";
+
+            AdAccount adAccount = AdAccount.For(test);
+
+            string st = test.ToString();
+
+            string st2 = test;
+
+            string st3 = (AdAccount)test;
+
+            try
+            {
+                string st4 = (AdAccount) "TestAdAccount";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+
             return Ok(await Mediator.Send(command));
         }
 
