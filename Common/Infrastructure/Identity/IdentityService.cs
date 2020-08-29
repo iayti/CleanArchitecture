@@ -8,14 +8,18 @@
 
     using Application.Common.Interfaces;
     using Application.Common.Models;
+    using Application.Dto;
+    using MapsterMapper;
 
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMapper _mapper;
 
-        public IdentityService(UserManager<ApplicationUser> userManager)
+        public IdentityService(UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         public async Task<string> GetUserNameAsync(string userId)
@@ -24,6 +28,19 @@
 
             return user.UserName;
         }
+
+        public async Task<ApplicationUserDto> CheckUserPassword(string email, string password)
+        {
+            ApplicationUser user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user != null && await _userManager.CheckPasswordAsync(user, password))
+            {
+                return _mapper.Map<ApplicationUserDto>(user);
+            }
+
+            return null;
+        }
+
         public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
         {
             var user = new ApplicationUser

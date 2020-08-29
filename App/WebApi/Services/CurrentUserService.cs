@@ -1,7 +1,7 @@
 ﻿namespace WebApi.Services
 {
     using System.Security.Claims;
-    
+
     using Microsoft.AspNetCore.Http;
 
     using Application.Common.Interfaces;

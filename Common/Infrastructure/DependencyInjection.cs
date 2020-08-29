@@ -1,19 +1,15 @@
 ﻿namespace Infrastructure
 {
-    using System.Collections.Generic;
-    using System.Security.Claims;
-    using Microsoft.AspNetCore.Authentication;
+    using System.Text;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.IdentityModel.Tokens;
 
     using Application.Common.Interfaces;
     using Identity;
-    using IdentityModel;
-    using IdentityServer4.Models;
-    using IdentityServer4.Test;
-
     using Persistence;
     using Services;
 
@@ -41,41 +37,32 @@
 
             //if (environment.IsEnvironment("Test"))
             //{
-            //    services.AddIdentityServer()
-            //        .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
-            //        {
-            //            options.Clients.Add(new Client
-            //            {
-            //                ClientId = "CleanArchitecture.IntegrationTests",
-            //                AllowedGrantTypes = { GrantType.ResourceOwnerPassword },
-            //                ClientSecrets = { new Secret("secret".Sha256()) },
-            //                AllowedScopes = { "CleanArchitecture.WebApi", "openid", "profile" }
-            //            });
-            //        }).AddTestUsers(new List<TestUser>
-            //        {
-            //            new TestUser
-            //            {
-            //                SubjectId = "414B0977-9C65-42A9-BF29-E3D03786E78E",
-            //                Username = "ilker@clean-architecture",
-            //                Password = "CleanArchitecture!",
-            //                Claims = new List<Claim>
-            //                {
-            //                    new Claim(JwtClaimTypes.Email,"ilker@clean-architecture")
-            //                }
-            //            }
-            //        });
+            //    //TODO: Authentication TestUser will be added.
             //}
-            //else
-            //{
-            services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
-            //}
+           
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidAudience = configuration["JWT:ValidAudience"],
+                        ValidIssuer = configuration["JWT:ValidIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+                    };
+                });
 
             return services;
         }
