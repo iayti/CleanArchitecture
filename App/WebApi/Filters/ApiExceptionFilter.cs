@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-
+    using System.Linq;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
@@ -27,6 +27,12 @@
 
         public override void OnException(ExceptionContext context)
         {
+            if (!context.ModelState.IsValid)
+            {
+                HandleInvalidModelStateException(context);
+                return;
+            }
+
             HandleException(context);
 
             base.OnException(context);
@@ -63,6 +69,24 @@
             var details = ServiceResult.Failed(exception.Errors, ServiceError.Validation);
 
             context.Result = new BadRequestObjectResult(details);
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleInvalidModelStateException(ExceptionContext context)
+        {
+            Dictionary<string, List<string>> errorList = new Dictionary<string, List<string>>();
+
+            foreach (string key in context.ModelState.Keys)
+            {
+                var property = context.ModelState.GetValueOrDefault(key);
+
+                List<string> errors = property.Errors.Select(error => error.ErrorMessage).ToList();
+
+                errorList.Add(key, errors);
+            }
+
+            context.Result = new BadRequestObjectResult(ServiceResult.Failed(errorList, ServiceError.ValidationFormat));
 
             context.ExceptionHandled = true;
         }
