@@ -9,6 +9,7 @@
 
     using Application.Common.Exceptions;
     using Application.Common.Models;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
 
     public class ApiExceptionFilter : ExceptionFilterAttribute
     {
@@ -27,12 +28,6 @@
 
         public override void OnException(ExceptionContext context)
         {
-            if (!context.ModelState.IsValid)
-            {
-                HandleInvalidModelStateException(context);
-                return;
-            }
-
             HandleException(context);
 
             base.OnException(context);
@@ -44,6 +39,12 @@
             if (_exceptionHandlers.ContainsKey(type))
             {
                 _exceptionHandlers[type].Invoke(context);
+                return;
+            }
+
+            if (!context.ModelState.IsValid)
+            {
+                HandleInvalidModelStateException(context);
                 return;
             }
 
@@ -75,18 +76,9 @@
 
         private void HandleInvalidModelStateException(ExceptionContext context)
         {
-            Dictionary<string, List<string>> errorList = new Dictionary<string, List<string>>();
+            var exception = new ValidateModelException(context.ModelState);
 
-            foreach (string key in context.ModelState.Keys)
-            {
-                var property = context.ModelState.GetValueOrDefault(key);
-
-                List<string> errors = property.Errors.Select(error => error.ErrorMessage).ToList();
-
-                errorList.Add(key, errors);
-            }
-
-            context.Result = new BadRequestObjectResult(ServiceResult.Failed(errorList, ServiceError.ValidationFormat));
+            context.Result = new BadRequestObjectResult(ServiceResult.Failed(exception.Errors, ServiceError.ValidationFormat));
 
             context.ExceptionHandled = true;
         }
