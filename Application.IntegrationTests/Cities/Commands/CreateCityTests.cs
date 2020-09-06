@@ -17,15 +17,15 @@
             _fixture = fixture;
         }
 
-        [Fact]
-        public void ShouldRequireMinimumFields()
-        {
-            var command = new CreateCityCommand();
+        //[Fact]
+        //public void ShouldRequireMinimumFields()
+        //{
+        //    var command = new CreateCityCommand();
 
-            FluentActions.Invoking(() =>
-                _fixture.SendAsync(command)).Should().Throw<ValidationException>();
+        //    FluentActions.Invoking(() =>
+        //        _fixture.SendAsync(command)).Should().Throw<ValidationException>();
 
-        }
+        //}
 
         //[Fact]
         //public async Task ShouldRequireUniqueName()
