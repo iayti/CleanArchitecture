@@ -49,7 +49,7 @@
             return $"{Domain}\\{Name}";
         }
 
-        protected override IEnumerable<object> GetAtomicValues()
+        protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Domain;
             yield return Name;
