@@ -19,11 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\App\WebApi\WebApi.csproj" />
+    <Folder Include="Cities\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cities\Queries\" />
+    <ProjectReference Include="..\..\src\Apps\WebApi\WebApi.csproj" />
+    <ProjectReference Include="..\..\src\Common\Application\Application.csproj" />
+    <ProjectReference Include="..\..\src\Common\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

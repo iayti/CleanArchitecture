@@ -13,12 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
-    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <Folder Include="Services\WeatherForeCast\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\WeatherForeCast\" />
+    <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
 
 </Project>

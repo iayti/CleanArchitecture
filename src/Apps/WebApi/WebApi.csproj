@@ -20,11 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Infrastructure\Infrastructure.csproj" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <ProjectReference Include="..\..\Common\Application\Application.csproj" />
+    <ProjectReference Include="..\..\Common\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 
