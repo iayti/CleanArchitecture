@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\api\SwaggerClientBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
       <PrivateAssets>all</PrivateAssets>
@@ -20,13 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Common\Application\Application.csproj" />
     <ProjectReference Include="..\..\Common\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+  <Target Name="NSwag" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+    <Copy SourceFiles="@(Reference)" DestinationFolder="$(OutDir)References" />
+    <Exec Command="$(NSwagExe_Core31) run /variables:Configuration=$(Configuration)" />
+    <RemoveDir Directories="$(OutDir)References" />
+  </Target>
 
 </Project>
