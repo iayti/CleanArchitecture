@@ -1,6 +1,7 @@
 ﻿namespace WebApi.Controllers
 {
     using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -18,9 +19,9 @@
     public class CitiesController : BaseApiController
     {
         [HttpGet]
-        public async Task<ActionResult<ServiceResult<List<CityDto>>>> GetAllCities()
+        public async Task<ActionResult<ServiceResult<List<CityDto>>>> GetAllCities(CancellationToken cancellationToken)
         {
-            return Ok(await Mediator.Send(new GetAllCitiesQuery()));
+            return Ok(await Mediator.Send(new GetAllCitiesQuery(), cancellationToken));
         }
 
         [HttpGet("{id}")]

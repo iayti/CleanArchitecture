@@ -26,6 +26,8 @@
         {
             var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
 
+            //TODO: If user is null. Response will be user not found.
+
             return user.UserName;
         }
 
