@@ -6,6 +6,6 @@
 
     public interface IEmailService
     {
-        Task<Result> SendAsync(EmailRequest request);
+        Task SendAsync(EmailRequest request);
     }
 }

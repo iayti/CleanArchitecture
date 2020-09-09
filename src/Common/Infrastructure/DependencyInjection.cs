@@ -42,7 +42,8 @@
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
-           
+            services.AddTransient<IEmailService, EmailService>();
+
 
             services.AddAuthentication(options =>
                 {
