@@ -4,7 +4,7 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Application.Common.Interfaces;
+    using Common.Interfaces;
     using Infrastructure.Identity;
     using Infrastructure.Persistence;
     using MediatR;
