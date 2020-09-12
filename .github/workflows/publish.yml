@@ -6,20 +6,39 @@ on:
 
 jobs:
   build:
+    name: Build and Publish
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core
+
+    - name: Setup .NET Core SDK ${{ env.NETCORE_VERSION }}
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.200
+        dotnet-version: ${{ env.NETCORE_VERSION }}
+
     - name: Install dependencies
       run: dotnet restore
+
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Publish CleanArchitecture
-      uses: brandedoutcast/publish-nuget@v2.5.2
+
+
+    - uses: actions/setup-dotnet@v1
       with:
-          PROJECT_FILE_PATH: CleanArchitecture/
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+        dotnet-version: ${{ env.NETCORE_VERSION }}
+        source-url: https://nuget.pkg.github.com/iayti/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+    - run: dotnet build CleanArchitecture
+    - name: Create the package
+      run: dotnet pack --configuration Release CleanArchitecture
+     - name: Publish the package to GPR
+      run: dotnet nuget push CleanArchitecture/bin/Release/*.nupkg
+
+    # Authticates packages to push to Azure Artifacts
+    - uses: actions/setup-dotnet@v1
+      with:
+        source-url: https://pkgs.dev.azure.com/matech/_packaging/ilkerayti/nuget/v3/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}} # Note, create a secret with this name in Settings

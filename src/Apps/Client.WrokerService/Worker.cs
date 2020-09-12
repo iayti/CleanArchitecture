@@ -48,8 +48,7 @@ namespace Client.WorkerService
                 }
                 catch (Exception ex)
                 {
-
-                    throw;
+                    _logger.LogInformation("Error Message: ", ex);
                 }
 
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
