@@ -26,21 +26,21 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
 
-    - uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.NETCORE_VERSION }}
-        source-url: https://nuget.pkg.github.com/iayti/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
-    - run: dotnet build CleanArchitecture
-    - name: Create the package
-      run: dotnet pack --configuration Release CleanArchitecture
-     - name: Publish the package to GPR
-      run: dotnet nuget push CleanArchitecture/bin/Release/*.nupkg
-
-    # Authticates packages to push to Azure Artifacts
-    - uses: actions/setup-dotnet@v1
-      with:
-        source-url: https://pkgs.dev.azure.com/matech/_packaging/ilkerayti/nuget/v3/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}} # Note, create a secret with this name in Settings
+    #- uses: actions/setup-dotnet@v1
+    #  with:
+    #    dotnet-version: ${{ env.NETCORE_VERSION }}
+    #    source-url: https://nuget.pkg.github.com/iayti/index.json
+    #  env:
+    #    NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+    #- run: dotnet build CleanArchitecture
+    #- name: Create the package
+    #  run: dotnet pack --configuration Release CleanArchitecture
+    # - name: Publish the package to GPR
+    #  run: dotnet nuget push CleanArchitecture/bin/Release/*.nupkg
+    #
+    ## Authticates packages to push to Azure Artifacts
+    #- uses: actions/setup-dotnet@v1
+    #  with:
+    #    source-url: https://pkgs.dev.azure.com/matech/_packaging/ilkerayti/nuget/v3/index.json
+    #  env:
+    #    NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}} # Note, create a secret with this name in Settings
