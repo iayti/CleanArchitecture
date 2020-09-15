@@ -4,9 +4,9 @@ This is a solution template for creating a ASP.NET Core Web Api following the pr
 
 
 ## Technologies
-* .NET Core 3.1.7
-* ASP .NET Core 3.1.7
-* Entity Framework Core 3.1.7
+* .NET Core 3.1.x
+* ASP .NET Core 3.1.x
+* Entity Framework Core 3.1.x
 * MediatR
 * Mapster
 * FluentValidation

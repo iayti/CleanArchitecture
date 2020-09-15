@@ -2,14 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
 
     using Application.Common.Exceptions;
     using Application.Common.Models;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
 
     public class ApiExceptionFilter : ExceptionFilterAttribute
     {
@@ -65,11 +63,12 @@
 
         private void HandleValidationException(ExceptionContext context)
         {
-            var exception = context.Exception as ValidationException;
+            if (context.Exception is ValidationException exception)
+            {
+                var details = ServiceResult.Failed(exception.Errors, ServiceError.Validation);
 
-            var details = ServiceResult.Failed(exception.Errors, ServiceError.Validation);
-
-            context.Result = new BadRequestObjectResult(details);
+                context.Result = new BadRequestObjectResult(details);
+            }
 
             context.ExceptionHandled = true;
         }
@@ -85,9 +84,7 @@
 
         private void HandleNotFoundException(ExceptionContext context)
         {
-            var exception = context.Exception as NotFoundException;
-
-            var details = ServiceResult.Failed(ServiceError.CustomMessage(exception != null ? exception.Message : ServiceError.NotFount.ToString()));
+            var details = ServiceResult.Failed(ServiceError.CustomMessage(context.Exception is NotFoundException exception ? exception.Message : ServiceError.NotFount.ToString()));
 
             context.Result = new NotFoundObjectResult(details);
 

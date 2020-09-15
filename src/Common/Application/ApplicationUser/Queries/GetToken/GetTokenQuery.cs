@@ -1,4 +1,4 @@
-﻿namespace Application.Login.Queries.GetToken
+﻿namespace Application.ApplicationUser.Queries.GetToken
 {
     using System;
     using System.Collections.Generic;
@@ -7,15 +7,13 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-
+    using Common.Interfaces;
+    using Common.Models;
+    using Dto;
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
     using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-    using Common.Interfaces;
-    using Common.Models;
-    using Dto;
-    
 
     public class GetTokenQuery :IRequestWrapper<LoginResponse>
     {

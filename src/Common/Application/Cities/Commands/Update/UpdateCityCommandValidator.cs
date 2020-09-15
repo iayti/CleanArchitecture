@@ -19,7 +19,7 @@
             RuleFor(v => v.Name)
                 .MaximumLength(100).WithMessage("Name must not exceed 100 characters.")
                 .MustAsync(BeUniqueTitle).WithMessage("The specified city already exists.")
-                .NotEmpty().WithMessage("Name is required."); ;
+                .NotEmpty().WithMessage("Name is required.");
 
             RuleFor(v => v.Id).NotNull();
         }

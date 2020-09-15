@@ -4,7 +4,6 @@
 
     using MapsterMapper;
     using Xunit;
-    using Moq;
 
     using Application.Dto;
     using Domain.Entities;
