@@ -107,7 +107,7 @@
       "handleReferences": false,
       "generateImmutableArrayProperties": false,
       "generateImmutableDictionaryProperties": false,
-      "output": "../WorkerService_Client_Test/Client/WebApiClient.cs"
+      "output": "../Client.WorkerService/Client/WebApiClient.cs"
     }
   }
 }
