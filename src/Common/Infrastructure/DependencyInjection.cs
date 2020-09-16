@@ -9,6 +9,7 @@
     using Microsoft.IdentityModel.Tokens;
 
     using Application.Common.Interfaces;
+    using Files;
     using Identity;
     using Persistence;
     using Services;
@@ -43,6 +44,7 @@
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
 
             services.AddAuthentication(options =>

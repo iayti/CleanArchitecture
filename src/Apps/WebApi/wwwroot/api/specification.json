@@ -173,6 +173,44 @@
         ]
       }
     },
+    "/api/Districts/{id}": {
+      "get": {
+        "tags": [
+          "Districts"
+        ],
+        "operationId": "Districts_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Login": {
       "post": {
         "tags": [
