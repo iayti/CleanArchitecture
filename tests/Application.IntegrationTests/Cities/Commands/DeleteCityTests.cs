@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using Application.Cities.Commands.Create;
     using Application.Cities.Commands.Delete;
-    using Common.Exceptions;
+    using Common.Models;
     using Domain.Entities;
     using FluentAssertions;
     using Xunit;
@@ -13,12 +13,15 @@
     public class DeleteCityTests : TestBase
     {
         [Fact]
-        public void ShouldRequireValidCityId()
+        public async Task ShouldRequireValidCityId()
         {
             var command = new DeleteCityCommand { Id = 99 };
 
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+            var result = await SendAsync(command);
+
+            result.Should().NotBeNull();
+            result.Succeeded.Should().BeFalse();
+            result.Error.Should().Be(ServiceError.NotFount);
         }
 
         [Fact]

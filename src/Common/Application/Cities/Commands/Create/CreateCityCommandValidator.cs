@@ -19,14 +19,14 @@
 
             RuleFor(v => v.Name)
                 .MaximumLength(100).WithMessage("Name must not exceed 100 characters.")
-                .MustAsync(BeUniqueTitle).WithMessage("The specified city already exists.")
+                .MustAsync(BeUniqueName).WithMessage("The specified city already exists.")
                 .NotEmpty().WithMessage("Name is required.");
         }
 
-        private async Task<bool> BeUniqueTitle(string title, CancellationToken cancellationToken)
+        private async Task<bool> BeUniqueName(string name, CancellationToken cancellationToken)
         {
             //TODO: Büyük küçük harf ve türkçe karaktere göre kontrol sağla
-            return await _context.Cities.AllAsync(x => x.Name != title, cancellationToken);
+            return await _context.Cities.AllAsync(x => x.Name != name, cancellationToken);
         }
     }
 }

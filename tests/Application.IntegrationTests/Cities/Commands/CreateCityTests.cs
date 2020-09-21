@@ -46,7 +46,7 @@
 
             var command = new CreateCityCommand
             {
-                Name = "İzmir"
+                Name = "Kastamonu"
             };
 
             var result = await SendAsync(command);
