@@ -21,6 +21,7 @@
         [HttpGet]
         public async Task<ActionResult<ServiceResult<List<CityDto>>>> GetAllCities(CancellationToken cancellationToken)
         {
+            //Cancellation token example.
             return Ok(await Mediator.Send(new GetAllCitiesQuery(), cancellationToken));
         }
 

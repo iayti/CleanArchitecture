@@ -31,9 +31,6 @@
 
         public async Task<ServiceResult<List<CityDto>>> Handle(GetAllCitiesQuery request, CancellationToken cancellationToken)
         {
-            //Will be removed.
-            await Task.Delay(5000, cancellationToken);
-
             List<CityDto> list = await _context.Cities
                 .Include(x => x.Districts)
                 .ThenInclude(c => c.Villages)
@@ -41,26 +38,6 @@
                 .ToListAsync(cancellationToken);
 
             return list.Count > 0 ? ServiceResult.Success(list) : ServiceResult.Failed<List<CityDto>>(ServiceError.NotFount);
-
-            //TODO: If the Elastic Log see the canceled request remove below code block.
-            //try
-            //{
-            //    await Task.Delay(5000, cancellationToken);
-
-            //    List<CityDto> list = await _context.Cities
-            //            .Include(x => x.Districts)
-            //            .ThenInclude(c => c.Villages)
-            //            .ProjectToType<CityDto>(_mapper.Config)
-            //            .ToListAsync(cancellationToken);
-
-            //    return list.Count > 0 ? ServiceResult.Success(list) : ServiceResult.Failed<List<CityDto>>(ServiceError.NotFount);
-            //}
-            //catch (TaskCanceledException)
-            //{
-
-            //}
-
-            //return ServiceResult.Failed<List<CityDto>>(ServiceError.Canceled);
         }
     }
 }
