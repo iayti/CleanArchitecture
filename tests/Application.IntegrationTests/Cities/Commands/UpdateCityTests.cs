@@ -4,15 +4,20 @@
     using System.Threading.Tasks;
     using Application.Cities.Commands.Create;
     using Application.Cities.Commands.Update;
-    using Common.Exceptions;
     using Common.Models;
     using Domain.Entities;
     using FluentAssertions;
     using Xunit;
-    using static Testing;
 
-    public class UpdateCityTests : TestBase
+    public class UpdateCityTests : IClassFixture<Testing>
     {
+        public Testing _testing;
+
+        public UpdateCityTests(Testing testing)
+        {
+            _testing = testing;
+        }
+
         [Fact]
         public async Task ShouldRequireValidCityId()
         {
@@ -22,7 +27,7 @@
                 Name = "Kayseri"
             };
 
-            var result = await SendAsync(command);
+            var result = await _testing.SendAsync(command);
 
             result.Should().NotBeNull();
             result.Succeeded.Should().BeFalse();
@@ -32,12 +37,12 @@
         [Fact]
         public async Task ShouldRequireUniqueName()
         {
-            var city = await SendAsync(new CreateCityCommand
+            var city = await _testing.SendAsync(new CreateCityCommand
             {
                 Name = "Malatya"
             });
 
-            await SendAsync(new CreateCityCommand
+            await _testing.SendAsync(new CreateCityCommand
             {
                 Name = "Denizli"
             });
@@ -48,13 +53,7 @@
                 Name = "Denizli"
             };
 
-            //FluentActions.Invoking(() =>
-            //        SendAsync(command))
-            //        .Should().Throw<ValidationException>();
-            //.Where(ex => ex.Errors.ContainsKey("Name"))
-            //.And.Errors["Name"].Should().Contain("The specified city already exists.");
-
-            var result = await SendAsync(command);
+            var result = await _testing.SendAsync(command);
 
             result.Should().NotBeNull();
             result.Succeeded.Should().BeFalse();
@@ -62,11 +61,11 @@
         }
 
         [Fact]
-        public async Task ShouldUpdateTodoList()
+        public async Task ShouldUpdateCity()
         {
-            var userId = await RunAsDefaultUserAsync();
+            var userId = await _testing.RunAsDefaultUserAsync();
 
-            var result = await SendAsync(new CreateCityCommand
+            var result = await _testing.SendAsync(new CreateCityCommand
             {
                 Name = "Kayyysseri"
             });
@@ -77,9 +76,9 @@
                 Name = "Kayseri"
             };
 
-            await SendAsync(command);
+            await _testing.SendAsync(command);
 
-            var city = await FindAsync<City>(result.Data.Id);
+            var city = await _testing.FindAsync<City>(result.Data.Id);
 
             city.Name.Should().Be(command.Name);
             city.Modifier.Should().NotBeNull();

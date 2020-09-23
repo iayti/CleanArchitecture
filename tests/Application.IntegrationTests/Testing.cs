@@ -16,8 +16,9 @@
     using Moq;
     using Respawn;
     using WebApi;
+    using Xunit;
 
-    public class Testing : IDisposable
+    public class Testing : IDisposable, IAsyncLifetime
     {
         private static IConfigurationRoot _configuration;
         private static IServiceScopeFactory _scopeFactory;
@@ -66,7 +67,7 @@
             EnsureDatabase();
         }
 
-        private static void EnsureDatabase()
+        private void EnsureDatabase()
         {
             using var scope = _scopeFactory.CreateScope();
 
@@ -75,7 +76,7 @@
             context.Database.Migrate();
         }
 
-        public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
+        public async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
         {
             using var scope = _scopeFactory.CreateScope();
 
@@ -84,7 +85,7 @@
             return await mediator.Send(request);
         }
 
-        public static async Task<string> RunAsDefaultUserAsync()
+        public async Task<string> RunAsDefaultUserAsync()
         {
             return await RunAsUserAsync("test@local", "Testing1234!");
         }
@@ -97,27 +98,35 @@
 
             var user = new ApplicationUser { UserName = userName, Email = userName };
 
-            var result = await userManager.CreateAsync(user, password);
+            var checkUser = userManager.FindByNameAsync(userName);
 
-            if (result.Succeeded)
+            if (checkUser == null)
             {
-                _currentUserId = user.Id;
+                var result = await userManager.CreateAsync(user, password);
 
-                return _currentUserId;
+                if (result.Succeeded)
+                {
+                    _currentUserId = user.Id;
+
+                    return _currentUserId;
+                }
+
+                var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
+
+                throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}"); 
             }
 
-            var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
-
-            throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
+            _currentUserId = checkUser.Id.ToString();
+            return _currentUserId;
         }
 
-        public static async Task ResetState()
+        public async Task ResetState()
         {
             await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
             _currentUserId = null;
         }
 
-        public static async Task<TEntity> FindAsync<TEntity>(params object[] keyValues)
+        public async Task<TEntity> FindAsync<TEntity>(params object[] keyValues)
             where TEntity : class
         {
             using var scope = _scopeFactory.CreateScope();
@@ -127,7 +136,7 @@
             return await context.FindAsync<TEntity>(keyValues);
         }
 
-        public static async Task AddAsync<TEntity>(TEntity entity)
+        public async Task AddAsync<TEntity>(TEntity entity)
             where TEntity : class
         {
             using var scope = _scopeFactory.CreateScope();
@@ -143,6 +152,16 @@
         {
             // ... clean up test data from the database ...
             // no need for this instruction we use Respawn
+        }
+
+        public async Task InitializeAsync()
+        {
+            await Task.Run(ResetState);
+        }
+
+        public Task DisposeAsync()
+        {
+            return Task.CompletedTask;
         }
     }
 }
