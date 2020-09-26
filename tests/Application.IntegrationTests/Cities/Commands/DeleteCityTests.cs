@@ -8,23 +8,17 @@
     using FluentAssertions;
     using Xunit;
 
-    //using static Testing;
+    using static Testing;
 
-    public class DeleteCityTests : IClassFixture<Testing>
+    public class DeleteCityTests : TestBase
     {
-        public Testing _testing;
-
-        public DeleteCityTests(Testing testing)
-        {
-            _testing = testing;
-        }
 
         [Fact]
         public async Task ShouldRequireValidCityId()
         {
             var command = new DeleteCityCommand { Id = 99 };
 
-            var result = await _testing.SendAsync(command);
+            var result = await SendAsync(command);
 
             result.Should().NotBeNull();
             result.Succeeded.Should().BeFalse();
@@ -34,17 +28,17 @@
         [Fact]
         public async Task ShouldDeleteCity()
         {
-            var city = await _testing.SendAsync(new CreateCityCommand
+            var city = await SendAsync(new CreateCityCommand
             {
                 Name = "Kayseri"
             });
 
-            await _testing.SendAsync(new DeleteCityCommand
+            await SendAsync(new DeleteCityCommand
             {
                 Id = city.Data.Id
             });
 
-            var list = await _testing.FindAsync<City>(city.Data.Id);
+            var list = await FindAsync<City>(city.Data.Id);
 
             list.Should().BeNull();
         }

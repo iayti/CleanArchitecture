@@ -16,9 +16,8 @@
     using Moq;
     using Respawn;
     using WebApi;
-    using Xunit;
 
-    public class Testing : IDisposable, IAsyncLifetime
+    public class Testing : IDisposable
     {
         private static IConfigurationRoot _configuration;
         private static IServiceScopeFactory _scopeFactory;
@@ -67,7 +66,7 @@
             EnsureDatabase();
         }
 
-        private void EnsureDatabase()
+        private static void EnsureDatabase()
         {
             using var scope = _scopeFactory.CreateScope();
 
@@ -76,7 +75,7 @@
             context.Database.Migrate();
         }
 
-        public async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
+        public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
         {
             using var scope = _scopeFactory.CreateScope();
 
@@ -85,7 +84,7 @@
             return await mediator.Send(request);
         }
 
-        public async Task<string> RunAsDefaultUserAsync()
+        public static async Task<string> RunAsDefaultUserAsync()
         {
             return await RunAsUserAsync("test@local", "Testing1234!");
         }
@@ -120,13 +119,13 @@
             return _currentUserId;
         }
 
-        public async Task ResetState()
+        public static async Task ResetState()
         {
             await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
             _currentUserId = null;
         }
 
-        public async Task<TEntity> FindAsync<TEntity>(params object[] keyValues)
+        public static async Task<TEntity> FindAsync<TEntity>(params object[] keyValues)
             where TEntity : class
         {
             using var scope = _scopeFactory.CreateScope();
@@ -136,7 +135,7 @@
             return await context.FindAsync<TEntity>(keyValues);
         }
 
-        public async Task AddAsync<TEntity>(TEntity entity)
+        public static async Task AddAsync<TEntity>(TEntity entity)
             where TEntity : class
         {
             using var scope = _scopeFactory.CreateScope();
@@ -148,20 +147,11 @@
             await context.SaveChangesAsync();
         }
 
-        public void Dispose()
+        public async void Dispose()
         {
             // ... clean up test data from the database ...
             // no need for this instruction we use Respawn
-        }
-
-        public async Task InitializeAsync()
-        {
             await Task.Run(ResetState);
-        }
-
-        public Task DisposeAsync()
-        {
-            return Task.CompletedTask;
         }
     }
 }

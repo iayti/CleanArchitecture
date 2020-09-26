@@ -8,15 +8,9 @@
     using Domain.Entities;
     using FluentAssertions;
     using Xunit;
-
-    public class UpdateCityTests : IClassFixture<Testing>
+    using static Testing;
+    public class UpdateCityTests : TestBase
     {
-        public Testing _testing;
-
-        public UpdateCityTests(Testing testing)
-        {
-            _testing = testing;
-        }
 
         [Fact]
         public async Task ShouldRequireValidCityId()
@@ -27,7 +21,7 @@
                 Name = "Kayseri"
             };
 
-            var result = await _testing.SendAsync(command);
+            var result = await SendAsync(command);
 
             result.Should().NotBeNull();
             result.Succeeded.Should().BeFalse();
@@ -37,12 +31,12 @@
         [Fact]
         public async Task ShouldRequireUniqueName()
         {
-            var city = await _testing.SendAsync(new CreateCityCommand
+            var city = await SendAsync(new CreateCityCommand
             {
                 Name = "Malatya"
             });
 
-            await _testing.SendAsync(new CreateCityCommand
+            await SendAsync(new CreateCityCommand
             {
                 Name = "Denizli"
             });
@@ -53,7 +47,7 @@
                 Name = "Denizli"
             };
 
-            var result = await _testing.SendAsync(command);
+            var result = await SendAsync(command);
 
             result.Should().NotBeNull();
             result.Succeeded.Should().BeFalse();
@@ -63,9 +57,9 @@
         [Fact]
         public async Task ShouldUpdateCity()
         {
-            var userId = await _testing.RunAsDefaultUserAsync();
+            var userId = await RunAsDefaultUserAsync();
 
-            var result = await _testing.SendAsync(new CreateCityCommand
+            var result = await SendAsync(new CreateCityCommand
             {
                 Name = "Kayyysseri"
             });
@@ -76,9 +70,9 @@
                 Name = "Kayseri"
             };
 
-            await _testing.SendAsync(command);
+            await SendAsync(command);
 
-            var city = await _testing.FindAsync<City>(result.Data.Id);
+            var city = await FindAsync<City>(result.Data.Id);
 
             city.Name.Should().Be(command.Name);
             city.Modifier.Should().NotBeNull();

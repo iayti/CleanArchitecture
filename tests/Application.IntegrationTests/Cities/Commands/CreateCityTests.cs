@@ -7,17 +7,10 @@
     using Domain.Entities;
     using FluentAssertions;
     using Xunit;
+    using static Testing;
 
-    //using static Testing;
-
-    public class CreateCityTests : IClassFixture<Testing>
+    public class CreateCityTests : TestBase
     {
-        public Testing _testing;
-
-        public CreateCityTests(Testing testing)
-        {
-            _testing = testing;
-        }
 
         [Fact]
         public void ShouldRequireMinimumFields()
@@ -25,14 +18,14 @@
             var command = new CreateCityCommand();
 
             FluentActions.Invoking(() =>
-                _testing.SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().Throw<ValidationException>();
 
         }
 
         [Fact]
         public async Task ShouldRequireUniqueName()
         {
-            await _testing.SendAsync(new CreateCityCommand
+            await SendAsync(new CreateCityCommand
             {
                 Name = "Bursa"
             });
@@ -43,22 +36,22 @@
             };
 
             FluentActions.Invoking(() =>
-                _testing.SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().Throw<ValidationException>();
         }
 
         [Fact]
         public async Task ShouldCreateCity()
         {
-            var userId = await _testing.RunAsDefaultUserAsync();
+            var userId = await RunAsDefaultUserAsync();
 
             var command = new CreateCityCommand
             {
                 Name = "Kastamonu"
             };
 
-            var result = await _testing.SendAsync(command);
+            var result = await SendAsync(command);
 
-            var list = await _testing.FindAsync<City>(result.Data.Id);
+            var list = await FindAsync<City>(result.Data.Id);
 
             list.Should().NotBeNull();
             list.Name.Should().Be(command.Name);
