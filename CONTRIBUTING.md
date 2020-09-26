@@ -18,7 +18,6 @@ Look for a project's contribution instructions. If there are any, follow them.
 * Squash your commits into a single commit with git's interactive rebase. Create a new branch if necessary.
 * Push your branch to your fork on Github, the remote origin.
 * From your fork open a pull request in the correct branch. Target the project's develop branch if there is one, else go for master!
-* …
 * If the maintainer requests further changes just push them to your branch. The PR will be updated automatically.
 * Once the pull request is approved and merged you can pull the changes from upstream to your local repo and delete your extra branch(es).
 
