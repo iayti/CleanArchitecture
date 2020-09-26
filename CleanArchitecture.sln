@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Commo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "src\Apps\WebApi\WebApi.csproj", "{A8D18FE5-1BD1-47D7-B1CC-A388AC959ADF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aplication.UnitTests", "tests\Aplication.UnitTests\Aplication.UnitTests.csproj", "{B8F5DCCC-7C6F-4294-907F-BA27EFEAD853}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.UnitTests", "tests\Aplication.UnitTests\Application.UnitTests.csproj", "{B8F5DCCC-7C6F-4294-907F-BA27EFEAD853}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.IntegrationTests", "tests\Application.IntegrationTests\Application.IntegrationTests.csproj", "{C50A1D83-C039-4420-9AFE-C497C07E01D2}"
 EndProject

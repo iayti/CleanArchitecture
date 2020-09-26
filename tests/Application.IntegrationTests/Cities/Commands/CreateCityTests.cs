@@ -6,13 +6,12 @@
     using Common.Exceptions;
     using Domain.Entities;
     using FluentAssertions;
-    using Xunit;
+    using NUnit.Framework;
     using static Testing;
 
     public class CreateCityTests : TestBase
     {
-
-        [Fact]
+        [Test]
         public void ShouldRequireMinimumFields()
         {
             var command = new CreateCityCommand();
@@ -22,7 +21,7 @@
 
         }
 
-        [Fact]
+        [Test]
         public async Task ShouldRequireUniqueName()
         {
             await SendAsync(new CreateCityCommand
@@ -39,7 +38,7 @@
                 SendAsync(command)).Should().Throw<ValidationException>();
         }
 
-        [Fact]
+        [Test]
         public async Task ShouldCreateCity()
         {
             var userId = await RunAsDefaultUserAsync();

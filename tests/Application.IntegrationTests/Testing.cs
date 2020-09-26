@@ -14,17 +14,20 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Moq;
+    using NUnit.Framework;
     using Respawn;
     using WebApi;
 
-    public class Testing : IDisposable
+    [SetUpFixture]
+    public class Testing
     {
         private static IConfigurationRoot _configuration;
         private static IServiceScopeFactory _scopeFactory;
         private static Checkpoint _checkpoint;
         private static string _currentUserId;
 
-        public Testing()
+        [OneTimeSetUp]
+        public void RunBeforeAnyTests()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -97,26 +100,18 @@
 
             var user = new ApplicationUser { UserName = userName, Email = userName };
 
-            var checkUser = userManager.FindByNameAsync(userName);
+            var result = await userManager.CreateAsync(user, password);
 
-            if (checkUser == null)
+            if (result.Succeeded)
             {
-                var result = await userManager.CreateAsync(user, password);
+                _currentUserId = user.Id;
 
-                if (result.Succeeded)
-                {
-                    _currentUserId = user.Id;
-
-                    return _currentUserId;
-                }
-
-                var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
-
-                throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}"); 
+                return _currentUserId;
             }
 
-            _currentUserId = checkUser.Id.ToString();
-            return _currentUserId;
+            var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
+
+            throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
         }
 
         public static async Task ResetState()
@@ -147,11 +142,9 @@
             await context.SaveChangesAsync();
         }
 
-        public async void Dispose()
+        [OneTimeTearDown]
+        public void RunAfterAnyTests()
         {
-            // ... clean up test data from the database ...
-            // no need for this instruction we use Respawn
-            await Task.Run(ResetState);
         }
     }
 }

@@ -6,14 +6,12 @@
     using Common.Models;
     using Domain.Entities;
     using FluentAssertions;
-    using Xunit;
-
+    using NUnit.Framework;
     using static Testing;
 
     public class DeleteCityTests : TestBase
     {
-
-        [Fact]
+        [Test]
         public async Task ShouldRequireValidCityId()
         {
             var command = new DeleteCityCommand { Id = 99 };
@@ -25,7 +23,7 @@
             result.Error.Should().Be(ServiceError.NotFount);
         }
 
-        [Fact]
+        [Test]
         public async Task ShouldDeleteCity()
         {
             var city = await SendAsync(new CreateCityCommand

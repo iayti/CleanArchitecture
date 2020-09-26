@@ -10,7 +10,7 @@ This is a solution template for creating a ASP.NET Core Web Api following the pr
 * MediatR
 * Mapster
 * FluentValidation
-* XUnit, FluentAssertions, Moq & Respawn
+* NUnit, FluentAssertions, Moq & Respawn
 
 ## Getting Started
 

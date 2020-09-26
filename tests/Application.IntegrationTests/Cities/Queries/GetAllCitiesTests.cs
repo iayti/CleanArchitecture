@@ -2,15 +2,21 @@ namespace Application.IntegrationTests.Cities.Queries
 {
     using System.Threading.Tasks;
     using Application.Cities.Queries.GetCities;
+    using Domain.Entities;
     using FluentAssertions;
-    using Xunit;
+    using NUnit.Framework;
     using static Testing;
 
-    public class GetAllCitiesTests :TestBase
+    public class GetAllCitiesTests : TestBase
     {
-        [Fact]
+        [Test]
         public async Task ShouldReturnAllCities()
         {
+            await AddAsync(new City
+            {
+                Name = "Manisa",
+            });
+
             var query = new GetAllCitiesQuery();
 
             var result = await SendAsync(query);

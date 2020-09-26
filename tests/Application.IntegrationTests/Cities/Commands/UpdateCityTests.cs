@@ -4,15 +4,15 @@
     using System.Threading.Tasks;
     using Application.Cities.Commands.Create;
     using Application.Cities.Commands.Update;
+    using Common.Exceptions;
     using Common.Models;
     using Domain.Entities;
     using FluentAssertions;
-    using Xunit;
+    using NUnit.Framework;
     using static Testing;
     public class UpdateCityTests : TestBase
     {
-
-        [Fact]
+        [Test]
         public async Task ShouldRequireValidCityId()
         {
             var command = new UpdateCityCommand
@@ -28,7 +28,7 @@
             result.Error.Should().Be(ServiceError.NotFount);
         }
 
-        [Fact]
+        [Test]
         public async Task ShouldRequireUniqueName()
         {
             var city = await SendAsync(new CreateCityCommand
@@ -47,14 +47,13 @@
                 Name = "Denizli"
             };
 
-            var result = await SendAsync(command);
-
-            result.Should().NotBeNull();
-            result.Succeeded.Should().BeFalse();
-            result.Error.Should().Be(ServiceError.NotFount);
+            FluentActions.Invoking(() =>
+                    SendAsync(command))
+                .Should().Throw<ValidationException>().Where(ex => ex.Errors.ContainsKey("Name"))
+                .And.Errors["Name"].Should().Contain("The specified city already exists.");
         }
 
-        [Fact]
+        [Test]
         public async Task ShouldUpdateCity()
         {
             var userId = await RunAsDefaultUserAsync();

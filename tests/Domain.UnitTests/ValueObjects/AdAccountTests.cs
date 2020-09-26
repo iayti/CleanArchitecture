@@ -3,25 +3,25 @@
     using Domain.ValueObjects;
     using Exceptions;
     using FluentAssertions;
-    using Xunit;
+    using NUnit.Framework;
 
     public class AdAccountTests
     {
-        [Fact]
+        [Test]
         public void ShouldHaveCorrectDomainAndName()
         {
-            const string accountString = "SSW\\Jason";
+            const string accountString = "ilker\\Ayti";
 
             var account = AdAccount.For(accountString);
 
-            account.Domain.Should().Be("SSW");
-            account.Name.Should().Be("Jason");
+            account.Domain.Should().Be("ilker");
+            account.Name.Should().Be("Ayti");
         }
 
-        [Fact]
+        [Test]
         public void ToStringReturnsCorrectFormat()
         {
-            const string accountString = "SSW\\Jason";
+            const string accountString = "ilker\\Ayti";
 
             var account = AdAccount.For(accountString);
 
@@ -30,10 +30,10 @@
             result.Should().Be(accountString);
         }
 
-        [Fact]
+        [Test]
         public void ImplicitConversionToStringResultsInCorrectString()
         {
-            const string accountString = "SSW\\Jason";
+            const string accountString = "ilker\\Ayti";
 
             var account = AdAccount.For(accountString);
 
@@ -42,21 +42,21 @@
             result.Should().Be(accountString);
         }
 
-        [Fact]
+        [Test]
         public void ExplicitConversionFromStringSetsDomainAndName()
         {
-            const string accountString = "SSW\\Jason";
+            const string accountString = "ilker\\Ayti";
 
             var account = (AdAccount)accountString;
 
-            account.Domain.Should().Be("SSW");
-            account.Name.Should().Be("Jason");
+            account.Domain.Should().Be("ilker");
+            account.Name.Should().Be("Ayti");
         }
 
-        [Fact]
+        [Test]
         public void ShouldThrowAdAccountInvalidExceptionForInvalidAdAccount()
         {
-            FluentActions.Invoking(() => (AdAccount)"SSWJason")
+            FluentActions.Invoking(() => (AdAccount)"ilkerAyti")
                 .Should().Throw<AdAccountInvalidException>();
         }
     }

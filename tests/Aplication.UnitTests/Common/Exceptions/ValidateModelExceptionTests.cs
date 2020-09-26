@@ -3,13 +3,13 @@
     using System;
 
     using FluentAssertions;
-    using Xunit;
 
     using Application.Common.Exceptions;
+    using NUnit.Framework;
 
     public class ValidateModelExceptionTests
     {
-        [Fact]
+        [Test]
         public void DefaultConstructorCreatesAnEmptyErrorDictionary()
         {
             var actual = new ValidateModelException().Errors;

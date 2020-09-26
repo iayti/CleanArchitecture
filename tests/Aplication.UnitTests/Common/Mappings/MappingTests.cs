@@ -3,13 +3,13 @@
     using System;
 
     using MapsterMapper;
-    using Xunit;
 
     using Application.Dto;
     using Domain.Entities;
     using FluentAssertions;
     using Mapster;
     using Microsoft.Extensions.DependencyInjection;
+    using NUnit.Framework;
 
     public class MappingTests
     {
@@ -30,9 +30,9 @@
         }
 
 
-        [Theory]
-        [InlineData(typeof(City), typeof(CityDto))]
-        [InlineData(typeof(District), typeof(DistrictDto))]
+        [Test]
+        [TestCase(typeof(City), typeof(CityDto))]
+        [TestCase(typeof(District), typeof(DistrictDto))]
         public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
         {
             var instance = Activator.CreateInstance(source);
@@ -40,7 +40,7 @@
             _mapper.Map(instance, source, destination);
         }
 
-        [Fact]
+        [Test]
         public void ShouldMappingCorrectly()
         {
             var city = new City { Id = 1, Name = "Bursa" };

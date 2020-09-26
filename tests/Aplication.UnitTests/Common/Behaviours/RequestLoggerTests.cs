@@ -6,12 +6,11 @@
     using Microsoft.Extensions.Logging;
 
     using Moq;
-    using Xunit;
+    using NUnit.Framework;
 
     using Application.Cities.Commands.Create;
     using Application.Common.Behaviours;
     using Application.Common.Interfaces;
-
 
     public class RequestLoggerTests
     {
@@ -29,7 +28,7 @@
             _identityService = new Mock<IIdentityService>();
         }
 
-        [Fact]
+        [Test]
         public async Task ShouldCallGetUserNameAsyncOnceIfAuthenticated()
         {
             _currentUserService.Setup(x => x.UserId).Returns("Administrator");
@@ -41,7 +40,7 @@
             _identityService.Verify(i => i.GetUserNameAsync(It.IsAny<string>()), Times.Once);
         }
 
-        [Fact]
+        [Test]
         public async Task ShouldNotCallGetUserNameAsyncOnceIfUnauthenticated()
         {
             var requestLogger = new LoggingBehaviour<CreateCityCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);

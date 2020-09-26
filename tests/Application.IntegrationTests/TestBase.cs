@@ -1,20 +1,15 @@
 ﻿namespace Application.IntegrationTests
 {
     using System.Threading.Tasks;
-    using Xunit;
+    using NUnit.Framework;
     using static Testing;
 
-    public class TestBase : IAsyncLifetime, IClassFixture<Testing>
+    public class TestBase
     {
-        public async Task InitializeAsync()
+        [SetUp]
+        public async Task TestSetUp()
         {
-            await Task.Run(ResetState);
+            await ResetState();
         }
-
-        public Task DisposeAsync()
-        {
-            return Task.CompletedTask;
-        }
-
     }
 }

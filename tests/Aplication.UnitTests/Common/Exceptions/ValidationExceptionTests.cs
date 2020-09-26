@@ -5,14 +5,13 @@
     
     using FluentAssertions;
     using FluentValidation.Results;
-    using Xunit;
+    using NUnit.Framework;
 
     using Application.Common.Exceptions;
-
-
+    
     public class ValidationExceptionTests
     {
-        [Fact]
+        [Test]
         public void DefaultConstructorCreatesAnEmptyErrorDictionary()
         {
             var actual = new ValidationException().Errors;
@@ -20,7 +19,7 @@
             actual.Keys.Should().BeEquivalentTo(Array.Empty<string>());
         }
 
-        [Fact]
+        [Test]
         public void SingleValidationFailureCreatesASingleElementErrorDictionary()
         {
             var failures = new List<ValidationFailure>
@@ -34,7 +33,7 @@
             actual["Age"].Should().BeEquivalentTo("must be over 18");
         }
 
-        [Fact]
+        [Test]
         public void MulitpleValidationFailureForMultiplePropertiesCreatesAMultipleElementErrorDictionaryEachWithMultipleValues()
         {
             var failures = new List<ValidationFailure>
