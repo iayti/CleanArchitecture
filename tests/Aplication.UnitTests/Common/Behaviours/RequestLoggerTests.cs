@@ -1,4 +1,4 @@
-﻿namespace Aplication.UnitTests.Common.Behaviours
+﻿namespace Application.UnitTests.Common.Behaviours
 {
     using System.Threading;
     using System.Threading.Tasks;

@@ -1,4 +1,4 @@
-﻿namespace Aplication.UnitTests.Common.Exceptions
+﻿namespace Application.UnitTests.Common.Exceptions
 {
     using System;
     using System.Collections.Generic;

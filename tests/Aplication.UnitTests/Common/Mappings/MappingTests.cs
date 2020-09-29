@@ -1,4 +1,4 @@
-﻿namespace Aplication.UnitTests.Common.Mappings
+﻿namespace Application.UnitTests.Common.Mappings
 {
     using System;
 
