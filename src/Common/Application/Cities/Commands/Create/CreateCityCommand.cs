@@ -5,9 +5,10 @@
 
     using MapsterMapper;
 
-    using Domain.Entities;
     using Common.Interfaces;
     using Common.Models;
+    using Domain.Entities;
+    using Domain.Event;
     using Dto;
 
     public class CreateCityCommand : IRequestWrapper<CityDto>
@@ -32,6 +33,8 @@
             {
                 Name = request.Name
             };
+
+            entity.DomainEvents.Add(new CityCreatedEvent(entity));
 
             _context.Cities.Add(entity);
 

@@ -1,6 +1,7 @@
 ﻿namespace Infrastructure.Persistence
 {
     using System.Data;
+    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -22,15 +23,17 @@
     {
         private readonly IDateTime _dateTime;
         private readonly ICurrentUserService _currentUserService;
-        private IDbContextTransaction _currentTransaction;
+        private readonly IDomainEventService _domainEventService;
 
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService currentUserService,
-            IDateTime dateTime) : base(options, operationalStoreOptions)
+            IDateTime dateTime, 
+            IDomainEventService domainEventService) : base(options, operationalStoreOptions)
         {
             _dateTime = dateTime;
+            _domainEventService = domainEventService;
             _currentUserService = currentUserService;
         }
 
@@ -38,9 +41,9 @@
         public DbSet<District> Districts { get; set; }
         public DbSet<Village> Villages { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<BaseEntity>())
+            foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<BaseEntity> entry in ChangeTracker.Entries<BaseEntity>())
             {
                 switch (entry.State)
                 {
@@ -55,56 +58,11 @@
                 }
             }
 
-            return base.SaveChangesAsync(cancellationToken);
-        }
+            int result = await base.SaveChangesAsync(cancellationToken);
 
-        public async Task BeginTransactionAsync()
-        {
-            if (_currentTransaction != null)
-            {
-                return;
-            }
+            await DispatchEvents(cancellationToken);
 
-            _currentTransaction = await base.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted).ConfigureAwait(false);
-        }
-
-        public async Task CommitTransactionAsync()
-        {
-            try
-            {
-                await SaveChangesAsync().ConfigureAwait(false);
-
-                _currentTransaction?.Commit();
-            }
-            catch
-            {
-                RollbackTransaction();
-                throw;
-            }
-            finally
-            {
-                if (_currentTransaction != null)
-                {
-                    _currentTransaction.Dispose();
-                    _currentTransaction = null;
-                }
-            }
-        }
-
-        public void RollbackTransaction()
-        {
-            try
-            {
-                _currentTransaction?.Rollback();
-            }
-            finally
-            {
-                if (_currentTransaction != null)
-                {
-                    _currentTransaction.Dispose();
-                    _currentTransaction = null;
-                }
-            }
+            return result;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -112,6 +70,19 @@
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);
+        }
+
+        private async Task DispatchEvents(CancellationToken cancellationToken)
+        {
+            var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
+                .Select(x => x.Entity.DomainEvents)
+                .SelectMany(x => x)
+                .ToArray();
+
+            foreach (var domainEvent in domainEventEntities)
+            {
+                await _domainEventService.Publish(domainEvent);
+            }
         }
     }
 }

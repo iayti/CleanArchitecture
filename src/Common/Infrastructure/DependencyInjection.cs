@@ -33,13 +33,10 @@
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
+            services.AddScoped<IDomainEventService, DomainEventService>();
+
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            //if (environment.IsEnvironment("Test"))
-            //{
-            //    //TODO: Authentication TestUser will be added.
-            //}
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();

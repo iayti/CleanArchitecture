@@ -9,6 +9,8 @@
     {
         public void Configure(EntityTypeBuilder<City> builder)
         {
+            builder.Ignore(e => e.DomainEvents);
+
             builder.Property(t => t.Name)
                 .HasMaxLength(200)
                 .IsRequired();
