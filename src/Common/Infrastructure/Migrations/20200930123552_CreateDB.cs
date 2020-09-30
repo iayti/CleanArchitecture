@@ -39,7 +39,10 @@ namespace Infrastructure.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Gsm = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,7 +59,8 @@ namespace Infrastructure.Migrations
                     CreateDate = table.Column<DateTime>(nullable: false),
                     Modifier = table.Column<string>(nullable: true),
                     ModifyDate = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(maxLength: 200, nullable: false)
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
+                    Active = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

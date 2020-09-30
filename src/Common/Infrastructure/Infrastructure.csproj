@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
     <Folder Include="Services\WeatherForeCast\" />
   </ItemGroup>
 
