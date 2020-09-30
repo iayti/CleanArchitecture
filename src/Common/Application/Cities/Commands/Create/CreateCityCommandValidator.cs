@@ -25,7 +25,7 @@
 
         private async Task<bool> BeUniqueName(string name, CancellationToken cancellationToken)
         {
-            //TODO: Büyük küçük harf ve türkçe karaktere göre kontrol sağla
+            //TODO: Control by uppercase and CultureInfo
             return await _context.Cities.AllAsync(x => x.Name != name, cancellationToken);
         }
     }

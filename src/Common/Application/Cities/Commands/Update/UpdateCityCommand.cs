@@ -9,12 +9,14 @@
     using Common.Models;
     using Domain.Entities;
     using Dto;
-    
-    public class UpdateCityCommand :IRequestWrapper<CityDto>
+
+    public class UpdateCityCommand : IRequestWrapper<CityDto>
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public bool Active { get; set; }
     }
 
     public class UpdateCityCommandHandler : IRequestHandlerWrapper<UpdateCityCommand, CityDto>
@@ -36,8 +38,9 @@
             {
                 throw new NotFoundException(nameof(City), request.Id);
             }
-
-            entity.Name = request.Name;
+            if (!string.IsNullOrEmpty(request.Name))
+                entity.Name = request.Name;
+            entity.Active = request.Active;
 
             await _context.SaveChangesAsync(cancellationToken);
 

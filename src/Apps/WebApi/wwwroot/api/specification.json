@@ -467,6 +467,9 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "active": {
+            "type": "boolean"
           }
         }
       },

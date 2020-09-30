@@ -3,9 +3,9 @@
     using Common;
     using Entities;
 
-    public class CityCompletedEvent : DomainEvent
+    public class CityActivatedEvent : DomainEvent
     {
-        public CityCompletedEvent(City city)
+        public CityActivatedEvent(City city)
         {
             City = city;
         }

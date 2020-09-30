@@ -28,7 +28,7 @@
             {
                 if (value == true && _active == false)
                 {
-                    DomainEvents.Add(new CityCompletedEvent(this));
+                    DomainEvents.Add(new CityActivatedEvent(this));
                 }
 
                 _active = value;
