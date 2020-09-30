@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Application.Common.Exceptions;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
@@ -24,9 +24,12 @@
 
         public async Task<string> GetUserNameAsync(string userId)
         {
-            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-            //TODO: If user is null. Response will be user not found.
+            if (user == null)
+            {
+                throw new UnauthorizeException();
+            }
 
             return user.UserName;
         }

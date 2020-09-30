@@ -3,13 +3,14 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-
+    using Common.Exceptions;
     using Microsoft.EntityFrameworkCore;
 
     using MapsterMapper;
 
     using Common.Interfaces;
     using Common.Models;
+    using Domain.Entities;
     using Dto;
     
     public class DeleteCityCommand : IRequestWrapper<CityDto>
@@ -36,7 +37,7 @@
 
             if (entity == null)
             {
-                return ServiceResult.Failed<CityDto>(ServiceError.NotFount);
+                throw new NotFoundException(nameof(City), request.Id);
             }
 
             _context.Cities.Remove(entity);

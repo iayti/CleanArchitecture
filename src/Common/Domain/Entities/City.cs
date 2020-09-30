@@ -10,6 +10,7 @@
         public City()
         {
             Districts = new List<District>();
+            DomainEvents= new List<DomainEvent>();
         }
 
         public int Id { get; set; }
@@ -19,18 +20,18 @@
 
         public IList<District> Districts { get; set; }
 
-        private bool _done;
-        public bool Done
+        private bool _active;
+        public bool Active
         {
-            get => _done;
+            get => _active;
             set
             {
-                if (value == true && _done == false)
+                if (value == true && _active == false)
                 {
                     DomainEvents.Add(new CityCompletedEvent(this));
                 }
 
-                _done = value;
+                _active = value;
             }
         }
 

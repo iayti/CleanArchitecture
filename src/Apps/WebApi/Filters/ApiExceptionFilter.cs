@@ -21,6 +21,7 @@
             {
                 { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
+                { typeof(UnauthorizeException), HandleNotAuthorizeException },
             };
         }
 
@@ -87,6 +88,15 @@
             var details = ServiceResult.Failed(ServiceError.CustomMessage(context.Exception is NotFoundException exception ? exception.Message : ServiceError.NotFount.ToString()));
 
             context.Result = new NotFoundObjectResult(details);
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleNotAuthorizeException(ExceptionContext context)
+        {
+            var details = ServiceResult.Failed(ServiceError.ForbiddenError);
+
+            context.Result = new UnauthorizedObjectResult(details);
 
             context.ExceptionHandled = true;
         }

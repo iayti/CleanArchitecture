@@ -32,7 +32,16 @@
                 message.To.Add(new MailAddress(to));
             }
 
-            await emailClient.SendMailAsync(message);
+            //TODO:EmailService Exception will be added. 
+            //TODO:EmailService if there was error, try at least three times. 
+            try
+            {
+                await emailClient.SendMailAsync(message);
+            }
+            catch 
+            {
+
+            }
 
             _logger.LogWarning($"Sending email to {request.ToMail} from {request.FromMail} with subject {request.Subject}.");
 

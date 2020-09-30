@@ -1,6 +1,5 @@
 ﻿namespace Infrastructure.Persistence
 {
-    using System.Data;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -9,7 +8,6 @@
     using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
-    using Microsoft.EntityFrameworkCore.Storage;
 
     using IdentityServer4.EntityFramework.Options;
 
