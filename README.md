@@ -14,7 +14,7 @@ This is a solution template for creating a ASP.NET Core Web Api following the pr
 
 ## Getting Started
 
-Install the [NuGet package](https://www.nuget.org/packages/Matech.Clean.Architecture.Templatee) and run `dotnet new cas`:
+Install the [NuGet package](https://www.nuget.org/packages/Matech.Clean.Architecture.Template) and run `dotnet new cas`:
 
 1. Install the latest [.NET Core SDK](https://dotnet.microsoft.com/download)
 2. Run `dotnet new --install Matech.Clean.Architecture.Template` to install the project template
