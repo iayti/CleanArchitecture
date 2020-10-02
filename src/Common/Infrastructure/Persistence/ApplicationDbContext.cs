@@ -56,9 +56,9 @@
                 }
             }
 
-            int result = await base.SaveChangesAsync(cancellationToken);
+            var result = await base.SaveChangesAsync(cancellationToken);
 
-            await DispatchEvents(cancellationToken);
+            await DispatchEvents();
 
             return result;
         }
@@ -70,12 +70,11 @@
             base.OnModelCreating(builder);
         }
 
-        private async Task DispatchEvents(CancellationToken cancellationToken)
+        private async Task DispatchEvents()
         {
             var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
                 .Select(x => x.Entity.DomainEvents)
-                .SelectMany(x => x)
-                .ToArray();
+                .SelectMany(x => x);
 
             foreach (var domainEvent in domainEventEntities)
             {
