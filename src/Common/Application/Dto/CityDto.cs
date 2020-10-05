@@ -19,6 +19,8 @@
 
         public string CreateDate { get; set; }
 
+        public bool Active { get; set; }
+
         public IList<DistrictDto> Districts { get; set; }
 
         public void Register(TypeAdapterConfig config)

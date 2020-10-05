@@ -29,8 +29,6 @@
 
                 _logger.LogError(ex, "CleanArchitecture Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
 
-                //TODO: Elastic Log will be added.
-
                 throw;
             }
         }

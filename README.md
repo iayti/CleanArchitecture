@@ -11,6 +11,7 @@ This is a solution template for creating a ASP.NET Core Web Api following the pr
 * Mapster
 * FluentValidation
 * NUnit, FluentAssertions, Moq & Respawn
+* Elasticsearch, Serilog, Kibana
 
 ## Getting Started
 
@@ -67,6 +68,27 @@ This layer contains classes for accessing external resources such as file system
 ### WebApi
 
 This layer is a web api application based on ASP.NET Core 3.1.x. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+
+### Logs
+
+Logging into Elasticsearch using Serilog and viewing logs in Kibana.
+
+#### Prerequisites
+
+* Download and Install [Docker Desktop](https://www.docker.com/products/docker-desktop)
+
+Open CLI in the project folder and run the below comment. 
+
+```powershell
+PS CleanArchitecture> docker-compose up
+```
+`docker-compose.yml` pull and run the ElasticSearch and Kibana images.
+
+If you are running first time Windows 10 [WSL 2 (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) Linux Container for Docker, You will probably get the following error from the docker.
+
+`Error:` max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+
+`Solution:` Open the Linux WSL 2 terminal `sudo sysctl -w vm.max_map_count=262144` and change the virtual memory for Linux.
 
 ## Support
 
