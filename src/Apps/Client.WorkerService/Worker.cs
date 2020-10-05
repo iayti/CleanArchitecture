@@ -21,13 +21,14 @@ namespace Client.WorkerService
             {
                 try
                 {
+                    // You must run WebApi and Client.WorkerService together.
                     Console.WriteLine("Hello World!");
                     string baseUrl = "https://localhost:5001";
                     LoginClient loginClient = new LoginClient(baseUrl);
                     var result = await loginClient.CreateAsync(new GetTokenQuery
                     {
                         Email = "test@test.com",
-                        Password = "Kurabiyem_1850"
+                        Password = "Matech_1850"
                     }, stoppingToken);
 
                     if (result.Succeeded)
@@ -52,7 +53,7 @@ namespace Client.WorkerService
                 }
 
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(10000, stoppingToken);
             }
         }
     }

@@ -36,7 +36,7 @@
 
             entity.DomainEvents.Add(new CityCreatedEvent(entity));
 
-            _context.Cities.Add(entity);
+            await _context.Cities.AddAsync(entity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
 
