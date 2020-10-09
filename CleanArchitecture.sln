@@ -29,9 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.WorkerService", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{066F6361-3B26-449E-9A9F-163A07A939CF}"
 	ProjectSection(SolutionItems) = preProject
-		CONTRIBUTING.md = CONTRIBUTING.md
 		docker-compose.yml = docker-compose.yml
-		README.md = README.md
 	EndProjectSection
 EndProject
 Global
