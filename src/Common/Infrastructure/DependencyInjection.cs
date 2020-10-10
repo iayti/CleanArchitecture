@@ -29,6 +29,12 @@
                     options.UseSqlServer(
                         configuration.GetConnectionString("DefaultConnection"),
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+
+                //If you want to change the relational database model,
+                //you need to delete the migrations folder and recreate what you want to create with relational database model integration like Postgres, MySql.
+                //services.AddDbContext<ApplicationDbContext>(options =>
+                //    options.UseNpgsql(
+                //        configuration.GetConnectionString("DefaultConnection_Postgres")));
             }
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
