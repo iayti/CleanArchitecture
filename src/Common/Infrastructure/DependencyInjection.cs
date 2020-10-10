@@ -42,6 +42,7 @@
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
+            services.AddTransient<ITokenService, TokenService>();
 
 
             services.AddAuthentication(options =>
