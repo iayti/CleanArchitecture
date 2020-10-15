@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using Application.Cities.Commands.Create;
     using Application.Cities.Commands.Delete;
+    using Common.Exceptions;
     using Common.Models;
     using Domain.Entities;
     using FluentAssertions;
@@ -16,11 +17,8 @@
         {
             var command = new DeleteCityCommand { Id = 99 };
 
-            var result = await SendAsync(command);
-
-            result.Should().NotBeNull();
-            result.Succeeded.Should().BeFalse();
-            result.Error.Should().Be(ServiceError.NotFount);
+            FluentActions.Invoking(() =>
+                SendAsync(command)).Should().Throw<NotFoundException>();
         }
 
         [Test]

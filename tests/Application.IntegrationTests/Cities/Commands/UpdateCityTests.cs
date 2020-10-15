@@ -21,11 +21,8 @@
                 Name = "Kayseri"
             };
 
-            var result = await SendAsync(command);
-
-            result.Should().NotBeNull();
-            result.Succeeded.Should().BeFalse();
-            result.Error.Should().Be(ServiceError.NotFount);
+            FluentActions.Invoking(() =>
+                SendAsync(command)).Should().Throw<NotFoundException>();
         }
 
         [Test]
