@@ -211,6 +211,43 @@
         ]
       }
     },
+    "/api/Districts": {
+      "post": {
+        "tags": [
+          "Districts"
+        ],
+        "operationId": "Districts_Create",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDistrictCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceResultOfDistrictDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Login": {
       "post": {
         "tags": [
@@ -473,6 +510,41 @@
           },
           "active": {
             "type": "boolean"
+          }
+        }
+      },
+      "ServiceResultOfDistrictDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ServiceResult"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/DistrictDto"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "CreateDistrictCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

@@ -47,7 +47,7 @@
             FluentActions.Invoking(() =>
                     SendAsync(command))
                 .Should().Throw<ValidationException>().Where(ex => ex.Errors.ContainsKey("Name"))
-                .And.Errors["Name"].Should().Contain("The specified city already exists.");
+                .And.Errors["Name"].Should().Contain("The specified city already exists. If you just want to activate the city leave the name field blank!");
         }
 
         [Test]

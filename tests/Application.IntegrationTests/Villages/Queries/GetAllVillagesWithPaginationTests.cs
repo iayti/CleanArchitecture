@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Application.Cities.Commands.Create;
     using Application.Villages.Queries.GetVillagesWithPagination;
     using Domain.Entities;
     using FluentAssertions;
@@ -13,15 +14,15 @@
         [Test]
         public async Task ShouldReturnAllCities()
         {
-            await AddAsync(new City
+            var city = await SendAsync(new CreateCityCommand
             {
-                Name = "Muğla",
+                Name = "Muğla"
             });
 
-            await AddAsync(new District
+            var district = await SendAsync(new CreateDistrictCommand
             {
                 Name = "Bodrum",
-                CityId = 1
+                CityId = city.Data.Id
             });
 
             List<string> villages = new List<string> { "Çömlekçi", "Müsgebi", "Karakaya", "Etrim", "Sandima", "Akyarlar", "Gündoğan" };
@@ -31,14 +32,14 @@
                 await AddAsync(new Village
                 {
                     Name = name,
-                    DistrictId = 1
+                    DistrictId = district.Data.Id
                 });
             }
 
             var query = new GetAllVillagesWithPaginationQuery
             {
-                DistrictId = 1,
-                PageNumber = 0,
+                DistrictId = district.Data.Id,
+                PageNumber = 1,
                 PageSize = 3
             };
 
@@ -46,7 +47,8 @@
 
             result.Should().NotBeNull();
             result.Succeeded.Should().BeTrue();
-            result.Data.TotalCount.Should().Be(3);
+            result.Data.Items.Count.Should().Be(3);
+            result.Data.TotalCount.Should().Be(7);
         }
     }
 }
