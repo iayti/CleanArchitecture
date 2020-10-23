@@ -1,15 +1,15 @@
-﻿namespace Application.Districts.Queries
-{
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Common.Interfaces;
-    using Dto;
-    using Mapster;
-    using MapsterMapper;
-    using MediatR;
-    using Microsoft.EntityFrameworkCore;
+﻿using Application.Common.Interfaces;
+using Application.Dto;
+using Mapster;
+using MapsterMapper;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Application.Districts.Queries
+{
     public class ExportDistrictsQuery :IRequest<ExportDto>
     {
         public int CityId { get; set; }

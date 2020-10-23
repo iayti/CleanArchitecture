@@ -1,12 +1,10 @@
-﻿namespace Application.UnitTests.Common.Exceptions
+﻿using Application.Common.Exceptions;
+using FluentAssertions;
+using NUnit.Framework;
+using System;
+
+namespace Application.UnitTests.Common.Exceptions
 {
-    using System;
-
-    using FluentAssertions;
-
-    using Application.Common.Exceptions;
-    using NUnit.Framework;
-
     public class ValidateModelExceptionTests
     {
         [Test]

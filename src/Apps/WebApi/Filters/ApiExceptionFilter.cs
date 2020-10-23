@@ -1,17 +1,15 @@
-﻿namespace WebApi.Filters
+﻿using Application.Common.Exceptions;
+using Application.Common.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
+using System.Collections.Generic;
+
+namespace WebApi.Filters
 {
-    using System;
-    using System.Collections.Generic;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Filters;
-
-    using Application.Common.Exceptions;
-    using Application.Common.Models;
-
     public class ApiExceptionFilter : ExceptionFilterAttribute
     {
-
         private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandlers;
 
         public ApiExceptionFilter()

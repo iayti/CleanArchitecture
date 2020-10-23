@@ -1,14 +1,14 @@
-﻿namespace Infrastructure.Services
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Security.Claims;
-    using System.Text;
-    using Application.Common.Interfaces;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.IdentityModel.Tokens;
+﻿using Application.Common.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
+namespace Infrastructure.Services
+{
     public class TokenService : ITokenService
     {
         private readonly IConfiguration _configuration;

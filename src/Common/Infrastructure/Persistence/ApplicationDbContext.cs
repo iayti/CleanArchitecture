@@ -1,22 +1,18 @@
-﻿namespace Infrastructure.Persistence
+﻿using Application.Common.Interfaces;
+using Domain.Common;
+using Domain.Entities;
+using IdentityServer4.EntityFramework.Options;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Persistence
 {
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Options;
-
-    using IdentityServer4.EntityFramework.Options;
-
-    using Application.Common.Interfaces;
-    using Domain.Common;
-    using Domain.Entities;
-    using Identity;
-    
-
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
     {
         private readonly IDateTime _dateTime;

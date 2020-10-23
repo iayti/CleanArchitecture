@@ -1,17 +1,14 @@
-﻿namespace Application
+﻿using Application.Common.Behaviours;
+using FluentValidation;
+using Mapster;
+using MapsterMapper;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Reflection;
+
+namespace Application
 {
-    using System.Collections.Generic;
-    using System.Reflection;
-    
-    using Microsoft.Extensions.DependencyInjection;
-
-    using FluentValidation;
-    using MediatR;
-    using Mapster;
-    using MapsterMapper;
-
-    using Common.Behaviours;
-   
     public static class DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)

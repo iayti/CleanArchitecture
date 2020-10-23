@@ -1,9 +1,9 @@
-﻿namespace Application.Dto
-{
-    using System.Collections.Generic;
-    using Domain.Entities;
-    using Mapster;
+﻿using Domain.Entities;
+using Mapster;
+using System.Collections.Generic;
 
+namespace Application.Dto
+{
     public class DistrictDto : IRegister
     {
         public DistrictDto()

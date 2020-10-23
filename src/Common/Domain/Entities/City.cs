@@ -1,10 +1,9 @@
-﻿namespace Domain.Entities
+﻿using Domain.Common;
+using Domain.Event;
+using System.Collections.Generic;
+
+namespace Domain.Entities
 {
-    using System.Collections.Generic;
-
-    using Common;
-    using Event;
-
     public class City : BaseEntity, IHasDomainEvent
     {
         public City()

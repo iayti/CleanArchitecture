@@ -1,14 +1,14 @@
-﻿namespace Infrastructure.Files
-{
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Text;
-    using Application.Common.Interfaces;
-    using Application.Dto;
-    using CsvHelper;
-    using Maps;
+﻿using Application.Common.Interfaces;
+using Application.Dto;
+using CsvHelper;
+using Infrastructure.Files.Maps;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text;
 
+namespace Infrastructure.Files
+{
     public class CsvFileBuilder : ICsvFileBuilder
     {
         public byte[] BuildDistrictsFile(IEnumerable<DistrictDto> cities)

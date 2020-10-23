@@ -1,14 +1,11 @@
-﻿namespace Application.Cities.Commands.Create
+﻿using Application.Common.Interfaces;
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Cities.Commands.Create
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using Microsoft.EntityFrameworkCore;
-
-    using FluentValidation;
-
-    using Common.Interfaces;
-
     public class CreateCityCommandValidator : AbstractValidator<CreateCityCommand>
     {
         private readonly IApplicationDbContext _context;

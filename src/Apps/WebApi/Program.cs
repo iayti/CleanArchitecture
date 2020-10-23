@@ -1,20 +1,18 @@
+using Infrastructure.Identity;
+using Infrastructure.Persistence;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
+using System;
+using System.Threading.Tasks;
+
 namespace WebApi
 {
-    using System;
-    using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Hosting;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-
-    using Infrastructure.Identity;
-    using Infrastructure.Persistence;
-    using Serilog;
-    using Serilog.Sinks.Elasticsearch;
-
     public class Program
     {
         public static async Task Main(string[] args)

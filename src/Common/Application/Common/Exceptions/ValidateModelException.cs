@@ -1,9 +1,9 @@
-﻿namespace Application.Common.Exceptions
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Application.Common.Exceptions
+{
     public  class ValidateModelException : ModelStateDictionary
     {
 

@@ -1,23 +1,23 @@
-﻿namespace Application.IntegrationTests
-{
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Common.Interfaces;
-    using Infrastructure.Identity;
-    using Infrastructure.Persistence;
-    using MediatR;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Moq;
-    using NUnit.Framework;
-    using Respawn;
-    using WebApi;
+﻿using Application.Common.Interfaces;
+using Infrastructure.Identity;
+using Infrastructure.Persistence;
+using MediatR;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Moq;
+using NUnit.Framework;
+using Respawn;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using WebApi;
 
+namespace Application.IntegrationTests
+{
     [SetUpFixture]
     public class Testing
     {
@@ -96,9 +96,9 @@
         {
             using var scope = _scopeFactory.CreateScope();
 
-            var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+            var userManager = scope.ServiceProvider.GetService<UserManager<Infrastructure.Identity.ApplicationUser>>();
 
-            var user = new ApplicationUser { UserName = userName, Email = userName };
+            var user = new Infrastructure.Identity.ApplicationUser { UserName = userName, Email = userName };
 
             var result = await userManager.CreateAsync(user, password);
 

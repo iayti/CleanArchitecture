@@ -1,7 +1,7 @@
-﻿namespace Application.Common.Models
-{
-    using System;
+﻿using System;
 
+namespace Application.Common.Models
+{
     /// <summary>
     /// All errors contained in ServiceResult objects must return an error of this type
     /// Error codes allow the caller to easily identify the received error and take action.

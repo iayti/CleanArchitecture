@@ -1,8 +1,8 @@
-﻿namespace Domain.Common
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+namespace Domain.Common
+{
     public interface IHasDomainEvent
     {
         List<DomainEvent> DomainEvents { get; set; }

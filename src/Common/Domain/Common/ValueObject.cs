@@ -1,8 +1,8 @@
-﻿namespace Domain.Common
-{
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
+namespace Domain.Common
+{
     public abstract class ValueObject
     {
         // Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects

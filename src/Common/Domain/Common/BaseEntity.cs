@@ -1,7 +1,7 @@
-﻿namespace Domain.Common
-{
-    using System;
+﻿using System;
 
+namespace Domain.Common
+{
     public abstract class BaseEntity
     {
         public string Creator { get; set; }

@@ -1,8 +1,8 @@
-﻿namespace Domain.Event
-{
-    using Common;
-    using Entities;
+﻿using Domain.Common;
+using Domain.Entities;
 
+namespace Domain.Event
+{
     public class CityCreatedEvent : DomainEvent
     {
         public CityCreatedEvent(City city)

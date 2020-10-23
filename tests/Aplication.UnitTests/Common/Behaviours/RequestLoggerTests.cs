@@ -1,17 +1,14 @@
-﻿namespace Application.UnitTests.Common.Behaviours
+﻿using Application.Cities.Commands.Create;
+using Application.Common.Behaviours;
+using Application.Common.Interfaces;
+using Microsoft.Extensions.Logging;
+using Moq;
+using NUnit.Framework;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.UnitTests.Common.Behaviours
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using Microsoft.Extensions.Logging;
-
-    using Moq;
-    using NUnit.Framework;
-
-    using Application.Cities.Commands.Create;
-    using Application.Common.Behaviours;
-    using Application.Common.Interfaces;
-
     public class RequestLoggerTests
     {
         private readonly Mock<ILogger<CreateCityCommand>> _logger;

@@ -1,18 +1,15 @@
-﻿namespace Application.Cities.Queries.GetCities
+﻿using Application.Common.Interfaces;
+using Application.Common.Models;
+using Application.Dto;
+using Mapster;
+using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Cities.Queries.GetCities
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using Microsoft.EntityFrameworkCore;
-
-    using Mapster;
-    using MapsterMapper;
-
-    using Common.Interfaces;
-    using Common.Models;
-    using Dto;
-
     public class GetAllCitiesQuery : IRequestWrapper<List<CityDto>>
     {
 

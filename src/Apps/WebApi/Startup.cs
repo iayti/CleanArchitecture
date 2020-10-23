@@ -1,24 +1,21 @@
+using Application;
+using Application.Common.Interfaces;
+using Infrastructure;
+using Infrastructure.Persistence;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using NSwag;
+using NSwag.Generation.Processors.Security;
+using System.Linq;
+using WebApi.Filters;
+using WebApi.Services;
+
 namespace WebApi
 {
-    using System.Linq;
-
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-
-    using NSwag;
-    using NSwag.Generation.Processors.Security;
-
-    using Services;
-    using Filters;
-    using Infrastructure;
-    using Application.Common.Interfaces;
-    using Application;
-    using Infrastructure.Persistence;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)

@@ -1,12 +1,10 @@
-﻿namespace Application.Common.Interfaces
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Common.Interfaces
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    
-    using Microsoft.EntityFrameworkCore;
-
-    using Domain.Entities;
-
     public interface IApplicationDbContext
     {
         DbSet<City> Cities { get; set; }

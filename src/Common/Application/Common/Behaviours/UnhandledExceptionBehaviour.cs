@@ -1,13 +1,11 @@
-﻿namespace Application.Common.Behaviours
+﻿using MediatR;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Common.Behaviours
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    
-    using Microsoft.Extensions.Logging;
-
-    using MediatR;
-
     public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly ILogger<TRequest> _logger;

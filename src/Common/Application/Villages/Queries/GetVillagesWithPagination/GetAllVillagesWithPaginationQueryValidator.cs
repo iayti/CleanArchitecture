@@ -1,7 +1,7 @@
-﻿namespace Application.Villages.Queries.GetVillagesWithPagination
-{
-    using FluentValidation;
+﻿using FluentValidation;
 
+namespace Application.Villages.Queries.GetVillagesWithPagination
+{
     public class GetAllVillagesWithPaginationQueryValidator : AbstractValidator<GetAllVillagesWithPaginationQuery>
     {
         public GetAllVillagesWithPaginationQueryValidator()

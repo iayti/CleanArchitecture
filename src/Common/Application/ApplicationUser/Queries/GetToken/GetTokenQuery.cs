@@ -1,10 +1,10 @@
-﻿namespace Application.ApplicationUser.Queries.GetToken
-{
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Common.Interfaces;
-    using Common.Models;
+﻿using Application.Common.Interfaces;
+using Application.Common.Models;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Application.ApplicationUser.Queries.GetToken
+{
     public class GetTokenQuery :IRequestWrapper<LoginResponse>
     {
         public string Email { get; set; }

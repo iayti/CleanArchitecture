@@ -1,9 +1,9 @@
-﻿namespace Application.Common.Interfaces
-{
-    using System.Threading.Tasks;
-    using Dto;
-    using Models;
+﻿using Application.Common.Models;
+using Application.Dto;
+using System.Threading.Tasks;
 
+namespace Application.Common.Interfaces
+{
     public interface IIdentityService
     {
         Task<string> GetUserNameAsync(string userId);

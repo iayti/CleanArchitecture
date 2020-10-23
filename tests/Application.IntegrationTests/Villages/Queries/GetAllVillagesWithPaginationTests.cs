@@ -1,14 +1,14 @@
-﻿namespace Application.IntegrationTests.Villages.Queries
-{
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Application.Cities.Commands.Create;
-    using Application.Villages.Queries.GetVillagesWithPagination;
-    using Domain.Entities;
-    using FluentAssertions;
-    using NUnit.Framework;
-    using static Testing;
+﻿using Application.Cities.Commands.Create;
+using Application.Villages.Queries.GetVillagesWithPagination;
+using Domain.Entities;
+using FluentAssertions;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using static Application.IntegrationTests.Testing;
 
+namespace Application.IntegrationTests.Villages.Queries
+{
     public class GetAllVillagesWithPaginationTests : TestBase
     {
         [Test]

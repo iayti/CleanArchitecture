@@ -1,16 +1,14 @@
-﻿namespace Application.Cities.Commands.Create
+﻿using Application.Common.Interfaces;
+using Application.Common.Models;
+using Application.Dto;
+using Domain.Entities;
+using Domain.Event;
+using MapsterMapper;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Cities.Commands.Create
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using MapsterMapper;
-
-    using Common.Interfaces;
-    using Common.Models;
-    using Domain.Entities;
-    using Domain.Event;
-    using Dto;
-
     public class CreateCityCommand : IRequestWrapper<CityDto>
     {
         public string Name { get; set; }

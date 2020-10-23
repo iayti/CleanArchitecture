@@ -1,9 +1,8 @@
-﻿namespace Application.Cities.Commands.Create
+﻿using Application.Common.Interfaces;
+using FluentValidation;
+
+namespace Application.Cities.Commands.Create
 {
-    using FluentValidation;
-
-    using Common.Interfaces;
-
     public class CreateDistrictCommandValidator : AbstractValidator<CreateDistrictCommand>
     {
         private readonly IApplicationDbContext _context;

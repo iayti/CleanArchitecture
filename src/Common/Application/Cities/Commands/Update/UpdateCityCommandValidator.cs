@@ -1,14 +1,11 @@
-﻿namespace Application.Cities.Commands.Update
+﻿using Application.Common.Interfaces;
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Cities.Commands.Update
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using Microsoft.EntityFrameworkCore;
-
-    using FluentValidation;
-
-    using Common.Interfaces;
-
     public class UpdateCityCommandValidator : AbstractValidator<UpdateCityCommand>
     {
         private readonly IApplicationDbContext _context;

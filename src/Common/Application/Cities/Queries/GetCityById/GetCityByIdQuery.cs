@@ -1,18 +1,15 @@
-﻿namespace Application.Cities.Queries.GetCityById
+﻿using Application.Common.Interfaces;
+using Application.Common.Models;
+using Application.Dto;
+using Mapster;
+using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Cities.Queries.GetCityById
 {
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using Microsoft.EntityFrameworkCore;
-
-    using Mapster;
-    using MapsterMapper;
-
-    using Dto;
-    using Common.Interfaces;
-    using Common.Models;
-
     public class GetCityByIdQuery : IRequestWrapper<CityDto>
     {
         public int CityId { get; set; }

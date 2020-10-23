@@ -1,11 +1,10 @@
-﻿namespace Domain.ValueObjects
+﻿using Domain.Common;
+using Domain.Exceptions;
+using System;
+using System.Collections.Generic;
+
+namespace Domain.ValueObjects
 {
-    using System;
-    using System.Collections.Generic;
-
-    using Common;
-    using Exceptions;
-
     public class AdAccount : ValueObject
     {
         private AdAccount()

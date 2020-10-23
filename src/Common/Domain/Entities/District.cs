@@ -1,9 +1,8 @@
-﻿namespace Domain.Entities
+﻿using Domain.Common;
+using System.Collections.Generic;
+
+namespace Domain.Entities
 {
-    using System.Collections.Generic;
-
-    using Common;
-
     public class District : BaseEntity
     {
         public District()
