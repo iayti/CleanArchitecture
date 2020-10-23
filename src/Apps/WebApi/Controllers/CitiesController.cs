@@ -1,20 +1,18 @@
-﻿namespace WebApi.Controllers
+﻿using Application.Cities.Commands.Create;
+using Application.Cities.Commands.Delete;
+using Application.Cities.Commands.Update;
+using Application.Cities.Queries.GetCities;
+using Application.Cities.Queries.GetCityById;
+using Application.Common.Models;
+using Application.Dto;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace WebApi.Controllers
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
-
-    using Application.Cities.Queries.GetCities;
-    using Application.Cities.Queries.GetCityById;
-    using Application.Common.Models;
-    using Application.Dto;
-    using Application.Cities.Commands.Create;
-    using Application.Cities.Commands.Delete;
-    using Application.Cities.Commands.Update;
-
     [Authorize]
     public class CitiesController : BaseApiController
     {

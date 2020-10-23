@@ -1,13 +1,13 @@
-﻿namespace WebApi.Controllers
-{
-    using System.Threading.Tasks;
-    using Application.Cities.Commands.Create;
-    using Application.Common.Models;
-    using Application.Districts.Queries;
-    using Application.Dto;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+﻿using Application.Cities.Commands.Create;
+using Application.Common.Models;
+using Application.Districts.Queries;
+using Application.Dto;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
+namespace WebApi.Controllers
+{
     [Authorize]
     public class DistrictsController: BaseApiController
     {

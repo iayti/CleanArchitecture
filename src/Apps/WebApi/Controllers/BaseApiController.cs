@@ -1,10 +1,9 @@
-﻿namespace WebApi.Controllers
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace WebApi.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.DependencyInjection;
-
-    using MediatR;
-
     [ApiController]
     [Route("api/[controller]")]
     public abstract class BaseApiController : ControllerBase
