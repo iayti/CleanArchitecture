@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>dotnet-WorkerService_Client_Test-1482A60C-B3B1-4D55-8BB6-ADE8E780E252</UserSecretsId>
   </PropertyGroup>
 
