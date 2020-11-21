@@ -340,3 +340,5 @@ ASALocalRun/
 healthchecksdb
 /.template.config
 /template.nuspec
+.vscode/launch.json
+.vscode/tasks.json
