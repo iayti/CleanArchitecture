@@ -12,11 +12,11 @@ namespace Application.IntegrationTests.Cities.Commands
     public class DeleteCityTests : TestBase
     {
         [Test]
-        public async Task ShouldRequireValidCityId()
+        public void ShouldRequireValidCityId()
         {
             var command = new DeleteCityCommand { Id = 99 };
 
-            FluentActions.Invoking(() => 
+            FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<NotFoundException>();
         }
 

@@ -13,7 +13,7 @@ namespace Application.IntegrationTests.Cities.Commands
     public class UpdateCityTests : TestBase
     {
         [Test]
-        public async Task ShouldRequireValidCityId()
+        public void ShouldRequireValidCityId()
         {
             var command = new UpdateCityCommand
             {
