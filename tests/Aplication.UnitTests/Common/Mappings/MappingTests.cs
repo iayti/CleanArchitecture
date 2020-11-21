@@ -1,16 +1,14 @@
-﻿namespace Application.UnitTests.Common.Mappings
+﻿using Application.Dto;
+using Domain.Entities;
+using FluentAssertions;
+using Mapster;
+using MapsterMapper;
+using Microsoft.Extensions.DependencyInjection;
+using NUnit.Framework;
+using System;
+
+namespace Application.UnitTests.Common.Mappings
 {
-    using System;
-
-    using MapsterMapper;
-
-    using Application.Dto;
-    using Domain.Entities;
-    using FluentAssertions;
-    using Mapster;
-    using Microsoft.Extensions.DependencyInjection;
-    using NUnit.Framework;
-
     public class MappingTests
     {
         private readonly IMapper _mapper;

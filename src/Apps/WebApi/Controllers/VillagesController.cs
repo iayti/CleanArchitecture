@@ -1,14 +1,12 @@
-﻿namespace WebApi.Controllers
+﻿using Application.Common.Models;
+using Application.Dto;
+using Application.Villages.Queries.GetVillagesWithPagination;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+
+namespace WebApi.Controllers
 {
-    using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-
-    using Application.Common.Models;
-    using Application.Dto;
-    using Application.Villages.Queries.GetVillagesWithPagination;
-    
     [Authorize]
     public class VillagesController : BaseApiController
     {

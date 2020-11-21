@@ -1,7 +1,7 @@
-﻿namespace Application.Common.Models
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Application.Common.Models
+{
     public class EmailRequest
     {
         public string FromMail { get; set; }

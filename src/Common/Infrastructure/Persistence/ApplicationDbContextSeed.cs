@@ -1,11 +1,11 @@
-﻿namespace Infrastructure.Persistence
-{
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Domain.Entities;
-    using Identity;
-    using Microsoft.AspNetCore.Identity;
+﻿using Domain.Entities;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
+using System.Linq;
+using System.Threading.Tasks;
 
+namespace Infrastructure.Persistence
+{
     public class ApplicationDbContextSeed
     {
         public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager)

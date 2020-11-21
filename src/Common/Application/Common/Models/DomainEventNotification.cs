@@ -1,8 +1,8 @@
-﻿namespace Application.Common.Models
-{
-    using Domain.Common;
-    using MediatR;
+﻿using Domain.Common;
+using MediatR;
 
+namespace Application.Common.Models
+{
     public class DomainEventNotification<TDomainEvent> : INotification where TDomainEvent : DomainEvent
     {
         public DomainEventNotification(TDomainEvent domainEvent)

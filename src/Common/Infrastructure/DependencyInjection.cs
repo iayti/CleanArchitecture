@@ -1,19 +1,17 @@
-﻿namespace Infrastructure
+﻿using Application.Common.Interfaces;
+using Infrastructure.Files;
+using Infrastructure.Identity;
+using Infrastructure.Persistence;
+using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+namespace Infrastructure
 {
-    using System.Text;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
-    using Microsoft.IdentityModel.Tokens;
-
-    using Application.Common.Interfaces;
-    using Files;
-    using Identity;
-    using Persistence;
-    using Services;
-
     public static class DependencyInjection
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)//, IWebHostEnvironment environment)

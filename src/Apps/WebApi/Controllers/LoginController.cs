@@ -1,12 +1,10 @@
-﻿namespace WebApi.Controllers
+﻿using Application.ApplicationUser.Queries.GetToken;
+using Application.Common.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+
+namespace WebApi.Controllers
 {
-    using System.Threading.Tasks;
-    
-    using Microsoft.AspNetCore.Mvc;
-
-    using Application.Common.Models;
-    using Application.ApplicationUser.Queries.GetToken;
-
     public class LoginController : BaseApiController
     {
         [HttpPost]

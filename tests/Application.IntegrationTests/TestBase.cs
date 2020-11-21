@@ -1,9 +1,9 @@
-﻿namespace Application.IntegrationTests
-{
-    using System.Threading.Tasks;
-    using NUnit.Framework;
-    using static Testing;
+﻿using NUnit.Framework;
+using System.Threading.Tasks;
+using static Application.IntegrationTests.Testing;
 
+namespace Application.IntegrationTests
+{
     public class TestBase
     {
         [SetUp]

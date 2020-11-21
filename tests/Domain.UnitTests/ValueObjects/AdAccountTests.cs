@@ -1,10 +1,10 @@
-﻿namespace Domain.UnitTests.ValueObjects
-{
-    using Domain.ValueObjects;
-    using Exceptions;
-    using FluentAssertions;
-    using NUnit.Framework;
+﻿using Domain.Exceptions;
+using Domain.ValueObjects;
+using FluentAssertions;
+using NUnit.Framework;
 
+namespace Domain.UnitTests.ValueObjects
+{
     public class AdAccountTests
     {
         [Test]

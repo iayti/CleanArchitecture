@@ -1,11 +1,9 @@
-﻿namespace Infrastructure.Identity
+﻿using Application.Common.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Linq;
+
+namespace Infrastructure.Identity
 {
-    using System.Linq;
-    
-    using Microsoft.AspNetCore.Identity;
-
-    using Application.Common.Models;
-
     public static class IdentityResultExtensions
     {
         public static Result ToApplicationResult(this IdentityResult result)

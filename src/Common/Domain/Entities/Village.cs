@@ -1,7 +1,7 @@
-﻿namespace Domain.Entities
-{
-    using Common;
+﻿using Domain.Common;
 
+namespace Domain.Entities
+{
     public class Village : BaseEntity
     {
         public int Id { get; set; }

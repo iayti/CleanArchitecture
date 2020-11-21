@@ -1,7 +1,7 @@
-﻿namespace Application.WeatherForecasts.Queries
-{
-    using System;
+﻿using System;
 
+namespace Application.WeatherForecasts.Queries
+{
     public class WeatherForecast
     {
         public DateTime Date { get; set; }

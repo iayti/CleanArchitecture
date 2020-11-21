@@ -1,18 +1,16 @@
-﻿namespace Application.Cities.Commands.Delete
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
+using Application.Common.Models;
+using Application.Dto;
+using Domain.Entities;
+using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Cities.Commands.Delete
 {
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Common.Exceptions;
-    using Microsoft.EntityFrameworkCore;
-
-    using MapsterMapper;
-
-    using Common.Interfaces;
-    using Common.Models;
-    using Domain.Entities;
-    using Dto;
-    
     public class DeleteCityCommand : IRequestWrapper<CityDto>
     {
         public int Id { get; set; }

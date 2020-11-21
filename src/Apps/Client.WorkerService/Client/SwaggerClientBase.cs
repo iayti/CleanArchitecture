@@ -1,9 +1,9 @@
-﻿namespace Client.WorkerService
-{
-    using System.Net.Http;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Client.WorkerService
+{
     public abstract class SwaggerClientBase
     {
         public string BearerToken { get; private set; }

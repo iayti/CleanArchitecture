@@ -1,14 +1,14 @@
-﻿namespace Application.IntegrationTests.Cities.Commands
-{
-    using System.Threading.Tasks;
-    using Application.Cities.Commands.Create;
-    using Application.Cities.Commands.Delete;
-    using Common.Models;
-    using Domain.Entities;
-    using FluentAssertions;
-    using NUnit.Framework;
-    using static Testing;
+﻿using Application.Cities.Commands.Create;
+using Application.Cities.Commands.Delete;
+using Application.Common.Exceptions;
+using Domain.Entities;
+using FluentAssertions;
+using NUnit.Framework;
+using System.Threading.Tasks;
+using static Application.IntegrationTests.Testing;
 
+namespace Application.IntegrationTests.Cities.Commands
+{
     public class DeleteCityTests : TestBase
     {
         [Test]
@@ -16,11 +16,8 @@
         {
             var command = new DeleteCityCommand { Id = 99 };
 
-            var result = await SendAsync(command);
-
-            result.Should().NotBeNull();
-            result.Succeeded.Should().BeFalse();
-            result.Error.Should().Be(ServiceError.NotFount);
+            FluentActions.Invoking(() => 
+                SendAsync(command)).Should().Throw<NotFoundException>();
         }
 
         [Test]

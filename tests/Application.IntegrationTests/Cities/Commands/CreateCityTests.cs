@@ -1,14 +1,14 @@
-﻿namespace Application.IntegrationTests.Cities.Commands
-{
-    using System;
-    using System.Threading.Tasks;
-    using Application.Cities.Commands.Create;
-    using Common.Exceptions;
-    using Domain.Entities;
-    using FluentAssertions;
-    using NUnit.Framework;
-    using static Testing;
+﻿using Application.Cities.Commands.Create;
+using Application.Common.Exceptions;
+using Domain.Entities;
+using FluentAssertions;
+using NUnit.Framework;
+using System;
+using System.Threading.Tasks;
+using static Application.IntegrationTests.Testing;
 
+namespace Application.IntegrationTests.Cities.Commands
+{
     public class CreateCityTests : TestBase
     {
         [Test]

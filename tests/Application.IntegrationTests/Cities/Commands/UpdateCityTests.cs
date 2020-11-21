@@ -1,15 +1,15 @@
-﻿namespace Application.IntegrationTests.Cities.Commands
+﻿using Application.Cities.Commands.Create;
+using Application.Cities.Commands.Update;
+using Application.Common.Exceptions;
+using Domain.Entities;
+using FluentAssertions;
+using NUnit.Framework;
+using System;
+using System.Threading.Tasks;
+using static Application.IntegrationTests.Testing;
+
+namespace Application.IntegrationTests.Cities.Commands
 {
-    using System;
-    using System.Threading.Tasks;
-    using Application.Cities.Commands.Create;
-    using Application.Cities.Commands.Update;
-    using Common.Exceptions;
-    using Common.Models;
-    using Domain.Entities;
-    using FluentAssertions;
-    using NUnit.Framework;
-    using static Testing;
     public class UpdateCityTests : TestBase
     {
         [Test]
@@ -21,11 +21,8 @@
                 Name = "Kayseri"
             };
 
-            var result = await SendAsync(command);
-
-            result.Should().NotBeNull();
-            result.Succeeded.Should().BeFalse();
-            result.Error.Should().Be(ServiceError.NotFount);
+            FluentActions.Invoking(() =>
+                SendAsync(command)).Should().Throw<NotFoundException>();
         }
 
         [Test]
@@ -50,7 +47,7 @@
             FluentActions.Invoking(() =>
                     SendAsync(command))
                 .Should().Throw<ValidationException>().Where(ex => ex.Errors.ContainsKey("Name"))
-                .And.Errors["Name"].Should().Contain("The specified city already exists.");
+                .And.Errors["Name"].Should().Contain("The specified city already exists. If you just want to activate the city leave the name field blank!");
         }
 
         [Test]

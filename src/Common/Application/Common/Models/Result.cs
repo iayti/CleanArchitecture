@@ -1,8 +1,8 @@
-﻿namespace Application.Common.Models
-{
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
+namespace Application.Common.Models
+{
     public class Result
     {
         internal Result(bool succeeded, IEnumerable<string> errors)

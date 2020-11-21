@@ -1,14 +1,11 @@
-﻿namespace Application.Common.Behaviours
+﻿using Application.Common.Interfaces;
+using MediatR.Pipeline;
+using Microsoft.Extensions.Logging;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Common.Behaviours
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    
-    using Microsoft.Extensions.Logging;
-
-    using MediatR.Pipeline;
-
-    using Interfaces;
-
     public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
     {
         private readonly ILogger _logger;

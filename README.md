@@ -4,9 +4,9 @@ This is a solution template for creating a ASP.NET Core Web API following the pr
 
 
 ## Technologies
-* .NET Core 3.1.x
-* ASP .NET Core 3.1.x
-* Entity Framework Core 3.1.x
+* .NET 5.0.x
+* ASP .NET 5.0.x
+* Entity Framework Core 5.0.x
 * MediatR
 * Mapster
 * FluentValidation
@@ -17,7 +17,7 @@ This is a solution template for creating a ASP.NET Core Web API following the pr
 
 Install the [NuGet package](https://www.nuget.org/packages/Matech.Clean.Architecture.Template) and run `dotnet new cas`:
 
-1. Install the latest [.NET Core SDK](https://dotnet.microsoft.com/download)
+1. Install the latest [.NET SDK](https://dotnet.microsoft.com/download)
 2. Run `dotnet new --install Matech.Clean.Architecture.Template` to install the project template
 3. Create a folder for your solution and cd into it (the template will use it as project name)
 4. Run `dotnet new cas` to create a new project
@@ -67,7 +67,7 @@ This layer contains classes for accessing external resources such as file system
 
 ### WebApi
 
-This layer is a web api application based on ASP.NET Core 3.1.x. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+This layer is a web api application based on ASP.NET 5.0.x. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
 
 ### Logs
 

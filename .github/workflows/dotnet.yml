@@ -1,4 +1,4 @@
-name: .NET Core
+name: .NET 5
 
 on:
   push:
@@ -13,10 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup .NET Core SDK ${{ env.NETCORE_VERSION }}
+    - name: Setup .NET SDK 5.0.100
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{ env.NETCORE_VERSION }} 
+        dotnet-version: '5.0.100' 
 
     - name: Install dependencies
       run: dotnet restore

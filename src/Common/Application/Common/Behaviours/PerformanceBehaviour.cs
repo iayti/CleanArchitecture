@@ -1,15 +1,12 @@
-﻿namespace Application.Common.Behaviours
+﻿using Application.Common.Interfaces;
+using MediatR;
+using Microsoft.Extensions.Logging;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Common.Behaviours
 {
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Threading.Tasks;
-    
-    using Microsoft.Extensions.Logging;
-    
-    using MediatR;
-
-    using Interfaces;
-
     public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly Stopwatch _timer;

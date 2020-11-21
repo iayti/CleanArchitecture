@@ -1,8 +1,8 @@
-﻿namespace Application.Common.Interfaces
-{
-    using System.Threading.Tasks;
-    using Domain.Common;
+﻿using Domain.Common;
+using System.Threading.Tasks;
 
+namespace Application.Common.Interfaces
+{
     public interface IDomainEventService
     {
         Task Publish(DomainEvent domainEvent);

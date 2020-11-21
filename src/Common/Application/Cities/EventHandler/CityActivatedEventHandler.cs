@@ -1,14 +1,14 @@
-﻿namespace Application.Cities.EventHandler
-{
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Common.Interfaces;
-    using Common.Models;
-    using Domain.Event;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
+﻿using Application.Common.Interfaces;
+using Application.Common.Models;
+using Domain.Event;
+using MediatR;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Application.Cities.EventHandler
+{
     public class CityActivatedEventHandler : INotificationHandler<DomainEventNotification<CityActivatedEvent>>
     {
         private readonly ILogger<CityActivatedEventHandler> _logger;

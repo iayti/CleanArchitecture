@@ -1,16 +1,15 @@
-﻿namespace Infrastructure.Identity
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
+using Application.Common.Models;
+using Application.Dto;
+using MapsterMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Identity
 {
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Application.Common.Exceptions;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
-
-    using Application.Common.Interfaces;
-    using Application.Common.Models;
-    using Application.Dto;
-    using MapsterMapper;
-
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> _userManager;

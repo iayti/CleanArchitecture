@@ -1,7 +1,7 @@
-﻿namespace Application.ApplicationUser.Queries.GetToken
-{
-    using Dto;
+﻿using Application.Dto;
 
+namespace Application.ApplicationUser.Queries.GetToken
+{
     public class LoginResponse
     {
         public ApplicationUserDto User { get; set; }

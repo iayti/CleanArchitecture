@@ -1,12 +1,10 @@
-﻿namespace WebApi.Controllers
+﻿using Application.WeatherForecasts.Queries;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace WebApi.Controllers
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Mvc;
-
-    using Application.WeatherForecasts.Queries;
-
     public class WeatherForecastController : BaseApiController
     {
         [HttpGet]

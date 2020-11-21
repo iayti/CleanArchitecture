@@ -1,15 +1,14 @@
-﻿namespace Application.Cities.Commands.Update
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
+using Application.Common.Models;
+using Application.Dto;
+using Domain.Entities;
+using MapsterMapper;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.Cities.Commands.Update
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Common.Exceptions;
-    using MapsterMapper;
-
-    using Common.Interfaces;
-    using Common.Models;
-    using Domain.Entities;
-    using Dto;
-
     public class UpdateCityCommand : IRequestWrapper<CityDto>
     {
         public int Id { get; set; }
