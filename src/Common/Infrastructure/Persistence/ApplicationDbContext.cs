@@ -71,8 +71,7 @@ namespace Infrastructure.Persistence
             var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
                 .Select(x => x.Entity.DomainEvents)
                 .SelectMany(x => x)
-                .Where(domainEvent => !domainEvent.IsPublished)
-                .ToArray();
+                .Where(domainEvent => !domainEvent.IsPublished);
 
             foreach (var domainEvent in domainEventEntities)
             {
