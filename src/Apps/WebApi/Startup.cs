@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
+using FluentValidation.AspNetCore;
 using WebApi.Filters;
 using WebApi.Services;
 
@@ -32,14 +33,16 @@ namespace WebApi
             services.AddApplication();
             services.AddInfrastructure(Configuration);//, Environment);
 
-            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
             services.AddHttpContextAccessor();
 
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
 
-            services.AddControllers(options => options.Filters.Add<ApiExceptionFilterAttribute>());
+            services.AddControllers(options =>
+                    options.Filters.Add<ApiExceptionFilterAttribute>())
+                .AddFluentValidation();
 
             // Customise default API behaviour
             services.Configure<ApiBehaviorOptions>(options =>
@@ -91,8 +94,8 @@ namespace WebApi
             });
 
             app.UseRouting();
-
             app.UseAuthentication();
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class City : BaseEntity, IHasDomainEvent
+    public class City : AuditableEntity, IHasDomainEvent
     {
         public City()
         {

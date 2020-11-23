@@ -2,7 +2,7 @@
 
 namespace Domain.Common
 {
-    public abstract class BaseEntity
+    public abstract class AuditableEntity
     {
         public string Creator { get; set; }
 

@@ -19,7 +19,8 @@ namespace WebApi.Filters
             {
                 { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
-                { typeof(UnauthorizeException), HandleNotAuthorizeException },
+                { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
+                { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
             };
         }
 
@@ -90,7 +91,19 @@ namespace WebApi.Filters
             context.ExceptionHandled = true;
         }
 
-        private void HandleNotAuthorizeException(ExceptionContext context)
+        private void HandleForbiddenAccessException(ExceptionContext context)
+        {
+            var details = ServiceResult.Failed(ServiceError.ForbiddenError);
+
+            context.Result = new ObjectResult(details)
+            {
+                StatusCode = StatusCodes.Status403Forbidden
+            };
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleUnauthorizedAccessException(ExceptionContext context)
         {
             var details = ServiceResult.Failed(ServiceError.ForbiddenError);
 
