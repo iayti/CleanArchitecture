@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class District : BaseEntity
+    public class District : AuditableEntity
     {
         public District()
         {

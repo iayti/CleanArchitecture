@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class Village : BaseEntity
+    public class Village : AuditableEntity
     {
         public int Id { get; set; }
 

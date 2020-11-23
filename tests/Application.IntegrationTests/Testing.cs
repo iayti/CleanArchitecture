@@ -89,10 +89,15 @@ namespace Application.IntegrationTests
 
         public static async Task<string> RunAsDefaultUserAsync()
         {
-            return await RunAsUserAsync("test@local", "Testing1234!");
+            return await RunAsUserAsync("test@local", "Testing1234!", new string[] { });
         }
 
-        public static async Task<string> RunAsUserAsync(string userName, string password)
+        public static async Task<string> RunAsAdministratorAsync()
+        {
+            return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { "Administrator" });
+        }
+
+        public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
         {
             using var scope = _scopeFactory.CreateScope();
 
@@ -101,6 +106,18 @@ namespace Application.IntegrationTests
             var user = new Infrastructure.Identity.ApplicationUser { UserName = userName, Email = userName };
 
             var result = await userManager.CreateAsync(user, password);
+
+            if (roles.Any())
+            {
+                var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+
+                foreach (var role in roles)
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
+
+                await userManager.AddToRolesAsync(user, roles);
+            }
 
             if (result.Succeeded)
             {

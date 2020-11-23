@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Application.Common.Security;
 using Application.Dto;
 using Mapster;
 using MapsterMapper;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Districts.Queries
 {
+    [Authorize(Roles = "Administrator")]
     public class ExportDistrictsQuery :IRequest<ExportDto>
     {
         public int CityId { get; set; }
