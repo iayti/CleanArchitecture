@@ -8,11 +8,11 @@ using System.Collections.Generic;
 
 namespace WebApi.Filters
 {
-    public class ApiExceptionFilter : ExceptionFilterAttribute
+    public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandlers;
 
-        public ApiExceptionFilter()
+        public ApiExceptionFilterAttribute()
         {
             // Register known exception types and handlers.
             _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>

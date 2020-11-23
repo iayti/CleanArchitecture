@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Application.Districts.Queries
 {
     [Authorize(Roles = "Administrator")]
-    public class ExportDistrictsQuery :IRequest<ExportDto>
+    public class ExportDistrictsQuery : IRequest<ExportDto>
     {
         public int CityId { get; set; }
     }

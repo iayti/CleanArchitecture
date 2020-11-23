@@ -18,7 +18,7 @@ namespace Application.IntegrationTests.Districts.Queries
         {
             var query = new ExportDistrictsQuery();
 
-            query.GetType().Should().BeDecoratedWith<AuthorizeAttribute>();
+            var test = query.GetType().Should().BeDecoratedWith<AuthorizeAttribute>();
 
             FluentActions.Invoking(() =>
                 SendAsync(query)).Should().Throw<UnauthorizedAccessException>();
@@ -27,7 +27,7 @@ namespace Application.IntegrationTests.Districts.Queries
         [Test]
         public async Task ShouldDenyNonAdministrator()
         {
-            await RunAsAdministratorAsync();
+            await RunAsDefaultUserAsync();
 
             var query = new ExportDistrictsQuery();
 
