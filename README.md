@@ -49,7 +49,9 @@ To use `dotnet-ef` for your migrations please add the following flags to your co
 
 For example, to add a new migration from the root folder:
 
- `dotnet ef migrations add "SampleMigration" --project src\Common\Infrastructure --startup-project src\Apps\WebApi --output-dir Persistence\Migrations`
+ `dotnet ef migrations add "CreateDb" --project src\Common\Infrastructure --startup-project src\Apps\WebApi --output-dir Persistence\Migrations`
+
+ `dotnet ef database update --project src\Common\Infrastructure --startup-project src\Apps\WebApi`
 
 ## Overview
 

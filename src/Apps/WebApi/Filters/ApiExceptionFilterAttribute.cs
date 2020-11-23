@@ -8,18 +8,19 @@ using System.Collections.Generic;
 
 namespace WebApi.Filters
 {
-    public class ApiExceptionFilter : ExceptionFilterAttribute
+    public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandlers;
 
-        public ApiExceptionFilter()
+        public ApiExceptionFilterAttribute()
         {
             // Register known exception types and handlers.
             _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
             {
                 { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
-                { typeof(UnauthorizeException), HandleNotAuthorizeException },
+                { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
+                { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
             };
         }
 
@@ -90,7 +91,19 @@ namespace WebApi.Filters
             context.ExceptionHandled = true;
         }
 
-        private void HandleNotAuthorizeException(ExceptionContext context)
+        private void HandleForbiddenAccessException(ExceptionContext context)
+        {
+            var details = ServiceResult.Failed(ServiceError.ForbiddenError);
+
+            context.Result = new ObjectResult(details)
+            {
+                StatusCode = StatusCodes.Status403Forbidden
+            };
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleUnauthorizedAccessException(ExceptionContext context)
         {
             var details = ServiceResult.Failed(ServiceError.ForbiddenError);
 

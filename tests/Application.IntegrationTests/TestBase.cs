@@ -1,9 +1,10 @@
 ﻿using NUnit.Framework;
 using System.Threading.Tasks;
-using static Application.IntegrationTests.Testing;
 
 namespace Application.IntegrationTests
 {
+    using static Testing;
+
     public class TestBase
     {
         [SetUp]
