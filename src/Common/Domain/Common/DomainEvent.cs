@@ -16,5 +16,7 @@ namespace Domain.Common
         }
 
         public DateTimeOffset DateOccurred { get; protected set; } = DateTime.UtcNow;
+
+        public bool IsPublished { get; set; }
     }
 }
