@@ -339,6 +339,64 @@
           }
         }
       }
+    },
+    "/api/WeatherForecast/current": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast_GetCurrentWeather",
+        "parameters": [
+          {
+            "name": "Q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "Lat",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "Lon",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "x-position": 3
+          },
+          {
+            "name": "Id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceResultOfCurrentWeatherForecastDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -710,6 +768,31 @@
             "nullable": true
           }
         }
+      },
+      "ServiceResultOfCurrentWeatherForecastDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ServiceResult"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CurrentWeatherForecastDto"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "CurrentWeatherForecastDto": {
+        "type": "object",
+        "additionalProperties": false
       }
     },
     "securitySchemes": {
