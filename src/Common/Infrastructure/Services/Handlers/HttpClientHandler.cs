@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
@@ -8,42 +8,52 @@ using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Common.Models;
 using Domain.Enums;
+using Microsoft.Extensions.Logging;
 
-namespace Infrastructure.Services.Handlers 
+namespace Infrastructure.Services.Handlers
 {
-    public class HttpClientHandler : IHttpClientHandler
+    public class HttpClientHandler<TService> : IHttpClientHandler<TService> where TService : class
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILogger<TService> _logger;
 
-        public HttpClientHandler(IHttpClientFactory httpClientFactory)
+        public HttpClientHandler(IHttpClientFactory httpClientFactory, ILogger<TService> logger)
         {
             _httpClientFactory = httpClientFactory;
+            _logger = logger;
         }
 
-        public async Task<ServiceResult<TResult>> GenericRequest<TRequest, TResult>(
-            string url,
+        public async Task<ServiceResult<TResult>> GenericRequest<TRequest, TResult>(string url,
             CancellationToken cancellationToken,
-            TRequest requestEntity = null,
-            MethodType method = MethodType.Get)
+            Dictionary<string, string> headers,
+            MethodType method = MethodType.Get,
+            TRequest requestEntity = null)
             where TResult : class where TRequest : class
         {
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(url);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+            if (headers.Count > 0)
+            {
+                foreach ((string key, string value) in headers)
+                {
+                    client.DefaultRequestHeaders.Add(key, value);
+                }
+            }
+
+            var requestName = typeof(TRequest).Name;
+            var serviceName = typeof(TService).Name;
+            
             try
             {
-                HttpResponseMessage response = null;
-                switch (method)
+                _logger.LogInformation("HttpClient Request: {ServiceName} {RequestName} {@Request}", serviceName, requestName, requestEntity);
+
+                HttpResponseMessage response = method switch
                 {
-                    case MethodType.Get:
-                        response = await client.GetAsync(url, cancellationToken);
-                        break;
-                    case MethodType.Post:
-                        response = await client.PostAsJsonAsync(url, requestEntity, cancellationToken);
-                        break;
-                }
+                    MethodType.Get => await client.GetAsync(url, cancellationToken),
+                    MethodType.Post => await client.PostAsJsonAsync(url, requestEntity, cancellationToken),
+                    _ => null
+                };
 
                 if (response != null && response.IsSuccessStatusCode)
                 {
@@ -63,6 +73,7 @@ namespace Infrastructure.Services.Handlers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "HttpClient Request: Unhandled Exception for Request {ServiceName} {RequestName} {@Request}", serviceName, requestName, requestEntity);
                 return ServiceResult.Failed<TResult>(ServiceError.CustomMessage(ex.ToString()));
             }
         }

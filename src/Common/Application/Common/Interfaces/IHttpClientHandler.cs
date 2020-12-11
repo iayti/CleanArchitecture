@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Models;
@@ -5,13 +6,13 @@ using Domain.Enums;
 
 namespace Application.Common.Interfaces
 {
-    public interface IHttpClientHandler
+    public interface IHttpClientHandler<TService> where  TService : class 
     {
-        Task<ServiceResult<TResult>> GenericRequest<TRequest, TResult>(
-            string url,
+        Task<ServiceResult<TResult>> GenericRequest<TRequest, TResult>(string url,
             CancellationToken cancellationToken,
-            TRequest requestEntity = null,
-            MethodType method = MethodType.Get)
+            Dictionary<string, string> headers,
+            MethodType method = MethodType.Get,
+            TRequest requestEntity = null)
             where TResult : class where TRequest : class;
     }
 }
