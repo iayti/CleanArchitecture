@@ -48,7 +48,7 @@ namespace Infrastructure.Services.Handlers
             {
                 _logger.LogInformation("HttpClient Request: {ServiceName} {RequestName} {@Request}", serviceName, requestName, requestEntity);
 
-                HttpResponseMessage response = method switch
+                var response = method switch
                 {
                     MethodType.Get => await client.GetAsync(url, cancellationToken),
                     MethodType.Post => await client.PostAsJsonAsync(url, requestEntity, cancellationToken),

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Application.WeatherForecasts.Queries.GetCurrentWeatherForecastQuery
+namespace Application.ExternalServices.OpenWeather.Response
 { 
     public class Coord    {
         public double lon { get; set; } 

@@ -2,9 +2,11 @@
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Common.Models;
+using Application.ExternalServices.OpenWeather.Request;
+using Application.ExternalServices.OpenWeather.Response;
 using Application.WeatherForecasts.Queries.GetCurrentWeatherForecastQuery;
 
-namespace Infrastructure.Services.WeatherForeCast
+namespace Infrastructure.Services
 {
     public class OpenWeatherService : IOpenWeatherService
     {
@@ -15,7 +17,7 @@ namespace Infrastructure.Services.WeatherForeCast
             _httpClient = httpClient;
         }
 
-        public Task<ServiceResult<OpenWeatherResponse>> GetCurrenWeatherForecast(OpenWeatherRequest request)
+        public Task<ServiceResult<OpenWeatherResponse>> GetCurrentWeatherForecast(OpenWeatherRequest request)
         {
             throw new NotImplementedException();
         }

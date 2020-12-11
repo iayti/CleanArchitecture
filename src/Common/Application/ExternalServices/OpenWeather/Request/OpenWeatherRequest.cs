@@ -1,4 +1,4 @@
-﻿namespace Application.WeatherForecasts.Queries.GetCurrentWeatherForecastQuery
+﻿namespace Application.ExternalServices.OpenWeather.Request
 {
     public class OpenWeatherRequest
     {
