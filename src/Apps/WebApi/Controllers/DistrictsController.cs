@@ -1,5 +1,5 @@
-﻿using Application.Cities.Commands.Create;
-using Application.Common.Models;
+﻿using Application.Common.Models;
+using Application.Districts.Commands.Create;
 using Application.Districts.Queries;
 using Application.Dto;
 using Microsoft.AspNetCore.Authorization;

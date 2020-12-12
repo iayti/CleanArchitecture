@@ -16,9 +16,7 @@ namespace Application.WeatherForecasts.Queries.GetCurrentWeatherForecastQuery
         public int Id { get; set; }
     }
 
-    public class
-        GetCurrentWeatherForecastQueryHandler : IRequestHandlerWrapper<GetCurrentWeatherForecastQuery,
-            CurrentWeatherForecastDto>
+    public class GetCurrentWeatherForecastQueryHandler : IRequestHandlerWrapper<GetCurrentWeatherForecastQuery, CurrentWeatherForecastDto>
     {
         private readonly IOpenWeatherService _openWeatherService;
         private readonly IMapper _mapper;
@@ -29,8 +27,7 @@ namespace Application.WeatherForecasts.Queries.GetCurrentWeatherForecastQuery
             _mapper = mapper;
         }
 
-        public async Task<ServiceResult<CurrentWeatherForecastDto>> Handle(GetCurrentWeatherForecastQuery request,
-            CancellationToken cancellationToken)
+        public async Task<ServiceResult<CurrentWeatherForecastDto>> Handle(GetCurrentWeatherForecastQuery request, CancellationToken cancellationToken)
         {
             var openWeatherRequest = _mapper.Map<OpenWeatherRequest>(request);
 

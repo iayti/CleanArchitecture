@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Application.Cities.Commands.Create;
 using Application.Common.Exceptions;
 using Application.Common.Security;
+using Application.Districts.Commands.Create;
 using Application.Districts.Queries;
 using FluentAssertions;
 using NUnit.Framework;

@@ -1,9 +1,11 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Application.Common.Interfaces;
 using Infrastructure.Files;
 using Infrastructure.Identity;
 using Infrastructure.Persistence;
 using Infrastructure.Services;
+using Infrastructure.Services.Handlers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -48,12 +50,25 @@ namespace Infrastructure
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
+            services.AddHttpClient("open-weather-api", c =>
+            {
+                c.BaseAddress = new Uri(configuration.GetSection("OpenWeatherApi:Url").Value);
+
+                c.DefaultRequestHeaders.Add(configuration.GetSection("OpenWeatherApi:Key:Key").Value, configuration.GetSection("OpenWeatherApi:Key:Value").Value);
+
+                c.DefaultRequestHeaders.Add(configuration.GetSection("OpenWeatherApi:Host:Key").Value, configuration.GetSection("OpenWeatherApi:Host:Value").Value);
+            });
+
+
+            services.AddTransient<IHttpClientHandler, HttpClientHandler>();
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IOpenWeatherService, OpenWeatherService>();
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
             services.AddTransient<ITokenService, TokenService>();
+
+            //services.AddTransient(typeof(IHttpClientHandler<>), typeof(IHttpClientHandler<>));
 
 
             services.AddAuthentication(options =>

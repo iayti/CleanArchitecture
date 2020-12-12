@@ -1,5 +1,6 @@
 ﻿using Application.Cities.Commands.Create;
 using Application.Common.Exceptions;
+using Application.Districts.Commands.Create;
 using Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;

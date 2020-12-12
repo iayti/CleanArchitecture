@@ -6,7 +6,7 @@ using MapsterMapper;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Cities.Commands.Create
+namespace Application.Districts.Commands.Create
 {
     public class CreateDistrictCommand : IRequestWrapper<DistrictDto>
     {

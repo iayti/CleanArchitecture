@@ -1,37 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces;
+using Application.Common.Mapping;
 using Application.Common.Models;
 using Application.ExternalServices.OpenWeather.Request;
 using Application.ExternalServices.OpenWeather.Response;
 using Domain.Enums;
-using Microsoft.Extensions.Configuration;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
     public class OpenWeatherService : IOpenWeatherService
     {
-        private readonly IHttpClientHandler<OpenWeatherService> _httpClient;
-        private readonly IConfiguration _configuration;
+        private readonly IHttpClientHandler _httpClient;
 
-        public OpenWeatherService(IHttpClientHandler<OpenWeatherService> httpClient, IConfiguration configuration)
+        public OpenWeatherService(IHttpClientHandler httpClient)
         {
             _httpClient = httpClient;
-            _configuration = configuration;
+            //_httpClient.ClientApi = "open-weather-api";
         }
 
-        public async Task<ServiceResult<OpenWeatherResponse>> GetCurrentWeatherForecast(OpenWeatherRequest request,
-        CancellationToken cancellationToken)
+        public async Task<ServiceResult<OpenWeatherResponse>> GetCurrentWeatherForecast(OpenWeatherRequest request, CancellationToken cancellationToken)
         {
-            //TODO: adding appsettings
-            Dictionary<string,string> headers = new Dictionary<string, string>();
-            var result = await _httpClient.GenericRequest<OpenWeatherRequest, OpenWeatherResponse>("url", 
-            cancellationToken, headers,
-                MethodType.Get, request);
-            
-            throw new NotImplementedException();
+            string url = string.Concat("weather?", StringExtensions.ParseObjectToQueryString(request));
+
+            var result = await _httpClient.GenericRequest<OpenWeatherRequest, OpenWeatherResponse>(string.Concat("weather?", StringExtensions.ParseObjectToQueryString(request)), cancellationToken, MethodType.Get, request);
+
+            return result;
         }
     }
 }

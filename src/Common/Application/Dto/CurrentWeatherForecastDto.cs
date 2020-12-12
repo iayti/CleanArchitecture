@@ -6,7 +6,7 @@ namespace Application.Dto
     {
         public void Register(TypeAdapterConfig config)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
     }
 }
