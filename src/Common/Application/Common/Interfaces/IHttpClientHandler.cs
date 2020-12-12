@@ -5,11 +5,9 @@ using Domain.Enums;
 
 namespace Application.Common.Interfaces
 {
-    public interface IHttpClientHandler//<TService> where  TService : class 
+    public interface IHttpClientHandler
     {
-        //string ClientApi { get; set; }
-
-        Task<ServiceResult<TResult>> GenericRequest<TRequest, TResult>(string url,
+        Task<ServiceResult<TResult>> GenericRequest<TRequest, TResult>(string clientApi, string url,
             CancellationToken cancellationToken,
             MethodType method = MethodType.Get,
             TRequest requestEntity = null)

@@ -59,7 +59,6 @@ namespace Infrastructure
                 c.DefaultRequestHeaders.Add(configuration.GetSection("OpenWeatherApi:Host:Key").Value, configuration.GetSection("OpenWeatherApi:Host:Value").Value);
             });
 
-
             services.AddTransient<IHttpClientHandler, HttpClientHandler>();
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
@@ -67,9 +66,6 @@ namespace Infrastructure
             services.AddTransient<IOpenWeatherService, OpenWeatherService>();
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
             services.AddTransient<ITokenService, TokenService>();
-
-            //services.AddTransient(typeof(IHttpClientHandler<>), typeof(IHttpClientHandler<>));
-
 
             services.AddAuthentication(options =>
                 {

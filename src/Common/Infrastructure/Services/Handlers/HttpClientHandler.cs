@@ -7,23 +7,22 @@ using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Common.Models;
 using Domain.Enums;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services.Handlers
 {
-    //public class HttpClientHandler<TService> : IHttpClientHandler<TService> where TService : class
     public class HttpClientHandler: IHttpClientHandler
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        //private readonly ILogger<TService> _logger;
-        //public string ClientApi { get; set; }
+        private readonly ILogger<HttpClientHandler> _logger;
 
-        public HttpClientHandler(IHttpClientFactory httpClientFactory)//, ILogger<TService> logger)
+        public HttpClientHandler(IHttpClientFactory httpClientFactory, ILogger<HttpClientHandler> logger)
         {
-            _httpClientFactory = httpClientFactory;//.CreateClient();//ClientApi);
-            //_logger = logger;
+            _httpClientFactory = httpClientFactory;
+            _logger = logger;
         }
 
-        public async Task<ServiceResult<TResult>> GenericRequest<TRequest, TResult>(string url,
+        public async Task<ServiceResult<TResult>> GenericRequest<TRequest, TResult>(string clientApi, string url,
             CancellationToken cancellationToken,
             MethodType method = MethodType.Get,
             TRequest requestEntity = null)
@@ -39,14 +38,13 @@ namespace Infrastructure.Services.Handlers
             //    }
             //}
 
-            var httpClient = _httpClientFactory.CreateClient();
+            var httpClient = _httpClientFactory.CreateClient(clientApi);
 
             var requestName = typeof(TRequest).Name;
-            //var serviceName = typeof(TService).Name;
             
             try
             {
-                //_logger.LogInformation("HttpClient Request: {ServiceName} {RequestName} {@Request}", serviceName, requestName, requestEntity);
+                _logger.LogInformation("HttpClient Request: {RequestName} {@Request}", requestName, requestEntity);
 
                 var response = method switch
                 {
@@ -73,7 +71,7 @@ namespace Infrastructure.Services.Handlers
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex, "HttpClient Request: Unhandled Exception for Request {ServiceName} {RequestName} {@Request}", serviceName, requestName, requestEntity);
+                _logger.LogError(ex, "HttpClient Request: Unhandled Exception for Request {RequestName} {@Request}", requestName, requestEntity);
                 return ServiceResult.Failed<TResult>(ServiceError.CustomMessage(ex.ToString()));
             }
         }
