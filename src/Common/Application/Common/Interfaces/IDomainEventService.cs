@@ -1,5 +1,5 @@
-﻿using Domain.Common;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Domain.Common;
 
 namespace Application.Common.Interfaces
 {

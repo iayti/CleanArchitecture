@@ -1,6 +1,6 @@
-﻿using Application.Dto;
+﻿using System.Globalization;
+using Application.Dto;
 using CsvHelper.Configuration;
-using System.Globalization;
 
 namespace Infrastructure.Files.Maps
 {

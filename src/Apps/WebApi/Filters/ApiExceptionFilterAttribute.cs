@@ -1,10 +1,10 @@
-﻿using Application.Common.Exceptions;
+﻿using System;
+using System.Collections.Generic;
+using Application.Common.Exceptions;
 using Application.Common.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
 
 namespace WebApi.Filters
 {

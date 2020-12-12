@@ -1,13 +1,12 @@
-using Application.Common.Interfaces;
-using Application.Common.Models;
-using Domain.Enums;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Common.Interfaces;
+using Application.Common.Models;
+using Domain.Enums;
 
 namespace Infrastructure.Services.Handlers
 {

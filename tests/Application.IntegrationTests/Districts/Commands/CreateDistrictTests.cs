@@ -1,11 +1,11 @@
-﻿using Application.Cities.Commands.Create;
+﻿using System;
+using System.Threading.Tasks;
+using Application.Cities.Commands.Create;
 using Application.Common.Exceptions;
 using Application.Districts.Commands.Create;
 using Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
-using System;
-using System.Threading.Tasks;
 using static Application.IntegrationTests.Testing;
 
 namespace Application.IntegrationTests.Districts.Commands

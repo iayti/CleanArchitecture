@@ -1,9 +1,9 @@
-﻿using Application.Common.Exceptions;
+﻿using System;
+using System.Collections.Generic;
+using Application.Common.Exceptions;
 using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 
 namespace Application.UnitTests.Common.Exceptions
 {

@@ -1,10 +1,10 @@
-﻿using Application.Common.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Application.Common.Models;
 using Application.Dto;
 using Application.WeatherForecasts.Queries;
 using Application.WeatherForecasts.Queries.GetCurrentWeatherForecastQuery;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {

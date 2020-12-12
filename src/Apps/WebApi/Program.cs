@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Infrastructure.Identity;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
@@ -8,8 +10,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
-using System;
-using System.Threading.Tasks;
 
 namespace WebApi
 {

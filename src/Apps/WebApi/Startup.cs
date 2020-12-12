@@ -1,5 +1,7 @@
+using System.Linq;
 using Application;
 using Application.Common.Interfaces;
+using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
@@ -10,8 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.Processors.Security;
-using System.Linq;
-using FluentValidation.AspNetCore;
 using WebApi.Filters;
 using WebApi.Services;
 

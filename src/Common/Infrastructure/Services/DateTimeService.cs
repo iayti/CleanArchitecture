@@ -1,5 +1,5 @@
-﻿using Application.Common.Interfaces;
-using System;
+﻿using System;
+using Application.Common.Interfaces;
 
 namespace Infrastructure.Services
 {

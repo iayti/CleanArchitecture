@@ -1,7 +1,7 @@
-﻿using FluentValidation.Results;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation.Results;
 
 namespace Application.Common.Exceptions
 {

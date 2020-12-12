@@ -1,10 +1,10 @@
-﻿using Application.Common.Interfaces;
+﻿using System;
+using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Common.Models;
 using Domain.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {

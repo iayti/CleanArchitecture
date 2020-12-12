@@ -1,11 +1,11 @@
-﻿using Application.Cities.Commands.Create;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Application.Cities.Commands.Create;
 using Application.Common.Behaviours;
 using Application.Common.Interfaces;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Application.UnitTests.Common.Behaviours
 {

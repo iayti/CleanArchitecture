@@ -1,11 +1,11 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Common.Mapping;
 using Application.Common.Models;
 using Application.ExternalServices.OpenWeather.Request;
 using Application.ExternalServices.OpenWeather.Response;
 using Domain.Enums;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {

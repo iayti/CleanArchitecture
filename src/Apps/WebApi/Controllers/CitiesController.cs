@@ -1,4 +1,7 @@
-﻿using Application.Cities.Commands.Create;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Application.Cities.Commands.Create;
 using Application.Cities.Commands.Delete;
 using Application.Cities.Commands.Update;
 using Application.Cities.Queries.GetCities;
@@ -7,9 +10,6 @@ using Application.Common.Models;
 using Application.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
