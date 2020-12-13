@@ -22,22 +22,11 @@ namespace Infrastructure.Services.Handlers
             _logger = logger;
         }
 
-        public async Task<ServiceResult<TResult>> GenericRequest<TRequest, TResult>(string clientApi, string url,
-            CancellationToken cancellationToken,
-            MethodType method = MethodType.Get,
+        public async Task<ServiceResult<TResult>> GenericRequest<TRequest, TResult>(string clientApi, string url, CancellationToken cancellationToken, 
+            MethodType method = MethodType.Get, 
             TRequest requestEntity = null)
             where TResult : class where TRequest : class
         {
-            //_httpClient.BaseAddress = new Uri(url);
-
-            //if (headers.Count > 0)
-            //{
-            //    foreach ((string key, string value) in headers)
-            //    {
-            //        _httpClient.DefaultRequestHeaders.Add(key, value);
-            //    }
-            //}
-
             var httpClient = _httpClientFactory.CreateClient(clientApi);
 
             var requestName = typeof(TRequest).Name;
