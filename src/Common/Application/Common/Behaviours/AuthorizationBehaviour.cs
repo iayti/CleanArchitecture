@@ -49,16 +49,15 @@ namespace Application.Common.Behaviours
                         foreach (var role in roles)
                         {
                             var isInRole = await _identityService.UserIsInRole(_currentUserService.UserId, role.Trim());
-                            if (isInRole)
-                            {
-                                authorized = true;
+                            if (!isInRole)
                                 continue;
-                            }
+                            authorized = true;
                         }
 
                         // Must be a member of at least one role in roles
                         if (!authorized)
                         {
+                            _logger.LogInformation("Matech.CleanArchitecture Authorization Request: {@UserId} {@Request}", _currentUserService.UserId, request);
                             throw new ForbiddenAccessException();
                         }
                     }
