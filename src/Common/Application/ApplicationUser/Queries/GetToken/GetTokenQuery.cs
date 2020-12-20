@@ -1,7 +1,7 @@
-﻿using Application.Common.Interfaces;
-using Application.Common.Models;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Application.Common.Interfaces;
+using Application.Common.Models;
 
 namespace Application.ApplicationUser.Queries.GetToken
 {

@@ -1,12 +1,12 @@
-﻿using Application.Common.Exceptions;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using Application.Common.Models;
 using Application.Dto;
 using MapsterMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {

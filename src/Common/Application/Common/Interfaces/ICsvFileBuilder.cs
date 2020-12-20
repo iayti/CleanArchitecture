@@ -1,5 +1,5 @@
-﻿using Application.Dto;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Application.Dto;
 
 namespace Application.Common.Interfaces
 {

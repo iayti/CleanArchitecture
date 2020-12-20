@@ -1,12 +1,12 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Common.Models;
 using Application.Dto;
 using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Application.Cities.Queries.GetCities
 {

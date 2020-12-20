@@ -1,8 +1,8 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Net.Mail;
+using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Common.Models;
 using Microsoft.Extensions.Logging;
-using System.Net.Mail;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {

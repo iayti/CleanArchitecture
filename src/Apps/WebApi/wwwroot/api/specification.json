@@ -339,6 +339,64 @@
           }
         }
       }
+    },
+    "/api/WeatherForecast/current": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast_GetCurrentWeather",
+        "parameters": [
+          {
+            "name": "Q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "Lat",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "Lon",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "x-position": 3
+          },
+          {
+            "name": "Id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceResultOfCurrentWeatherForecastDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -708,6 +766,268 @@
           "summary": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "ServiceResultOfCurrentWeatherForecastDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ServiceResult"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CurrentWeatherForecastDto"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "CurrentWeatherForecastDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "coord": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Coord"
+              }
+            ]
+          },
+          "weather": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/Weather"
+            }
+          },
+          "base": {
+            "type": "string",
+            "nullable": true
+          },
+          "main": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Main"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "wind": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Wind"
+              }
+            ]
+          },
+          "rain": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Rain"
+              }
+            ]
+          },
+          "clouds": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Clouds"
+              }
+            ]
+          },
+          "snow": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Snow"
+              }
+            ]
+          },
+          "dt": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sys": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Sys"
+              }
+            ]
+          },
+          "timezone": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "cod": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Coord": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "lon": {
+            "type": "number",
+            "format": "double"
+          },
+          "lat": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "Weather": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "main": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Main": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "temp": {
+            "type": "number",
+            "format": "double"
+          },
+          "feels_like": {
+            "type": "number",
+            "format": "double"
+          },
+          "temp_min": {
+            "type": "number",
+            "format": "double"
+          },
+          "temp_max": {
+            "type": "number",
+            "format": "double"
+          },
+          "pressure": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "humidity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Wind": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "speed": {
+            "type": "number",
+            "format": "double"
+          },
+          "deg": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Rain": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "1h": {
+            "type": "number",
+            "format": "double"
+          },
+          "3h": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "Clouds": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "all": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Snow": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "1h": {
+            "type": "number",
+            "format": "double"
+          },
+          "3h": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "Sys": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "sunrise": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sunset": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       }

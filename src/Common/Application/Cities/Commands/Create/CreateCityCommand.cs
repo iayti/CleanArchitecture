@@ -1,11 +1,11 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Common.Models;
 using Application.Dto;
 using Domain.Entities;
 using Domain.Event;
 using MapsterMapper;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Application.Cities.Commands.Create
 {

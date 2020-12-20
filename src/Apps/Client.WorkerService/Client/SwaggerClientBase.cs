@@ -1,8 +1,9 @@
 ﻿using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Client.WorkerService
+namespace Client.WorkerService.Client
 {
     public abstract class SwaggerClientBase
     {
@@ -18,7 +19,7 @@ namespace Client.WorkerService
         {
             var msg = new HttpRequestMessage();
             // SET THE BEARER AUTH TOKEN
-            msg.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", BearerToken);
+            msg.Headers.Authorization = new AuthenticationHeaderValue("Bearer", BearerToken);
             return Task.FromResult(msg);
         }
     }

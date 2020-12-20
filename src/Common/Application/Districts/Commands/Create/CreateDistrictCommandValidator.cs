@@ -1,16 +1,11 @@
-﻿using Application.Common.Interfaces;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace Application.Cities.Commands.Create
+namespace Application.Districts.Commands.Create
 {
     public class CreateDistrictCommandValidator : AbstractValidator<CreateDistrictCommand>
     {
-        private readonly IApplicationDbContext _context;
-
-        public CreateDistrictCommandValidator(IApplicationDbContext context)
+        public CreateDistrictCommandValidator()
         {
-            _context = context;
-
             RuleFor(v => v.Name)
                 .MaximumLength(100).WithMessage("Name must not exceed 100 characters.")
                 .NotEmpty().WithMessage("Name is required.");

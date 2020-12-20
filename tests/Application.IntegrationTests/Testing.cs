@@ -1,4 +1,8 @@
-﻿using Application.Common.Interfaces;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Infrastructure.Identity;
 using Infrastructure.Persistence;
 using MediatR;
@@ -10,10 +14,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using NUnit.Framework;
 using Respawn;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi;
 
 namespace Application.IntegrationTests
@@ -82,7 +82,7 @@ namespace Application.IntegrationTests
         {
             using var scope = _scopeFactory.CreateScope();
 
-            var mediator = scope.ServiceProvider.GetService<IMediator>();
+            var mediator = scope.ServiceProvider.GetService<ISender>();
 
             return await mediator.Send(request);
         }

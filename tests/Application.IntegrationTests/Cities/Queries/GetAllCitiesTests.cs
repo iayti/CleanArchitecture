@@ -1,8 +1,8 @@
+using System.Threading.Tasks;
 using Application.Cities.Queries.GetCities;
 using Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
-using System.Threading.Tasks;
 using static Application.IntegrationTests.Testing;
 
 namespace Application.IntegrationTests.Cities.Queries

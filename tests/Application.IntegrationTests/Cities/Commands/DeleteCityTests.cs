@@ -1,10 +1,10 @@
-﻿using Application.Cities.Commands.Create;
+﻿using System.Threading.Tasks;
+using Application.Cities.Commands.Create;
 using Application.Cities.Commands.Delete;
 using Application.Common.Exceptions;
 using Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
-using System.Threading.Tasks;
 using static Application.IntegrationTests.Testing;
 
 namespace Application.IntegrationTests.Cities.Commands

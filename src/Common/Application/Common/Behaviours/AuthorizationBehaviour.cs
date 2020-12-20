@@ -1,13 +1,13 @@
-﻿using Application.Common.Exceptions;
-using Application.Common.Interfaces;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Application.Common.Security;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Common.Behaviours
 {
@@ -49,16 +49,15 @@ namespace Application.Common.Behaviours
                         foreach (var role in roles)
                         {
                             var isInRole = await _identityService.UserIsInRole(_currentUserService.UserId, role.Trim());
-                            if (isInRole)
-                            {
-                                authorized = true;
+                            if (!isInRole)
                                 continue;
-                            }
+                            authorized = true;
                         }
 
                         // Must be a member of at least one role in roles
                         if (!authorized)
                         {
+                            _logger.LogInformation("Matech.CleanArchitecture Authorization Request: {@UserId} {@Request}", _currentUserService.UserId, request);
                             throw new ForbiddenAccessException();
                         }
                     }

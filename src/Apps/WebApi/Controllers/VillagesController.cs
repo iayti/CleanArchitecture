@@ -1,9 +1,9 @@
-﻿using Application.Common.Models;
+﻿using System.Threading.Tasks;
+using Application.Common.Models;
 using Application.Dto;
 using Application.Villages.Queries.GetVillagesWithPagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {

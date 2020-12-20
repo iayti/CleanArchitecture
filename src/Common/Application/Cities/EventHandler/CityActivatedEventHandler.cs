@@ -1,11 +1,11 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Common.Models;
 using Domain.Event;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Application.Cities.EventHandler
 {

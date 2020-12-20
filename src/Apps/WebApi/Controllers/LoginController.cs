@@ -1,7 +1,7 @@
-﻿using Application.ApplicationUser.Queries.GetToken;
+﻿using System.Threading.Tasks;
+using Application.ApplicationUser.Queries.GetToken;
 using Application.Common.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {

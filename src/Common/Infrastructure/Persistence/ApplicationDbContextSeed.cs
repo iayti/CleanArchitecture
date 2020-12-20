@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Domain.Entities;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {

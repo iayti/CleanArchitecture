@@ -1,11 +1,11 @@
-﻿using Application.Common.Interfaces;
-using Application.Dto;
-using CsvHelper;
-using Infrastructure.Files.Maps;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using Application.Common.Interfaces;
+using Application.Dto;
+using CsvHelper;
+using Infrastructure.Files.Maps;
 
 namespace Infrastructure.Files
 {

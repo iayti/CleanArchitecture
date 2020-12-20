@@ -1,19 +1,19 @@
-﻿using Application.Common.Interfaces;
+﻿using System;
+using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Common.Models;
 using Domain.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
     public class DomainEventService : IDomainEventService
     {
         private readonly ILogger<DomainEventService> _logger;
-        private readonly IMediator _mediator;
+        private readonly IPublisher _mediator;
 
-        public DomainEventService(ILogger<DomainEventService> logger, IMediator mediator)
+        public DomainEventService(ILogger<DomainEventService> logger, IPublisher mediator)
         {
             _logger = logger;
             _mediator = mediator;

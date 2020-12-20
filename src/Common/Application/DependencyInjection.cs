@@ -1,11 +1,11 @@
-﻿using Application.Common.Behaviours;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using Application.Common.Behaviours;
 using FluentValidation;
 using Mapster;
 using MapsterMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace Application
 {

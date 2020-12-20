@@ -1,15 +1,16 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Domain.Common;
 using Domain.Entities;
 using IdentityServer4.EntityFramework.Options;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Options;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
@@ -37,7 +38,7 @@ namespace Infrastructure.Persistence
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<AuditableEntity> entry in ChangeTracker.Entries<AuditableEntity>())
+            foreach (EntityEntry<AuditableEntity> entry in ChangeTracker.Entries<AuditableEntity>())
             {
                 switch (entry.State)
                 {
@@ -68,13 +69,18 @@ namespace Infrastructure.Persistence
 
         private async Task DispatchEvents()
         {
-            var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
-                .Select(x => x.Entity.DomainEvents)
-                .SelectMany(x => x);
-
-            foreach (var domainEvent in domainEventEntities)
+            while (true)
             {
-                await _domainEventService.Publish(domainEvent);
+                var domainEventEntity = ChangeTracker
+                    .Entries<IHasDomainEvent>()
+                    .Select(x => x.Entity.DomainEvents)
+                    .SelectMany(x => x)
+                    .FirstOrDefault(domainEvent => !domainEvent.IsPublished);
+
+                if (domainEventEntity == null) break;
+
+                domainEventEntity.IsPublished = true;
+                await _domainEventService.Publish(domainEventEntity);
             }
         }
     }
