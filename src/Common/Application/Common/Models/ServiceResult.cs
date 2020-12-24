@@ -10,12 +10,12 @@
 
         public ServiceResult(T data)
         {
-            this.Data = data;
+            Data = data;
         }
 
         public ServiceResult(T data, ServiceError error) : base(error)
         {
-            this.Data = data;
+            Data = data;
         }
 
         public ServiceResult(ServiceError error) : base(error)
@@ -37,7 +37,7 @@
                 error = ServiceError.DefaultError;
             }
 
-            this.Error = error;
+            Error = error;
         }
 
         public ServiceResult() { }

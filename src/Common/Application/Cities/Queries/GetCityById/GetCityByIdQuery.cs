@@ -28,7 +28,7 @@ namespace Application.Cities.Queries.GetCityById
 
         public async Task<ServiceResult<CityDto>> Handle(GetCityByIdQuery request, CancellationToken cancellationToken)
         {
-            CityDto city = await _context.Cities
+            var city = await _context.Cities
                 .Where(x => x.Id == request.CityId)
                 .Include(d => d.Districts)
                 .ThenInclude(v => v.Villages)
