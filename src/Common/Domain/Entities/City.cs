@@ -25,7 +25,7 @@ namespace Domain.Entities
             get => _active;
             set
             {
-                if (value == true && _active == false)
+                if (value && _active == false)
                 {
                     DomainEvents.Add(new CityActivatedEvent(this));
                 }

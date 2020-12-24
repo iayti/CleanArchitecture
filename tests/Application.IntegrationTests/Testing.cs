@@ -56,7 +56,7 @@ namespace Application.IntegrationTests
             services.Remove(currentUserServiceDescriptor);
 
             // Register testing version
-            services.AddTransient(provider =>
+            services.AddTransient(_ =>
                 Mock.Of<ICurrentUserService>(s => s.UserId == _currentUserId));
 
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();

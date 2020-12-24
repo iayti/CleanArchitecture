@@ -59,11 +59,6 @@
             return new ServiceResult<T>(data, error);
         }
 
-        public static ServiceResult Success()
-        {
-            return new ServiceResult();
-        }
-
         public static ServiceResult<T> Success<T>(T data)
         {
             return new ServiceResult<T>(data);

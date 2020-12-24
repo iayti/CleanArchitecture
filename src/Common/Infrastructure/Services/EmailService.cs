@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using System;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Common.Models;
@@ -30,16 +31,15 @@ namespace Infrastructure.Services
             {
                 message.To.Add(new MailAddress(to));
             }
-
-            //TODO:EmailService Exception will be added. 
+ 
             //TODO:EmailService if there was error, try at least three times. 
             try
             {
                 await emailClient.SendMailAsync(message);
             }
-            catch 
+            catch(Exception ex) 
             {
-
+                _logger.LogError(ex, "CleanArchitecture EmailService: Unhandled Exception for Request {@Request}", request);
             }
 
             _logger.LogWarning($"Sending email to {request.ToMail} from {request.FromMail} with subject {request.Subject}.");

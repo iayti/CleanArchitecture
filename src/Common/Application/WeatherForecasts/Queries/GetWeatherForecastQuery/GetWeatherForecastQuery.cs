@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Application.WeatherForecasts.Queries
+namespace Application.WeatherForecasts.Queries.GetWeatherForecastQuery
 {
     public class GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>
     {

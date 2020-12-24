@@ -19,7 +19,7 @@ namespace Application.IntegrationTests.Districts.Queries
         {
             var query = new ExportDistrictsQuery();
 
-            var test = query.GetType().Should().BeDecoratedWith<AuthorizeAttribute>();
+            query.GetType().Should().BeDecoratedWith<AuthorizeAttribute>();
 
             FluentActions.Invoking(() =>
                 SendAsync(query)).Should().Throw<UnauthorizedAccessException>();

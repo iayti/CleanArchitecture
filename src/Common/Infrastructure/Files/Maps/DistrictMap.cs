@@ -4,12 +4,12 @@ using CsvHelper.Configuration;
 
 namespace Infrastructure.Files.Maps
 {
-    public class DistrictMap : ClassMap<DistrictDto>
+    public sealed class DistrictMap : ClassMap<DistrictDto>
     {
         public DistrictMap()
         {
             AutoMap(CultureInfo.InvariantCulture);
-            Map(m => m.Villages).ConvertUsing(c => "");
+            Map(m => m.Villages).ConvertUsing(_ => "");
         }
     }
 }

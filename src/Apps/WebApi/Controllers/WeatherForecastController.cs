@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Application.Common.Models;
 using Application.Dto;
-using Application.WeatherForecasts.Queries;
 using Application.WeatherForecasts.Queries.GetCurrentWeatherForecastQuery;
+using Application.WeatherForecasts.Queries.GetWeatherForecastQuery;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
