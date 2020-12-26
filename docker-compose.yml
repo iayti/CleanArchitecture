@@ -1,5 +1,40 @@
-version: '3'
+version: '3.4'
+
 services:
+  webapi:
+    image: ${DOCKER_REGISTRY-}webapi
+    build:
+      context: .
+      dockerfile: src/Apps/WebApi/Dockerfile
+    environment:
+      - "UseInMemoryDatabase=false"
+      - "ConnectionStrings__DefaultConnection=Server=localhost,21433; Database=CleanArchitectureDB; User Id = SA; Password=Matech_1850; MultipleActiveResultSets=true;"
+      - "IdentityServer__Key__Type=Development"
+      - "ASPNETCORE_Kestrel__Certificates__Default__Password=Matech_1850"
+      - "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    depends_on:
+      - sql-server-db
+    restart: on-failure
+    networks:
+      - elastic
+   
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "21433:1433"
+    environment:
+      SA_PASSWORD: "Matech_1850"
+      ACCEPT_EULA: "Y"
+    restart: unless-stopped
+    networks:
+      - elastic
+
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
     container_name: es01
@@ -17,6 +52,7 @@ services:
       - data01:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+    restart: unless-stopped
     networks:
       - elastic
 
@@ -28,6 +64,7 @@ services:
     environment:
       ELASTICSEARCH_URL: http://es01:9200
       ELASTICSEARCH_HOSTS: http://es01:9200
+    restart: unless-stopped
     networks:
       - elastic
 

@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  webapi:
+    environment:
+      - "ASPNETCORE_ENVIRONMENT=Development"
+
+  sql-server-db:
+    ports:
+      - "21433:1433"
