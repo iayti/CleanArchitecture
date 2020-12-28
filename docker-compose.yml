@@ -17,11 +17,13 @@ services:
     ports:
       - "5000:5000"
       - "5001:5001"
-    depends_on:
-      - sql-server-db
     restart: on-failure
     networks:
-      - elastic
+      - micro-services
+    links:
+      - sql-server-db
+    depends_on:
+      - sql-server-db
    
   sql-server-db:
     container_name: sql-server-db
@@ -33,7 +35,7 @@ services:
       ACCEPT_EULA: "Y"
     restart: unless-stopped
     networks:
-      - elastic
+      - micro-services
 
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
@@ -54,7 +56,7 @@ services:
       - 9200:9200
     restart: unless-stopped
     networks:
-      - elastic
+      - micro-services
 
   kib01:
     image: docker.elastic.co/kibana/kibana:7.9.2
@@ -66,12 +68,12 @@ services:
       ELASTICSEARCH_HOSTS: http://es01:9200
     restart: unless-stopped
     networks:
-      - elastic
+      - micro-services
 
 volumes:
   data01:
     driver: local
 
 networks:
-  elastic:
+  micro-services:
     driver: bridge
