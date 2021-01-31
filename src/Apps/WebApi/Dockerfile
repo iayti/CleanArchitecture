@@ -7,7 +7,6 @@ EXPOSE 5000
 EXPOSE 5001
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 WORKDIR /src
 COPY ["src/Apps/WebApi/WebApi.csproj", "src/Apps/WebApi/"]
 COPY ["src/Common/Infrastructure/Infrastructure.csproj", "src/Common/Infrastructure/"]
