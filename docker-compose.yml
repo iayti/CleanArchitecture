@@ -7,17 +7,19 @@ services:
       context: .
       dockerfile: src/Apps/WebApi/Dockerfile
     ports:
-      - "5005:5005"
-      - "5006:5006"
+      - "5006:443"
+      - "5005:80"
     environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=5006
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Matech123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/cleanarchitecture.pfx
       - "UseInMemoryDatabase=false"
       - "ConnectionStrings__DefaultConnection=Server=sql-server-db;Database=CleanArchitectureDb;User=sa;Password=Matech123;MultipleActiveResultSets=true"
       - "IdentityServer__Key__Type=Development"
-      - "ASPNETCORE_URLS=https://+:5006;http://+:5005"
-      - "ASPNETCORE_Kestrel__Certificates__Default__Password=Matech123"
-      - "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/cleanarchitecture.pfx"
     volumes:
-      - ~/.aspnet/https:/https:ro
+      - ./https/cleanarchitecture.pfx:/https/cleanarchitecture.pfx:ro
     restart: on-failure
     networks:
       - micro-services
