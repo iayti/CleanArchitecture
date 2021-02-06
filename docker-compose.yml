@@ -1,44 +1,47 @@
 version: '3.4'
 
 services:
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Matech123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "21433:1433"
+    restart: unless-stopped
+    networks:
+      - webnet
+
   webapi:
     image: ${DOCKER_REGISTRY-}webapi
     build:
       context: .
       dockerfile: src/Apps/WebApi/Dockerfile
-    environment:
-      - "UseInMemoryDatabase=false"
-      - "ConnectionStrings__DefaultConnection=Server=localhost,21433; Database=CleanArchitectureDB; User Id = SA; Password=Matech_1850; MultipleActiveResultSets=true;"
-      - "IdentityServer__Key__Type=Development"
-      - "ASPNETCORE_Kestrel__Certificates__Default__Password=Matech_1850"
-      - "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx"
-    volumes:
-      - ~/.aspnet/https:/https:ro
     ports:
-      - "5000:5000"
-      - "5001:5001"
+      #- "5006:443"
+      - "5005:80"
+    environment:
+      #- ASPNETCORE_ENVIRONMENT=Development
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      #- ASPNETCORE_HTTPS_PORT=5006
+      #- ASPNETCORE_Kestrel__Certificates__Default__Password=Matech123
+      #- ASPNETCORE_Kestrel__Certificates__Default__Path=/https/cleanarchitecture.pfx
+      - "UseInMemoryDatabase=false"
+      - "ConnectionStrings__DefaultConnection=Server=sql-server-db;Database=CleanArchitectureDb;User=sa;Password=Matech123;MultipleActiveResultSets=true"
+      - "IdentityServer__Key__Type=Development"
+      - "ElasticConfiguration__Uri=http://es01:9200"
+    #volumes:
+      #- ./https/cleanarchitecture.pfx:/https/cleanarchitecture.pfx:ro
     restart: on-failure
     networks:
-      - micro-services
-    links:
-      - sql-server-db
+      - webnet
     depends_on:
       - sql-server-db
+      - es01
    
-  sql-server-db:
-    container_name: sql-server-db
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    ports:
-      - "21433:1433"
-    environment:
-      SA_PASSWORD: "Matech_1850"
-      ACCEPT_EULA: "Y"
-    restart: unless-stopped
-    networks:
-      - micro-services
-
   es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
     container_name: es01
     environment:
       - node.name=es01
@@ -56,10 +59,10 @@ services:
       - 9200:9200
     restart: unless-stopped
     networks:
-      - micro-services
+      - webnet
 
   kib01:
-    image: docker.elastic.co/kibana/kibana:7.9.2
+    image: docker.elastic.co/kibana/kibana:7.10.1
     container_name: kib01
     ports:
       - 5601:5601
@@ -68,12 +71,12 @@ services:
       ELASTICSEARCH_HOSTS: http://es01:9200
     restart: unless-stopped
     networks:
-      - micro-services
+      - webnet
 
 volumes:
   data01:
     driver: local
 
 networks:
-  micro-services:
+  webnet:
     driver: bridge
