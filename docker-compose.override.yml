@@ -1,6 +1,0 @@
-version: '3.4'
-
-services:
-  webapi:
-    environment:
-      - "ASPNETCORE_ENVIRONMENT=Development"
