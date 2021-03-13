@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Application.Common.Exceptions;
+using CleanArchitecture.Application.Common.Exceptions;
 using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 
-namespace Application.UnitTests.Common.Exceptions
+namespace CleanArchitecture.Application.UnitTests.Common.Exceptions
 {
     public class ValidationExceptionTests
     {

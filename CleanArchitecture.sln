@@ -7,19 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{D638410D-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{27A946BF-09D5-4B8D-B71F-BE4E6FCEACF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Common\Application\Application.csproj", "{20613C5C-4DD9-42D1-B781-2EBE612B57DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Application", "src\Common\CleanArchitecture.Application\CleanArchitecture.Application.csproj", "{20613C5C-4DD9-42D1-B781-2EBE612B57DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Common\Domain\Domain.csproj", "{22C69B88-7F88-4CBD-9018-DA4B7208B502}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Domain", "src\Common\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj", "{22C69B88-7F88-4CBD-9018-DA4B7208B502}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Common\Infrastructure\Infrastructure.csproj", "{FB27BD16-7EF8-4FED-B822-177438585578}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infrastructure", "src\Common\CleanArchitecture.Infrastructure\CleanArchitecture.Infrastructure.csproj", "{FB27BD16-7EF8-4FED-B822-177438585578}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "src\Apps\WebApi\WebApi.csproj", "{A8D18FE5-1BD1-47D7-B1CC-A388AC959ADF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Api", "src\Apps\CleanArchitecture.Api\CleanArchitecture.Api.csproj", "{A8D18FE5-1BD1-47D7-B1CC-A388AC959ADF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.UnitTests", "tests\Aplication.UnitTests\Application.UnitTests.csproj", "{B8F5DCCC-7C6F-4294-907F-BA27EFEAD853}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Application.UnitTests", "tests\Aplication.UnitTests\CleanArchitecture.Application.UnitTests.csproj", "{B8F5DCCC-7C6F-4294-907F-BA27EFEAD853}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.IntegrationTests", "tests\Application.IntegrationTests\Application.IntegrationTests.csproj", "{C50A1D83-C039-4420-9AFE-C497C07E01D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Application.IntegrationTests", "tests\CleanArchitecture.Application.IntegrationTests\CleanArchitecture.Application.IntegrationTests.csproj", "{C50A1D83-C039-4420-9AFE-C497C07E01D2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UnitTests", "tests\Domain.UnitTests\Domain.UnitTests.csproj", "{1F78AFCE-8B7B-4A98-A09D-BE185694488F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Domain.UnitTests", "tests\CleanArchitecture.Domain.UnitTests\CleanArchitecture.Domain.UnitTests.csproj", "{1F78AFCE-8B7B-4A98-A09D-BE185694488F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D2A70E84-194F-4531-AA81-82729A26F364}"
 EndProject

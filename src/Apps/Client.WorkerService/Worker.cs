@@ -22,7 +22,7 @@ namespace Client.WorkerService
             {
                 try
                 {
-                    // You must run WebApi and Client.WorkerService together.
+                    // You must run CleanArchitecture.Api and Client.WorkerService together.
                     Console.WriteLine("Hello World!");
                     string baseUrl = "https://localhost:5001";
                     LoginClient loginClient = new LoginClient(baseUrl);

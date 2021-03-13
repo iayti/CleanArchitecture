@@ -1,13 +1,13 @@
 ﻿using System;
-using Application.Dto;
-using Domain.Entities;
+using CleanArchitecture.Application.Dto;
+using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
-namespace Application.UnitTests.Common.Mappings
+namespace CleanArchitecture.Application.UnitTests.Common.Mappings
 {
     public class MappingTests
     {
