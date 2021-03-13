@@ -17,7 +17,7 @@ services:
     image: ${DOCKER_REGISTRY-}webapi
     build:
       context: .
-      dockerfile: src/Apps/WebApi/Dockerfile
+      dockerfile: src/Apps/CleanArchitecture.Api/Dockerfile
     ports:
       #- "5006:443"
       - "5005:80"

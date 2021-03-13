@@ -1,13 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Application.Cities.Commands.Create;
-using Application.Common.Behaviours;
-using Application.Common.Interfaces;
+using CleanArchitecture.Application.Cities.Commands.Create;
+using CleanArchitecture.Application.Common.Behaviours;
+using CleanArchitecture.Application.Common.Interfaces;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 
-namespace Application.UnitTests.Common.Behaviours
+namespace CleanArchitecture.Application.UnitTests.Common.Behaviours
 {
     public class RequestLoggerTests
     {

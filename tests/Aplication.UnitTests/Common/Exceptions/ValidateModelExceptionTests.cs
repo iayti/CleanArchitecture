@@ -1,9 +1,9 @@
 ﻿using System;
-using Application.Common.Exceptions;
+using CleanArchitecture.Application.Common.Exceptions;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Application.UnitTests.Common.Exceptions
+namespace CleanArchitecture.Application.UnitTests.Common.Exceptions
 {
     public class ValidateModelExceptionTests
     {
