@@ -22,8 +22,8 @@ Install the [NuGet package](https://www.nuget.org/packages/Matech.Clean.Architec
 2. Run `dotnet new --install Matech.Clean.Architecture.Template` to install the project template
 3. Create a folder for your solution and cd into it (the template will use it as project name)
 4. Run `dotnet new cas` to create a new project
-5. Navigate to `src/Apps/WebApi` and run `dotnet run` to launch the back end (ASP.NET Core Web API)
-6. Open web browser https://localhost:5001/api Swagger UI
+5. Navigate to `src/Apps/CleanArchitecture.Api` and run `dotnet run` to launch the back end (ASP.NET Core Web API)
+6. Open web browser https://localhost:5021/api Swagger UI
 
 
 ### Database Configuration
@@ -44,15 +44,15 @@ When you run the application the database will be automatically created (if nece
 
 To use `dotnet-ef` for your migrations please add the following flags to your command (values assume you are executing from repository root)
 
-* `--project src/Common/Infrastructure` (optional if in this folder)
-* `--startup-project src/Apps/WebApi`
+* `--project src/Common/CleanArchitecture.Infrastructure` (optional if in this folder)
+* `--startup-project src/Apps/CleanArchitecture.Api`
 * `--output-dir Persistence/Migrations`
 
 For example, to add a new migration from the root folder:
 
- `dotnet ef migrations add "CreateDb" --project src\Common\Infrastructure --startup-project src\Apps\WebApi --output-dir Persistence\Migrations`
+ `dotnet ef migrations add "CreateDb" --project src\Common\CleanArchitecture.Infrastructure --startup-project src\Apps\CleanArchitecture.Api --output-dir Persistence\Migrations`
 
- `dotnet ef database update --project src\Common\Infrastructure --startup-project src\Apps\WebApi`
+ `dotnet ef database update --project src\Common\CleanArchitecture.Infrastructure --startup-project src\Apps\WebApi`
 
 ## Overview
 
