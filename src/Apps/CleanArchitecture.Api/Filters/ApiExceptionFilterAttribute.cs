@@ -84,7 +84,7 @@ namespace CleanArchitecture.Api.Filters
 
         private void HandleNotFoundException(ExceptionContext context)
         {
-            var details = ServiceResult.Failed(ServiceError.CustomMessage(context.Exception is NotFoundException exception ? exception.Message : ServiceError.NotFount.ToString()));
+            var details = ServiceResult.Failed(ServiceError.CustomMessage(context.Exception is NotFoundException exception ? exception.Message : ServiceError.NotFound.ToString()));
 
             context.Result = new NotFoundObjectResult(details);
 

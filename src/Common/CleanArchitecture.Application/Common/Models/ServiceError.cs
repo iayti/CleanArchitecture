@@ -63,7 +63,7 @@ namespace CleanArchitecture.Application.Common.Models
 
         public static ServiceError Canceled => new ServiceError("The request canceled successfully!", 994);
 
-        public static ServiceError NotFount => new ServiceError("The specified resource was not found.", 990);
+        public static ServiceError NotFound => new ServiceError("The specified resource was not found.", 990);
 
         public static ServiceError ValidationFormat => new ServiceError("Request object format is not true.", 901);
         

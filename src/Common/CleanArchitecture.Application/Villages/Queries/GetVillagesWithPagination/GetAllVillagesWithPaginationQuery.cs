@@ -36,7 +36,7 @@ namespace CleanArchitecture.Application.Villages.Queries.GetVillagesWithPaginati
                 .ProjectToType<VillageDto>(_mapper.Config)
                 .PaginatedListAsync(request.PageNumber, request.PageSize);
 
-            return list.Items.Any() ? ServiceResult.Success(list) : ServiceResult.Failed<PaginatedList<VillageDto>>(ServiceError.NotFount);
+            return list.Items.Any() ? ServiceResult.Success(list) : ServiceResult.Failed<PaginatedList<VillageDto>>(ServiceError.NotFound);
         }
     }
 }
