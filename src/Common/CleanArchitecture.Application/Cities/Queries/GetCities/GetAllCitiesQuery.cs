@@ -34,7 +34,7 @@ namespace CleanArchitecture.Application.Cities.Queries.GetCities
                 .ProjectToType<CityDto>(_mapper.Config)
                 .ToListAsync(cancellationToken);
 
-            return list.Count > 0 ? ServiceResult.Success(list) : ServiceResult.Failed<List<CityDto>>(ServiceError.NotFount);
+            return list.Count > 0 ? ServiceResult.Success(list) : ServiceResult.Failed<List<CityDto>>(ServiceError.NotFound);
         }
     }
 }

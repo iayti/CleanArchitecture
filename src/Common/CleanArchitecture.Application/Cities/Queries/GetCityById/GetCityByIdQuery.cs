@@ -35,7 +35,7 @@ namespace CleanArchitecture.Application.Cities.Queries.GetCityById
                 .ProjectToType<CityDto>(_mapper.Config)
                 .FirstOrDefaultAsync(cancellationToken);
 
-            return city != null ? ServiceResult.Success(city) : ServiceResult.Failed<CityDto>(ServiceError.NotFount);
+            return city != null ? ServiceResult.Success(city) : ServiceResult.Failed<CityDto>(ServiceError.NotFound);
         }
     }
 }
