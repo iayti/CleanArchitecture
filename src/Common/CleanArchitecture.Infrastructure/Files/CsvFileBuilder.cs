@@ -18,7 +18,7 @@ namespace CleanArchitecture.Infrastructure.Files
             {
                 using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
 
-                csvWriter.Configuration.RegisterClassMap<DistrictMap>();
+                csvWriter.Context.RegisterClassMap<DistrictMap>();
                 csvWriter.WriteRecords(cities);
             }
 
