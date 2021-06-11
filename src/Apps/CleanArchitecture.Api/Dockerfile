@@ -8,10 +8,10 @@ EXPOSE 433
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["src/Apps/CleanArchitecture/CleanArchitecture.Api.csproj", "src/Apps/WebApi/"]
-COPY ["src/Common/CleanArchitecture.Infrastructure/CleanArchitecture.Infrastructure.csproj", "src/Common/Infrastructure/"]
-COPY ["src/Common/CleanArchitecture.Application/CleanArchitecture.Application.csproj", "src/Common/Application/"]
-COPY ["src/Common/CleanArchitecture.Domain/CleanArchitecture.Domain.csproj", "src/Common/Domain/"]
+COPY ["src/Apps/CleanArchitecture.Api/CleanArchitecture.Api.csproj", "src/Apps/CleanArchitecture.Api/"]
+COPY ["src/Common/CleanArchitecture.Infrastructure/CleanArchitecture.Infrastructure.csproj", "src/Common/CleanArchitecture.Api.Infrastructure/"]
+COPY ["src/Common/CleanArchitecture.Application/CleanArchitecture.Application.csproj", "src/Common/CleanArchitecture.Api.Application/"]
+COPY ["src/Common/CleanArchitecture.Domain/CleanArchitecture.Domain.csproj", "src/Common/CleanArchitecture.Api.Domain/"]
 RUN dotnet restore "src/Apps/CleanArchitecture.Api/CleanArchitecture.Api.csproj"
 COPY . .
 WORKDIR "/src/src/Apps/CleanArchitecture.Api"

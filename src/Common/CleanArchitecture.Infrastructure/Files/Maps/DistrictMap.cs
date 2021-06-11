@@ -9,7 +9,7 @@ namespace CleanArchitecture.Infrastructure.Files.Maps
         public DistrictMap()
         {
             AutoMap(CultureInfo.InvariantCulture);
-            Map(m => m.Villages).ConvertUsing(_ => "");
+            Map(m => m.Villages).Convert(_ => "");
         }
     }
 }
