@@ -44,7 +44,7 @@ namespace CleanArchitecture.Api
 
             services.AddControllers(options =>
                     options.Filters.Add<ApiExceptionFilterAttribute>())
-                .AddFluentValidation();
+                .AddFluentValidation(x => x.AutomaticValidationEnabled = false); //ValidationBehaviour handle fluent validations.
 
             // Customise default API behaviour
             services.Configure<ApiBehaviorOptions>(options =>
