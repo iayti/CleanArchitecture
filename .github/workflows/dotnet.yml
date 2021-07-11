@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test
+    name: Build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -28,6 +28,7 @@ jobs:
       run: dotnet build CleanArchitecture.sln --configuration Release --no-restore
       
   test:
+    name: Test
     runs-on: ubuntu-latest
     services:
       sql:
