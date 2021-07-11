@@ -18,9 +18,29 @@ jobs:
       with:
         dotnet-version: '5.0.x' 
 
+    - name: Install dotnet ef
+      run: dotnet tool install --global dotnet-ef
+
     - name: Install dependencies
       run: dotnet restore CleanArchitecture.sln
 
     - name: Build
       run: dotnet build CleanArchitecture.sln --configuration Release --no-restore
+      
+  test:
+    runs-on: ubuntu-latest
+    services:
+      sql:
+        image: mcr.microsoft.com/mssql/server
+        ports:
+          - 1433:1433
+        env:
+          SA_PASSWORD: Your_password123
+          ACCEPT_EULA: Y
+    steps:
+      - uses: actions/checkout@v2
+      - name: run tests
+        run: dotnet test CleanArchitecture.sln --configuration Release
+        env:
+          ConnectionStrings__DefaultConnection: Server=.;Database=CleanArchitectureTestDb;User=sa;Password=Your_password123;MultipleActiveResultSets=true
     
