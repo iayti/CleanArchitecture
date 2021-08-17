@@ -1,12 +1,12 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 #ENV ASPNETCORE_URLS=https://+:5006;http://+:5005
 WORKDIR /app
 EXPOSE 80
 EXPOSE 433
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["src/Apps/CleanArchitecture.Api/CleanArchitecture.Api.csproj", "src/Apps/CleanArchitecture.Api/"]
 COPY ["src/Common/CleanArchitecture.Infrastructure/CleanArchitecture.Infrastructure.csproj", "src/Common/CleanArchitecture.Api.Infrastructure/"]
