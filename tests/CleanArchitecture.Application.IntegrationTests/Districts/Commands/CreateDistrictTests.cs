@@ -18,7 +18,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Districts.Commands
             var command = new CreateDistrictCommand();
 
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<ValidationException>();
 
         }
 
@@ -45,7 +45,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Districts.Commands
             list.Should().NotBeNull();
             list.Name.Should().Be(command.Name);
             list.Creator.Should().Be(userId);
-            list.CreateDate.Should().BeCloseTo(DateTime.Now, 10000);
+            list.CreateDate.Should().BeCloseTo(DateTime.Now, new TimeSpan(10000));
         }
     }
 }

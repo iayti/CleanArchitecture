@@ -22,7 +22,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
             };
 
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+                SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
 
             FluentActions.Invoking(() =>
                     SendAsync(command))
-                .Should().Throw<ValidationException>().Where(ex => ex.Errors.ContainsKey("Name"))
+                .Should().ThrowAsync<ValidationException>().Where(ex => ex.Errors.ContainsKey("Name")).Result
                 .And.Errors["Name"].Should().Contain("The specified city already exists. If you just want to activate the city leave the name field blank!");
         }
 
@@ -74,7 +74,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
             city.Modifier.Should().NotBeNull();
             city.Modifier.Should().Be(userId);
             city.ModifyDate.Should().NotBeNull();
-            city.ModifyDate.Should().BeCloseTo(DateTime.Now, 1000);
+            city.ModifyDate.Should().BeCloseTo(DateTime.Now, new TimeSpan(1000));
         }
     }
 }

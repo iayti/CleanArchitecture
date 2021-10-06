@@ -17,7 +17,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
             var command = new CreateCityCommand();
 
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<ValidationException>();
 
         }
 
@@ -34,8 +34,8 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
                 Name = "Bursa"
             };
 
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+            await FluentActions.Invoking(() =>
+                SendAsync(command)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
             list.Should().NotBeNull();
             list.Name.Should().Be(command.Name);
             list.Creator.Should().Be(userId);
-            list.CreateDate.Should().BeCloseTo(DateTime.Now, 10000);
+            list.CreateDate.Should().BeCloseTo(DateTime.Now, new TimeSpan(10000));
         }
     }
 }
