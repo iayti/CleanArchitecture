@@ -5,6 +5,7 @@ using CleanArchitecture.Application.Cities.Commands.Update;
 using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using NUnit.Framework;
 using static CleanArchitecture.Application.IntegrationTests.Testing;
 
@@ -74,7 +75,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
             city.Modifier.Should().NotBeNull();
             city.Modifier.Should().Be(userId);
             city.ModifyDate.Should().NotBeNull();
-            city.ModifyDate.Should().BeCloseTo(DateTime.Now, new TimeSpan(1000));
+            city.ModifyDate.Should().BeCloseTo(DateTime.Now, 10.Seconds());
         }
     }
 }

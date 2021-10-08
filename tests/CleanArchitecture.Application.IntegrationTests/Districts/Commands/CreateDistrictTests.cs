@@ -5,6 +5,7 @@ using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Districts.Commands.Create;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using NUnit.Framework;
 using static CleanArchitecture.Application.IntegrationTests.Testing;
 
@@ -45,7 +46,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Districts.Commands
             list.Should().NotBeNull();
             list.Name.Should().Be(command.Name);
             list.Creator.Should().Be(userId);
-            list.CreateDate.Should().BeCloseTo(DateTime.Now, new TimeSpan(10000));
+            list.CreateDate.Should().BeCloseTo(DateTime.Now, 10.Seconds());
         }
     }
 }
