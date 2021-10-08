@@ -22,7 +22,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Districts.Queries
             query.GetType().Should().BeDecoratedWith<AuthorizeAttribute>();
 
             FluentActions.Invoking(() =>
-                SendAsync(query)).Should().Throw<UnauthorizedAccessException>();
+                SendAsync(query)).Should().ThrowAsync<UnauthorizedAccessException>();
         }
 
         [Test]
@@ -32,8 +32,8 @@ namespace CleanArchitecture.Application.IntegrationTests.Districts.Queries
 
             var query = new ExportDistrictsQuery();
 
-            FluentActions.Invoking(() =>
-                SendAsync(query)).Should().Throw<ForbiddenAccessException>();
+            await FluentActions.Invoking(() =>
+                SendAsync(query)).Should().ThrowAsync<ForbiddenAccessException>();
         }
 
         [Test]
@@ -57,8 +57,8 @@ namespace CleanArchitecture.Application.IntegrationTests.Districts.Queries
                 CityId = result.Data.Id
             };
 
-            FluentActions.Invoking(() => SendAsync(query))
-                .Should().NotThrow<ForbiddenAccessException>();
+            await FluentActions.Invoking(() => SendAsync(query))
+                .Should().NotThrowAsync();
         }
     }
 }

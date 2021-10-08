@@ -1,4 +1,6 @@
-using System.Linq;
+using System;
+using System.IO;
+using System.Reflection;
 using CleanArchitecture.Application;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Api.Filters;
@@ -12,8 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NSwag;
-using NSwag.Generation.Processors.Security;
+using Microsoft.OpenApi.Models;
 
 namespace CleanArchitecture.Api
 {
@@ -26,12 +27,10 @@ namespace CleanArchitecture.Api
 
         public IConfiguration Configuration { get; }
 
-        //public IWebHostEnvironment Environment { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
-            services.AddInfrastructure(Configuration);//, Environment);
+            services.AddInfrastructure(Configuration);
 
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
@@ -52,19 +51,43 @@ namespace CleanArchitecture.Api
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            services.AddOpenApiDocument(configure =>
+            services.AddSwaggerGen(c =>
             {
-                configure.Title = "CleanArchitecture API";
-                configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Type = OpenApiSecuritySchemeType.ApiKey,
-                    Name = "Authorization",
-                    In = OpenApiSecurityApiKeyLocation.Header,
-                    Description = "Type into the textbox: Bearer {your JWT token}."
+                    Title = "CleanArchitecture API", 
+                    Version = "v1"
                 });
-
-                configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
-            });
+                // To Enable authorization using Swagger (JWT)    
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()  
+                {  
+                    Name = "Authorization",  
+                    Type = SecuritySchemeType.ApiKey,  
+                    Scheme = "Bearer",  
+                    BearerFormat = "JWT",  
+                    In = ParameterLocation.Header,  
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",  
+                });  
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement  
+                {  
+                    {  
+                        new OpenApiSecurityScheme  
+                        {  
+                            Reference = new OpenApiReference  
+                            {  
+                                Type = ReferenceType.SecurityScheme,  
+                                Id = "Bearer"  
+                            }  
+                        },  
+                        new string[] {}  
+  
+                    }  
+                });
+                
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });;
 
         }
 
@@ -88,13 +111,8 @@ namespace CleanArchitecture.Api
 
             app.UseStaticFiles();
 
-            app.UseOpenApi();
-
-            app.UseSwaggerUi3(settings =>
-            {
-                settings.Path = "/api";
-                settings.DocumentPath = "/api/specification.json";
-            });
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CleanArchitecture API"));
 
             app.UseRouting();
             app.UseAuthentication();
@@ -105,7 +123,6 @@ namespace CleanArchitecture.Api
             {
                 endpoints.MapControllers();
             });
-
         }
     }
 }

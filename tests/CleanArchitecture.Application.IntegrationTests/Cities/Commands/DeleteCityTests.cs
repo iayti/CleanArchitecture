@@ -17,7 +17,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
             var command = new DeleteCityCommand { Id = 99 };
 
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+                SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
