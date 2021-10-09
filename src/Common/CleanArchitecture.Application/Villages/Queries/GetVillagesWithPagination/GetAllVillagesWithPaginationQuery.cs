@@ -34,7 +34,7 @@ namespace CleanArchitecture.Application.Villages.Queries.GetVillagesWithPaginati
                 .Where(x => x.DistrictId == request.DistrictId)
                 .OrderBy(o => o.Name)
                 .ProjectToType<VillageDto>(_mapper.Config)
-                .PaginatedListAsync(request.PageNumber, request.PageSize);
+                .PaginatedListAsync(request.PageNumber, request.PageSize, cancellationToken);
 
             return list.Items.Any() ? ServiceResult.Success(list) : ServiceResult.Failed<PaginatedList<VillageDto>>(ServiceError.NotFound);
         }

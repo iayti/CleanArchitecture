@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.Dto;
 using CleanArchitecture.Application.Villages.Queries.GetVillagesWithPagination;
@@ -11,9 +12,9 @@ namespace CleanArchitecture.Api.Controllers
     public class VillagesController : BaseApiController
     {
         [HttpGet]
-        public async Task<ActionResult<ServiceResult<PaginatedList<VillageDto>>>> GetAllVillagesWithPagination(GetAllVillagesWithPaginationQuery query)
+        public async Task<ActionResult<ServiceResult<PaginatedList<VillageDto>>>> GetAllVillagesWithPagination(GetAllVillagesWithPaginationQuery query, CancellationToken cancellationToken)
         {
-            return Ok(await Mediator.Send(query));
+            return Ok(await Mediator.Send(query, cancellationToken));
         }
     }
 }
