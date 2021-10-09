@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.Dto;
@@ -17,9 +18,9 @@ namespace CleanArchitecture.Api.Controllers
         }
 
         [HttpGet("current")]
-        public async Task<ActionResult<ServiceResult<CurrentWeatherForecastDto>>> GetCurrentWeather([FromQuery] GetCurrentWeatherForecastQuery query)
+        public async Task<ActionResult<ServiceResult<CurrentWeatherForecastDto>>> GetCurrentWeather([FromQuery] GetCurrentWeatherForecastQuery query, CancellationToken cancellationToken)
         {
-            return await Mediator.Send(query);
+            return await Mediator.Send(query, cancellationToken);
         }
     }
 }

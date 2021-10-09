@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.Districts.Commands.Create;
 using CleanArchitecture.Application.Districts.Queries;
@@ -12,17 +13,17 @@ namespace CleanArchitecture.Api.Controllers
     public class DistrictsController: BaseApiController
     {
         [HttpGet("{id}")]
-        public async Task<FileResult> Get(int id)
+        public async Task<FileResult> Get(int id, CancellationToken cancellationToken)
         {
-            var vm = await Mediator.Send(new ExportDistrictsQuery { CityId = id });
+            var vm = await Mediator.Send(new ExportDistrictsQuery { CityId = id }, cancellationToken);
 
             return File(vm.Content, vm.ContentType, vm.FileName);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResult<DistrictDto>>> Create(CreateDistrictCommand command)
+        public async Task<ActionResult<ServiceResult<DistrictDto>>> Create(CreateDistrictCommand command, CancellationToken cancellationToken)
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(command, cancellationToken));
         }
     }
 }

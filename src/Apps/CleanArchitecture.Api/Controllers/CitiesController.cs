@@ -24,27 +24,27 @@ namespace CleanArchitecture.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResult<CityDto>>> GetCityById(int id)
+        public async Task<ActionResult<ServiceResult<CityDto>>> GetCityById(int id, CancellationToken cancellationToken)
         {
-            return Ok(await Mediator.Send(new GetCityByIdQuery { CityId = id }));
+            return Ok(await Mediator.Send(new GetCityByIdQuery { CityId = id }, cancellationToken));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResult<CityDto>>> Create(CreateCityCommand command)
+        public async Task<ActionResult<ServiceResult<CityDto>>> Create(CreateCityCommand command, CancellationToken cancellationToken)
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(command, cancellationToken));
         }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResult<CityDto>>> Update(UpdateCityCommand command)
+        public async Task<ActionResult<ServiceResult<CityDto>>> Update(UpdateCityCommand command, CancellationToken cancellationToken)
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(command, cancellationToken));
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ServiceResult<CityDto>>> Delete(int id)
+        public async Task<ActionResult<ServiceResult<CityDto>>> Delete(int id, CancellationToken cancellationToken)
         {
-            return Ok(await Mediator.Send(new DeleteCityCommand { Id = id }));
+            return Ok(await Mediator.Send(new DeleteCityCommand { Id = id }, cancellationToken));
         }
     }
 }
