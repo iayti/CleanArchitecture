@@ -8,27 +8,17 @@ on:
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
     - name: Setup .NET SDK 6.0
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '6.0.x' 
-
+      uses: actions/setup-dotnet@v1 
     - name: Install dotnet ef
       run: dotnet tool install --global dotnet-ef
-
-    - name: Install dependencies
-      run: dotnet restore CleanArchitecture.sln
-
     - name: Build
-      run: dotnet build CleanArchitecture.sln --configuration Release --no-restore
+      run: dotnet build --configuration Release CleanArchitecture.sln
       
   test:
-    name: Test
     runs-on: ubuntu-latest
     services:
       sql:
@@ -40,6 +30,8 @@ jobs:
           ACCEPT_EULA: Y
     steps:
       - uses: actions/checkout@v2
+      - name: Setup .NET SDK 6.0
+        uses: actions/setup-dotnet@v1
       - name: run tests
         run: dotnet test CleanArchitecture.sln --configuration Release
         env:
