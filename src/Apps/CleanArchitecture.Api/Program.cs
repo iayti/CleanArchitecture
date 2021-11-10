@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
@@ -10,11 +8,21 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
+using System;
+using System.Threading.Tasks;
 
 namespace CleanArchitecture.Api
 {
+    /// <summary>
+    /// Starter
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main function
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -51,6 +59,11 @@ namespace CleanArchitecture.Api
             await host.RunAsync();
         }
 
+        /// <summary>
+        /// WebHost builder
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSerilog(((context, configuration) =>

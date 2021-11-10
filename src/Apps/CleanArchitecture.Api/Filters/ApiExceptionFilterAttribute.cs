@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using CleanArchitecture.Application.Common.Exceptions;
+﻿using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
+using System.Collections.Generic;
 
 namespace CleanArchitecture.Api.Filters
 {
+    /// <summary>
+    /// Exception filters
+    /// </summary>
     public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandlers;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ApiExceptionFilterAttribute()
         {
             // Register known exception types and handlers.
@@ -24,6 +30,10 @@ namespace CleanArchitecture.Api.Filters
             };
         }
 
+        /// <summary>
+        /// On exception event
+        /// </summary>
+        /// <param name="context"></param>
         public override void OnException(ExceptionContext context)
         {
             HandleException(context);
@@ -49,7 +59,7 @@ namespace CleanArchitecture.Api.Filters
             HandleUnknownException(context);
         }
 
-        private void HandleUnknownException(ExceptionContext context)
+        private static void HandleUnknownException(ExceptionContext context)
         {
             var details = ServiceResult.Failed(ServiceError.DefaultError);
 
@@ -73,7 +83,7 @@ namespace CleanArchitecture.Api.Filters
             context.ExceptionHandled = true;
         }
 
-        private void HandleInvalidModelStateException(ExceptionContext context)
+        private static void HandleInvalidModelStateException(ExceptionContext context)
         {
             var exception = new ValidateModelException(context.ModelState);
 

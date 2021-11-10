@@ -1,12 +1,12 @@
 ﻿ # Clean Architecture Template
-![.NET Core](https://github.com/iayti/CleanArchitecture/workflows/.NET%20Core/badge.svg) [![Matech.Clean.Architecture.Template NuGet Package](https://img.shields.io/badge/nuget-1.1.3-blue)](https://www.nuget.org/packages/Matech.Clean.Architecture.Template) [![NuGet](https://img.shields.io/nuget/dt/Matech.Clean.Architecture.Template.svg)](https://www.nuget.org/packages/Matech.Clean.Architecture.Template)
+![.NET Core](https://github.com/iayti/CleanArchitecture/workflows/.NET%20Core/badge.svg) [![Matech.Clean.Architecture.Template NuGet Package](https://img.shields.io/badge/nuget-1.1.4-blue)](https://www.nuget.org/packages/Matech.Clean.Architecture.Template) [![NuGet](https://img.shields.io/nuget/dt/Matech.Clean.Architecture.Template.svg)](https://www.nuget.org/packages/Matech.Clean.Architecture.Template)
 
 This is a solution template for creating a ASP.NET Core Web API following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details). 
 
 
 ## Technologies
-* ASP.NET Core 5
-* [Entity Framework Core 5](https://docs.microsoft.com/en-us/ef/core/)
+* [ASP.NET Core 6](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0)
+* [Entity Framework Core 6](https://docs.microsoft.com/en-us/ef/core/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [Mapster](https://github.com/MapsterMapper/Mapster)
 * [FluentValidation](https://fluentvalidation.net/)
@@ -70,7 +70,7 @@ This layer contains classes for accessing external resources such as file system
 
 ### WebApi
 
-This layer is a web api application based on ASP.NET 5.0.x. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+This layer is a web api application based on ASP.NET 6.0.x. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
 
 ### Logs
 

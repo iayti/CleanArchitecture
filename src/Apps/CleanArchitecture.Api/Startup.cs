@@ -18,15 +18,29 @@ using Microsoft.OpenApi.Models;
 
 namespace CleanArchitecture.Api
 {
+    /// <summary>
+    /// Startup
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Configuration
+        /// </summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// Configure Services
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
@@ -78,9 +92,9 @@ namespace CleanArchitecture.Api
                                 Type = ReferenceType.SecurityScheme,  
                                 Id = "Bearer"  
                             }  
-                        },  
-                        new string[] {}  
-  
+                        },
+                        Array.Empty<string>()
+
                     }  
                 });
                 
@@ -91,6 +105,11 @@ namespace CleanArchitecture.Api
 
         }
 
+        /// <summary>
+        /// Configure
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
