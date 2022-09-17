@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using Moq;
 using NUnit.Framework;
 using Respawn;
 using CleanArchitecture.Api;
+using Microsoft.Data.Sqlite;
 
 namespace CleanArchitecture.Application.IntegrationTests
 {
@@ -63,9 +65,10 @@ namespace CleanArchitecture.Application.IntegrationTests
 
             _checkpoint = new Checkpoint
             {
-                TablesToIgnore = new[] { "__EFMigrationsHistory" }
+                TablesToIgnore = new Respawn.Graph.Table[] { "__EFMigrationsHistory" }
             };
 
+            RemoveSqliteDb();
             EnsureDatabase();
         }
 
@@ -89,7 +92,8 @@ namespace CleanArchitecture.Application.IntegrationTests
 
         public static async Task<string> RunAsDefaultUserAsync()
         {
-            return await RunAsUserAsync("test@local", "Testing1234!", new string[] { });
+            var rand = new Random();
+            return await RunAsUserAsync($"test.{rand.Next()}@local", "Testing1234!", new string[] { });
         }
 
         public static async Task<string> RunAsAdministratorAsync()
@@ -133,8 +137,37 @@ namespace CleanArchitecture.Application.IntegrationTests
 
         public static async Task ResetState()
         {
-            await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
-            _currentUserId = null;
+            var provider = _configuration.GetValue("DbProvider", "SqlServer");
+
+            if (provider.Equals("Sqlite"))
+            {
+                // If with Sqlite, the CheckPoint does not support Sqlite yet.
+                // It may need special treatment, and cannot set to in-memory
+                
+                // remove sqlite db
+                RemoveSqliteDb();
+
+                EnsureDatabase();
+            }
+            else
+            {
+                await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
+                _currentUserId = null;
+            }
+        }
+        
+        private static void RemoveSqliteDb()
+        {
+            var provider = _configuration.GetValue("DbProvider", "SqlServer");
+            if (!provider.Equals("Sqlite")) return;
+            
+            var sqliteConn =
+                new SqliteConnectionStringBuilder(_configuration.GetConnectionString("DefaultConnection_Sqlite"));
+            var dbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, sqliteConn.DataSource);
+            if (File.Exists(dbFile))
+            {
+                File.Delete(dbFile);
+            }
         }
 
         public static async Task<TEntity> FindAsync<TEntity>(params object[] keyValues)

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 namespace CleanArchitecture.Application.Common.Behaviours
 {
     public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+        where TRequest : IRequest<TResponse>
     {
         private readonly ILogger<TRequest> _logger;
         private readonly ICurrentUserService _currentUserService;

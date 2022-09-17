@@ -34,25 +34,49 @@ If you would like to use SQL Server, you will need to update **WebApi/appsetting
 
 ```json
   "UseInMemoryDatabase": false,
+  "DbProvider": SqlServer
 ```
 
-Verify that the **DefaultConnection** connection string within **appsettings.json** points to a valid SQL Server instance. 
+`DbProvider` could be `Sqlite`, `SqlServer`, `Npgsql` by default, which could be extended to more database providers that EF Core supports. 
+
+Verify that the **DefaultConnection** connection string within **appsettings.json** points to a valid SQL Server instance.
+Verify that the **DefaultConnection_Postgres** connection string within **appsettings.json** points to a valid PostgresSQL instance.
+Verify that the **DefaultConnection_Sqlite** connection string within **appsettings.json** points to a valid Sqlite connection or in-memory instance.
 
 When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.
 
+Note: in-memory database is set to use Sqlite in-memory DB, which may not be appropriated for unit testing now. Please remember to set `UseInMemoryDatabase` as `false` for now.
+
 ### Database Migrations
 
+By moving to multiple databases migrations, every db provider will have one migrations project as below.
+
+* `Sqlite`: CleanArchitecture.Infrastructure.Sqlite
+* `SqlServer`: CleanArchitecture.Infrastructure.SqlServer
+* `Npgsql`: CleanArchitecture.Infrastructure.Npgsql
+
+### Multiple databases migrations
 To use `dotnet-ef` for your migrations please add the following flags to your command (values assume you are executing from repository root)
 
-* `--project src/Common/CleanArchitecture.Infrastructure` (optional if in this folder)
+* `--project src/Common/CleanArchitecture.Infrastructure.{DbProvider}`
 * `--startup-project src/Apps/CleanArchitecture.Api`
-* `--output-dir Persistence/Migrations`
 
 For example, to add a new migration from the root folder:
 
- `dotnet ef migrations add "CreateDb" --project src\Common\CleanArchitecture.Infrastructure --startup-project src\Apps\CleanArchitecture.Api --output-dir Persistence\Migrations`
+set `"DbProvider"` in **appsettings.json** of Api project to `Sqlite`:
+`dotnet ef migrations add "CreateDb" --project src\Common\CleanArchitecture.Infrastructure.Sqlite --startup-project src\Apps\CleanArchitecture.Api`
 
- `dotnet ef database update --project src\Common\CleanArchitecture.Infrastructure --startup-project src\Apps\WebApi`
+`dotnet ef database update --project src\Common\CleanArchitecture.Infrastructure.Sqlite --startup-project src\Apps\WebApi`
+
+set `"DbProvider"` in **appsettings.json** of Api project to `SqlServer`:
+`dotnet ef migrations add "CreateDb" --project src\Common\CleanArchitecture.Infrastructure.SqlServe --startup-project src\Apps\CleanArchitecture.Api`
+
+`dotnet ef database update --project src\Common\CleanArchitecture.Infrastructure.SqlServer --startup-project src\Apps\WebApi`
+
+set `"DbProvider"` in **appsettings.json** of Api project to `Npgsql`:
+`dotnet ef migrations add "CreateDb" --project src\Common\CleanArchitecture.Infrastructure.Npgsql --startup-project src\Apps\CleanArchitecture.Api`
+
+`dotnet ef database update --project src\Common\CleanArchitecture.Infrastructure.Npgsql --startup-project src\Apps\WebApi`
 
 ## Overview
 
