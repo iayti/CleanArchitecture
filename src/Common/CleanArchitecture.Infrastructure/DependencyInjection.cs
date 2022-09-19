@@ -20,14 +20,12 @@ namespace CleanArchitecture.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)//, IWebHostEnvironment environment)
         {
-            var inMemory = configuration.GetValue<bool>("UseInMemoryDatabase");
             var provider = configuration.GetValue("DbProvider", "SqlServer");
             var migrationAssembly = $"CleanArchitecture.Infrastructure.{provider}";
             services.AddDbContext<ApplicationDbContext>(options => _ = provider switch
             {
                 "Sqlite" => options.UseSqlite(
-                    inMemory ? "Filename=:memory:"
-                        : configuration.GetConnectionString("DefaultConnection_Sqlite"),
+                    configuration.GetConnectionString("DefaultConnection_Sqlite"),
                     b =>
                     {
                         b.MigrationsAssembly(migrationAssembly);

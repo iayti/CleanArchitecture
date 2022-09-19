@@ -35,10 +35,7 @@ namespace CleanArchitecture.Api
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
 
-                    if (context.Database.IsSqlServer())
-                    {
-                        await context.Database.MigrateAsync();
-                    }
+                    await context.Database.MigrateAsync();
 
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();

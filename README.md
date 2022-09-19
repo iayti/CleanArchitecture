@@ -33,7 +33,6 @@ The template is configured to use an in-memory database by default. This ensures
 If you would like to use SQL Server, you will need to update **WebApi/appsettings.json** as follows:
 
 ```json
-  "UseInMemoryDatabase": false,
   "DbProvider": SqlServer
 ```
 
@@ -44,8 +43,6 @@ Verify that the **DefaultConnection_Postgres** connection string within **appset
 Verify that the **DefaultConnection_Sqlite** connection string within **appsettings.json** points to a valid Sqlite connection or in-memory instance.
 
 When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.
-
-Note: in-memory database is set to use Sqlite in-memory DB, which may not be appropriated for unit testing now. Please remember to set `UseInMemoryDatabase` as `false` for now.
 
 ### Database Migrations
 
