@@ -15,6 +15,8 @@ namespace CleanArchitecture.Application.IntegrationTests.Villages.Queries
         [Test]
         public async Task ShouldReturnAllCities()
         {
+            await RunAsDefaultUserAsync();
+            
             var city = await SendAsync(new CreateCityCommand
             {
                 Name = "Muğla"

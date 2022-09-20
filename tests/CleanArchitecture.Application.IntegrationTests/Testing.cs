@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +15,6 @@ using Moq;
 using NUnit.Framework;
 using Respawn;
 using CleanArchitecture.Api;
-using Microsoft.Data.Sqlite;
 
 namespace CleanArchitecture.Application.IntegrationTests
 {
@@ -29,7 +27,7 @@ namespace CleanArchitecture.Application.IntegrationTests
         private static string _currentUserId;
 
         [OneTimeSetUp]
-        public void RunBeforeAnyTests()
+        public async Task RunBeforeAnyTestsAsync()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -68,17 +66,20 @@ namespace CleanArchitecture.Application.IntegrationTests
                 TablesToIgnore = new Respawn.Graph.Table[] { "__EFMigrationsHistory" }
             };
 
-            RemoveSqliteDb();
-            EnsureDatabase();
+            await ResetSqliteDbAsync();
+            await EnsureDatabaseAsync();
         }
 
-        private static void EnsureDatabase()
+        private static async Task EnsureDatabaseAsync()
         {
             using var scope = _scopeFactory.CreateScope();
 
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            context.Database.Migrate();
+            if (context != null)
+            {
+                await context.Database.MigrateAsync();
+            }
         }
 
         public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
@@ -87,7 +88,7 @@ namespace CleanArchitecture.Application.IntegrationTests
 
             var mediator = scope.ServiceProvider.GetService<ISender>();
 
-            return await mediator.Send(request);
+            return await mediator!.Send(request);
         }
 
         public static async Task<string> RunAsDefaultUserAsync()
@@ -101,7 +102,7 @@ namespace CleanArchitecture.Application.IntegrationTests
             return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { "Administrator" });
         }
 
-        public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
+        private static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
         {
             using var scope = _scopeFactory.CreateScope();
 
@@ -109,7 +110,7 @@ namespace CleanArchitecture.Application.IntegrationTests
 
             var user = new CleanArchitecture.Infrastructure.Identity.ApplicationUser { UserName = userName, Email = userName };
 
-            var result = await userManager.CreateAsync(user, password);
+            var result = await userManager!.CreateAsync(user, password);
 
             if (roles.Any())
             {
@@ -117,7 +118,7 @@ namespace CleanArchitecture.Application.IntegrationTests
 
                 foreach (var role in roles)
                 {
-                    await roleManager.CreateAsync(new IdentityRole(role));
+                    await roleManager!.CreateAsync(new IdentityRole(role));
                 }
 
                 await userManager.AddToRolesAsync(user, roles);
@@ -145,9 +146,9 @@ namespace CleanArchitecture.Application.IntegrationTests
                 // It may need special treatment, and cannot set to in-memory
                 
                 // remove sqlite db
-                RemoveSqliteDb();
+                await ResetSqliteDbAsync();
 
-                EnsureDatabase();
+                await EnsureDatabaseAsync();
             }
             else
             {
@@ -156,17 +157,21 @@ namespace CleanArchitecture.Application.IntegrationTests
             }
         }
         
-        private static void RemoveSqliteDb()
+        private static async Task ResetSqliteDbAsync()
         {
             var provider = _configuration.GetValue("DbProvider", "SqlServer");
-            if (!provider.Equals("Sqlite")) return;
-            
-            var sqliteConn =
-                new SqliteConnectionStringBuilder(_configuration.GetConnectionString("DefaultConnection_Sqlite"));
-            var dbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, sqliteConn.DataSource);
-            if (File.Exists(dbFile))
+            if (!provider.Equals("Sqlite"))
             {
-                File.Delete(dbFile);
+                return;
+            }
+            
+            using var scope = _scopeFactory.CreateScope();
+
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+            if (context != null)
+            {
+                await context.Database.EnsureDeletedAsync();
             }
         }
 
@@ -177,7 +182,7 @@ namespace CleanArchitecture.Application.IntegrationTests
 
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            return await context.FindAsync<TEntity>(keyValues);
+            return await context!.FindAsync<TEntity>(keyValues);
         }
 
         public static async Task AddAsync<TEntity>(TEntity entity)
@@ -187,14 +192,18 @@ namespace CleanArchitecture.Application.IntegrationTests
 
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            context.Add(entity);
+            if (context != null)
+            {
+                context.Add(entity);
 
-            await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
+            }
         }
 
         [OneTimeTearDown]
         public void RunAfterAnyTests()
         {
+            // everthing for testing should be torn down here
         }
     }
 }

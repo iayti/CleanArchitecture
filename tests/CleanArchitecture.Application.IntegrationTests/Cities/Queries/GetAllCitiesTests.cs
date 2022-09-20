@@ -12,6 +12,8 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Queries
         [Test]
         public async Task ShouldReturnAllCities()
         {
+            await RunAsDefaultUserAsync();
+            
             await AddAsync(new City
             {
                 Name = "Manisa",

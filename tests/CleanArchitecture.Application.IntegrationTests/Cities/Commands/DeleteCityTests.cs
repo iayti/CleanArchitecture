@@ -23,6 +23,8 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
         [Test]
         public async Task ShouldDeleteCity()
         {
+            await RunAsDefaultUserAsync();
+
             var city = await SendAsync(new CreateCityCommand
             {
                 Name = "Kayseri"
