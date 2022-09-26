@@ -17,10 +17,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Villages.Queries
         {
             await RunAsDefaultUserAsync();
             
-            var city = await SendAsync(new CreateCityCommand
-            {
-                Name = "Muğla"
-            });
+            var city = await SendAsync(new CreateCityCommand( "Muğla" ));
 
             var district = await SendAsync(new CreateDistrictCommand
             {

@@ -41,10 +41,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Districts.Queries
         {
             await RunAsAdministratorAsync();
 
-            var city = await SendAsync(new CreateCityCommand
-            {
-                Name = "Çanakkale"
-            });
+            var city = await SendAsync(new CreateCityCommand("Çanakkale"));
 
             var result = await SendAsync(new CreateDistrictCommand
             {

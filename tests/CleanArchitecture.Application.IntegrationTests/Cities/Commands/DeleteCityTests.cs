@@ -25,10 +25,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
         {
             await RunAsDefaultUserAsync();
 
-            var city = await SendAsync(new CreateCityCommand
-            {
-                Name = "Kayseri"
-            });
+            var city = await SendAsync(new CreateCityCommand("Kayseri"));
 
             await SendAsync(new DeleteCityCommand
             {

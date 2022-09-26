@@ -15,7 +15,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
         [Test]
         public void ShouldRequireMinimumFields()
         {
-            var command = new CreateCityCommand();
+            var command = new CreateCityCommand("");
 
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().ThrowAsync<ValidationException>();
@@ -27,15 +27,9 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
         {
             await RunAsDefaultUserAsync();
 
-            await SendAsync(new CreateCityCommand
-            {
-                Name = "Bursa"
-            });
+            await SendAsync(new CreateCityCommand( "Bursa" ));
 
-            var command = new CreateCityCommand
-            {
-                Name = "Bursa"
-            };
+            var command = new CreateCityCommand( "Bursa" );
 
             await FluentActions.Invoking(() =>
                 SendAsync(command)).Should().ThrowAsync<ValidationException>();
@@ -46,10 +40,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
         {
             var userId = await RunAsDefaultUserAsync();
 
-            var command = new CreateCityCommand
-            {
-                Name = "Kastamonu"
-            };
+            var command = new CreateCityCommand( "Kastamonu" );
 
             var result = await SendAsync(command);
 

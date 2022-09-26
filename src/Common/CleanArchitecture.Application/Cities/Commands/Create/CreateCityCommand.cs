@@ -9,10 +9,7 @@ using MapsterMapper;
 
 namespace CleanArchitecture.Application.Cities.Commands.Create
 {
-    public class CreateCityCommand : IRequestWrapper<CityDto>
-    {
-        public string Name { get; set; }
-    }
+    public record CreateCityCommand(string Name) : IRequestWrapper<CityDto>;
 
     public class CreateCityCommandHandler : IRequestHandlerWrapper<CreateCityCommand, CityDto>
     {

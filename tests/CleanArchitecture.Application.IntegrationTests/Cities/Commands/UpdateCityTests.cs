@@ -31,15 +31,9 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
         {
             await RunAsDefaultUserAsync();
             
-            var city = await SendAsync(new CreateCityCommand
-            {
-                Name = "Malatya"
-            });
+            var city = await SendAsync(new CreateCityCommand("Malatya"));
 
-            await SendAsync(new CreateCityCommand
-            {
-                Name = "Denizli"
-            });
+            await SendAsync(new CreateCityCommand("Denizli"));
 
             var command = new UpdateCityCommand
             {
@@ -58,10 +52,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
         {
             var userId = await RunAsDefaultUserAsync();
 
-            var result = await SendAsync(new CreateCityCommand
-            {
-                Name = "Kayyysseri"
-            });
+            var result = await SendAsync(new CreateCityCommand("Kayyysseri"));
 
             var command = new UpdateCityCommand
             {

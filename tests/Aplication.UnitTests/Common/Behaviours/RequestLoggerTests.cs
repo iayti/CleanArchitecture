@@ -32,7 +32,7 @@ namespace CleanArchitecture.Application.UnitTests.Common.Behaviours
 
             var requestLogger = new LoggingBehaviour<CreateCityCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
 
-            await requestLogger.Process(new CreateCityCommand { Name = "Bursa" }, new CancellationToken());
+            await requestLogger.Process(new CreateCityCommand( "Bursa" ), new CancellationToken());
 
             _identityService.Verify(i => i.GetUserNameAsync(It.IsAny<string>()), Times.Once);
         }
@@ -42,7 +42,7 @@ namespace CleanArchitecture.Application.UnitTests.Common.Behaviours
         {
             var requestLogger = new LoggingBehaviour<CreateCityCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
 
-            await requestLogger.Process(new CreateCityCommand { Name = "Bursa" }, new CancellationToken());
+            await requestLogger.Process(new CreateCityCommand( "Bursa" ), new CancellationToken());
 
             _identityService.Verify(i => i.GetUserNameAsync(null), Times.Never);
         }

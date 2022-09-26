@@ -27,10 +27,7 @@ namespace CleanArchitecture.Application.IntegrationTests.Districts.Commands
         public async Task ShouldCreateDistrict()
         {
             var rand = new Random();
-            var city = await SendAsync(new CreateCityCommand
-            {
-                Name = $"Bursa.{rand.Next()}"
-            });
+            var city = await SendAsync(new CreateCityCommand($"Bursa.{rand.Next()}"));
 
             var userId = await RunAsDefaultUserAsync();
 

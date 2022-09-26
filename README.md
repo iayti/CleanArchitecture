@@ -39,7 +39,9 @@ If you would like to use SQL Server, you will need to update **WebApi/appsetting
 `DbProvider` could be `Sqlite`, `SqlServer`, `Npgsql` by default, which could be extended to more database providers that EF Core supports. 
 
 Verify that the **DefaultConnection** connection string within **appsettings.json** points to a valid SQL Server instance.
+
 Verify that the **DefaultConnection_Postgres** connection string within **appsettings.json** points to a valid PostgresSQL instance.
+
 Verify that the **DefaultConnection_Sqlite** connection string within **appsettings.json** points to a valid Sqlite connection or in-memory instance.
 
 When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.
