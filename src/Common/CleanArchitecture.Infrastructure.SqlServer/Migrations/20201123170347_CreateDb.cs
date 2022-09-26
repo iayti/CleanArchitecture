@@ -1,7 +1,8 @@
 ﻿using System;
+using CleanArchitecture.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CleanArchitecture.Infrastructure.Persistence.Migrations
+namespace CleanArchitecture.Infrastructure.SqlServer.Migrations
 {
     public partial class CreateDb : Migration
     {

@@ -20,24 +20,33 @@ namespace CleanArchitecture.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)//, IWebHostEnvironment environment)
         {
-            if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+            var provider = configuration.GetValue("DbProvider", "SqlServer");
+            var migrationAssembly = $"CleanArchitecture.Infrastructure.{provider}";
+            services.AddDbContext<ApplicationDbContext>(options => _ = provider switch
             {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseInMemoryDatabase("CleanArchitectureDb"));
-            }
-            else
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(
-                        configuration.GetConnectionString("DefaultConnection"),
-                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                "Sqlite" => options.UseSqlite(
+                    configuration.GetConnectionString("DefaultConnection_Sqlite"),
+                    b =>
+                    {
+                        b.MigrationsAssembly(migrationAssembly);
+                    }),
 
-                //If you want to change the relational database model,
-                //you need to delete the migrations folder and recreate what you want to create with relational database model integration like Postgres, MySql.
-                //services.AddDbContext<ApplicationDbContext>(options =>
-                //    options.UseNpgsql(
-                //        configuration.GetConnectionString("DefaultConnection_Postgres")));
-            }
+                "SqlServer" => options.UseSqlServer(
+                    configuration.GetConnectionString("DefaultConnection"),
+                    b =>
+                    {
+                        b.MigrationsAssembly(migrationAssembly);
+                    }),
+
+                "Npgsql" => options.UseNpgsql(
+                    configuration.GetConnectionString("DefaultConnection_Postgres"),
+                    b =>
+                    {
+                        b.MigrationsAssembly(migrationAssembly);
+                    }),
+
+                _ => throw new Exception($"Unsupported provider: {provider}")
+            });
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 

@@ -25,6 +25,8 @@ namespace CleanArchitecture.Application.IntegrationTests.Cities.Commands
         [Test]
         public async Task ShouldRequireUniqueName()
         {
+            await RunAsDefaultUserAsync();
+
             await SendAsync(new CreateCityCommand
             {
                 Name = "Bursa"
