@@ -5,8 +5,8 @@ This is a solution template for creating a ASP.NET Core Web API following the pr
 
 
 ## Technologies
-* [ASP.NET Core 6](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0)
-* [Entity Framework Core 6](https://docs.microsoft.com/en-us/ef/core/)
+* [ASP.NET Core 6](https://learn.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0)
+* [Entity Framework Core 6](https://learn.microsoft.com/en-us/ef/core/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [Mapster](https://github.com/MapsterMapper/Mapster)
 * [FluentValidation](https://fluentvalidation.net/)
@@ -110,7 +110,7 @@ PS CleanArchitecture> docker-compose up
 ```
 `docker-compose.yml` pull and run the ElasticSearch and Kibana images.
 
-If you are running first time Windows 10 [WSL 2 (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) Linux Container for Docker, You will probably get the following error from the docker.
+If you are running first time Windows 10 [WSL 2 (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) Linux Container for Docker, You will probably get the following error from the docker.
 
 `Error:` max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 
