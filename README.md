@@ -1,5 +1,5 @@
 ﻿ # Clean Architecture Template
-![.NET Core](https://github.com/iayti/CleanArchitecture/workflows/.NET%20Core/badge.svg) [![Matech.Clean.Architecture.Template NuGet Package](https://img.shields.io/badge/nuget-1.1.5-blue)](https://www.nuget.org/packages/Matech.Clean.Architecture.Template) [![NuGet](https://img.shields.io/nuget/dt/Matech.Clean.Architecture.Template.svg)](https://www.nuget.org/packages/Matech.Clean.Architecture.Template)
+[![.NET](https://img.shields.io/badge/.NET-6.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/) [![Matech.Clean.Architecture.Template NuGet Package](https://img.shields.io/badge/nuget-1.1.5-blue)](https://www.nuget.org/packages/Matech.Clean.Architecture.Template) [![NuGet](https://img.shields.io/nuget/dt/Matech.Clean.Architecture.Template.svg)](https://www.nuget.org/packages/Matech.Clean.Architecture.Template)
 
 This is a solution template for creating a ASP.NET Core Web API following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details). 
 
